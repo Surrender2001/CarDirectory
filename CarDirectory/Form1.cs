@@ -22,5 +22,20 @@ namespace CarDirectory
         {
             Application.Exit();
         }
+
+        private void CloseLabel_MouseEnter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CloseLabel_MouseEnter_1(object sender, EventArgs e)
+        {
+            CloseLabel.ForeColor = Color.Red;
+        }
+
+        private void CloseLabel_MouseLeave(object sender, EventArgs e)
+        {
+            CloseLabel.ForeColor = Color.Lime;
+        }
     }
 }
