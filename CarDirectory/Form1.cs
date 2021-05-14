@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,6 +37,33 @@ namespace CarDirectory
         private void CloseLabel_MouseLeave(object sender, EventArgs e)
         {
             CloseLabel.ForeColor = Color.Lime;
+        }
+
+        private void ReadDbButton_Click(object sender, EventArgs e)
+        {
+            DB db = new DB();// database
+            DataTable table = new DataTable();// table for reading
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `car_dictionary`",db.getConnection());
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+            
+            object[] cell = new object[5];
+
+            foreach (DataRow row in table.Rows)
+            {
+                // получаем все ячейки строки
+                
+                row.ItemArray.CopyTo(cell,0);
+                cell[4] = "fdgg";              
+           
+                dataGridView.Rows.Add(cell);
+            }
+
+
         }
     }
 }
