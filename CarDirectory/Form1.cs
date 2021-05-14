@@ -15,9 +15,10 @@ namespace CarDirectory
     {
         public MainForm()
         {
-            InitializeComponent();
+            InitializeComponent();        
         }
-
+        
+        List<Car> cars = new List<Car>();
         private void CloseLabel_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -37,6 +38,7 @@ namespace CarDirectory
         private void ReadDbButton_Click(object sender, EventArgs e)
         {
             dataGridView.Rows.Clear();
+            cars.Clear();
             DB db = new DB();// database
             DataTable table = new DataTable();// table for reading
 
@@ -52,11 +54,17 @@ namespace CarDirectory
             foreach (DataRow row in table.Rows)
             {
                 row.ItemArray.CopyTo(cell,0);
-                cell[4] = "hash";              
+                cell[4] = 0;              
                 dataGridView.Rows.Add(cell);
+                cars.Add(new Car(cell));
             }
+            
+            
+        }
 
-
+        private void testButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(cars.Count.ToString());
         }
     }
 }
