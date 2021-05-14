@@ -16,7 +16,6 @@ namespace CarDirectory
         public MainForm()
         {
             InitializeComponent();
-
         }
 
         private void CloseLabel_Click(object sender, EventArgs e)
@@ -26,13 +25,9 @@ namespace CarDirectory
 
         private void CloseLabel_MouseEnter(object sender, EventArgs e)
         {
-
-        }
-
-        private void CloseLabel_MouseEnter_1(object sender, EventArgs e)
-        {
             CloseLabel.ForeColor = Color.Red;
         }
+
 
         private void CloseLabel_MouseLeave(object sender, EventArgs e)
         {
@@ -41,25 +36,23 @@ namespace CarDirectory
 
         private void ReadDbButton_Click(object sender, EventArgs e)
         {
+            dataGridView.Rows.Clear();
             DB db = new DB();// database
             DataTable table = new DataTable();// table for reading
 
             MySqlDataAdapter adapter = new MySqlDataAdapter();
 
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `car_dictionary`",db.getConnection());
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `car_dictionary`", db.getConnection());
 
             adapter.SelectCommand = command;
             adapter.Fill(table);
-            
+
             object[] cell = new object[5];
 
             foreach (DataRow row in table.Rows)
             {
-                // получаем все ячейки строки
-                
                 row.ItemArray.CopyTo(cell,0);
-                cell[4] = "fdgg";              
-           
+                cell[4] = "hash";              
                 dataGridView.Rows.Add(cell);
             }
 
