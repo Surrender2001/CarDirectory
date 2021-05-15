@@ -63,7 +63,7 @@ namespace CarDirectory
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message,"Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void AddButton_Click(object sender, EventArgs e)
