@@ -76,7 +76,8 @@ namespace CarDirectory
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-
+            AddForm addForm = new AddForm();
+            DialogResult dialogResult = addForm.ShowDialog();
         }
 
         Point lastPoint;
