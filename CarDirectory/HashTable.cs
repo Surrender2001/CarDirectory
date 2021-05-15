@@ -59,7 +59,7 @@ namespace CarDirectory
             Cars = newCars;
         }
 
-        internal bool IsThere()
+        public bool IsThere()
         {
             return true;
         }

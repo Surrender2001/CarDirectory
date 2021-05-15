@@ -15,10 +15,11 @@ namespace CarDirectory
     {
         public MainForm()
         {
-            InitializeComponent();        
+            InitializeComponent(); 
         }
         
         List<Car> cars = new List<Car>();
+        HashTable hashtable = new HashTable();
         private void CloseLabel_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -58,8 +59,13 @@ namespace CarDirectory
                 dataGridView.Rows.Add(cell);
                 cars.Add(new Car(cell));
             }
-            
-            
+            FillHashTable(ref cars);
+        }
+
+        private void FillHashTable(ref List<Car> cars)
+        {
+            foreach (var car in cars)
+                hashtable.Add(car.Brand ,car.Model);
         }
 
         private void testButton_Click(object sender, EventArgs e)
