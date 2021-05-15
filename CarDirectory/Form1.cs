@@ -40,25 +40,30 @@ namespace CarDirectory
         {
             dataGridView.Rows.Clear();
             cars.Clear();
-            DB db = new DB();// database
-            DataTable table = new DataTable();// table for reading
-
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `car_dictionary`", db.getConnection());
-
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
-
-            object[] cell = new object[5];
-
-            foreach (DataRow row in table.Rows)
+            try
             {
-                row.ItemArray.CopyTo(cell,0);
-                cell[4] = 0;              
-                dataGridView.Rows.Add(cell);
-                cars.Add(new Car(cell));
-                hashtable.Add((string)cell[0], (string)cell[1]);
+                DB db = new DB();// database
+                DataTable table = new DataTable();// table for reading
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+
+                MySqlCommand command = new MySqlCommand("SELECT * FROM `car_dictionary`", db.getConnection());
+
+                adapter.SelectCommand = command;
+                adapter.Fill(table);
+                object[] cell = new object[5];
+                foreach (DataRow row in table.Rows)
+                {
+                    row.ItemArray.CopyTo(cell,0);
+                    cell[4] = 0;              
+                    dataGridView.Rows.Add(cell);
+                    cars.Add(new Car(cell));
+                    hashtable.Add((string)cell[0], (string)cell[1]);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -66,7 +71,29 @@ namespace CarDirectory
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(cars.Count.ToString());
+            
         }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        Point lastPoint;
+        private void NameOfProjectLabel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(e.Button==MouseButtons.Left)
+            {
+                Left += e.X - lastPoint.X;
+                Top += e.Y - lastPoint.Y;
+            }
+        }
+
+        private void NameOfProjectLabel_MouseDown(object sender, MouseEventArgs e)
+        {
+            lastPoint = new Point(e.X, e.Y);
+        }
+
+
     }
 }

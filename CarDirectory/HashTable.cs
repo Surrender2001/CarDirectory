@@ -8,7 +8,7 @@ namespace CarDirectory
 {
     class HashTable
     {
-        private int Size=500;
+        private int Size=200;
         private const double GOLDEN_RATIO = 0.618033;
         private double Fullness = 0;
         public string[] Cars;
@@ -64,7 +64,6 @@ namespace CarDirectory
         {
             return true;
         }
-
 
     }
 }
