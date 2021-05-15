@@ -8,10 +8,62 @@ namespace CarDirectory
 {
     class HashTable
     {
-        private int Size;
+        private int Size=500;
         private const double GOLDEN_RATIO = 0.618033;
+        private double Fullness = 0;
+        public string[] Cars;
 
-      
+        public HashTable()
+        {
+            Cars = new string[Size];
+        }
+
+        public int GetHash(string brandAndModel)
+        {
+            int s = 0;
+
+            for (int i = 0; i < brandAndModel.Length; i++)
+                s += brandAndModel[i];
+
+            int hash1 = ((int)Math.Floor(Size * (s * GOLDEN_RATIO % 1)));
+            int hash2 = s % 20;
+            if (hash2 == 0) hash2 = 20;
+            int j = 0, hash;
+            while (true)
+            {
+                hash = (hash1 + j * hash2) % Size;
+                if (Cars[hash] == null) break;
+                j++;
+            }
+
+            return hash;
+        }
+
+        public void Add(string brand, string model)
+        {
+            Cars[GetHash(brand + model)] = brand + model;
+            Fullness++;
+        }
+
+        public double GetFullness()
+        {
+            return Fullness / Size * 100;
+        }
+
+        public void Resize()
+        {
+            Size *= 2;
+            string[] newCars = new string[Size];
+            for (int i = 0; i < Cars.Length; i++)
+                if (Cars[i] != null) newCars[i] = Cars[i];
+            Cars = newCars;
+        }
+
+        internal bool IsThere()
+        {
+            return true;
+        }
+
 
     }
 }
