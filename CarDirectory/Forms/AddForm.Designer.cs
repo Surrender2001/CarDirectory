@@ -30,6 +30,7 @@ namespace CarDirectory
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddForm));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.BrandTextBox = new System.Windows.Forms.MaskedTextBox();
             this.ModelTextBox = new System.Windows.Forms.MaskedTextBox();
@@ -43,6 +44,8 @@ namespace CarDirectory
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.InfoPictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.InfoPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // BrandTextBox
@@ -160,9 +163,9 @@ namespace CarDirectory
             this.label4.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(22, 206);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(198, 31);
+            this.label4.Size = new System.Drawing.Size(186, 31);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Начало выпуска";
+            this.label4.Text = "Конец выпуска";
             // 
             // label5
             // 
@@ -197,12 +200,24 @@ namespace CarDirectory
             this.label7.TabIndex = 11;
             this.label7.Text = "*";
             // 
+            // InfoPictureBox1
+            // 
+            this.InfoPictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("InfoPictureBox1.Image")));
+            this.InfoPictureBox1.Location = new System.Drawing.Point(345, 144);
+            this.InfoPictureBox1.Name = "InfoPictureBox1";
+            this.InfoPictureBox1.Size = new System.Drawing.Size(31, 31);
+            this.InfoPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.InfoPictureBox1.TabIndex = 12;
+            this.InfoPictureBox1.TabStop = false;
+            this.InfoPictureBox1.MouseEnter += new System.EventHandler(this.InfoPictureBox1_MouseEnter);
+            // 
             // AddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.ClientSize = new System.Drawing.Size(530, 332);
+            this.Controls.Add(this.InfoPictureBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -221,6 +236,7 @@ namespace CarDirectory
             this.Name = "AddForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            ((System.ComponentModel.ISupportInitialize)(this.InfoPictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,5 +257,6 @@ namespace CarDirectory
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.PictureBox InfoPictureBox1;
     }
 }

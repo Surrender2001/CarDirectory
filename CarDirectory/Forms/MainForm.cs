@@ -67,17 +67,15 @@ namespace CarDirectory
             }
         }
 
-
-
-        private void testButton_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void AddButton_Click(object sender, EventArgs e)
         {
             AddForm addForm = new AddForm();
             DialogResult dialogResult = addForm.ShowDialog();
+            if(dialogResult==DialogResult.OK)
+            {
+                Car car=addForm.AddNewCar();
+
+            }
         }
 
         Point lastPoint;

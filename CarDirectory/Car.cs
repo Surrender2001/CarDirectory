@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarDirectory
 {
-    class Car
+    public class Car
     {
         public Car(object[] cell)
         {
@@ -15,6 +15,13 @@ namespace CarDirectory
             Start = (int)cell[2];
             End = (string)cell[3];
             Hash = (int)cell[4]; 
+        }
+        public Car(string brand,string model,int start,int end)
+        {
+            Brand = brand;
+            Model = model;
+            Start = start;
+            End = end.ToString();
         }
         public string Brand { get; set; }
         public string Model { get; set; }

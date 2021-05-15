@@ -17,11 +17,7 @@ namespace CarDirectory
             InitializeComponent();
            
         }
-
-        private void CloseLabel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        Car car=null;
 
         private void BrandTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
@@ -64,17 +60,20 @@ namespace CarDirectory
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            AddCar();
+            DialogResult = DialogResult.OK;
+            Hide();
         }
 
-        private void AddCar()
+        private bool IsCorrectCar()
         {
-            if (CheckValues())
-            {
-                Hide();
-                Dispose();
-            }
-            else return;
+            return CheckValues();
+        }
+
+        public Car AddNewCar()
+        {
+            if (IsCorrectCar())
+                car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), int.Parse(EndTextBox.Text));
+            return car;
         }
 
         private bool CheckValues()
@@ -85,29 +84,58 @@ namespace CarDirectory
         private bool checkIsCorrectYear()
         {
             bool start=true, end=true;
-
             if (!(EndTextBox.Text.Length == 0 || EndTextBox.Text.Length == 4))
             {
-                //MessageBox.Show("Некорректно введен год", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 ActiveControl = EndTextBox;
                 EndTextBox.BackColor = Color.LightCoral;
                 end = false;
             }
+            else if (EndTextBox.Text.Length == 4)
+                end = isRealDate(int.Parse(EndTextBox.Text));
 
             if(StartTextBox.Text.Length != 4)
-            {
-                //MessageBox.Show("Некорректно введен год", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                
+            { 
                 ActiveControl = StartTextBox;
                 StartTextBox.BackColor = Color.LightCoral;
                 start = false;
             }
+            else if (StartTextBox.Text.Length == 4)
+                start = isRealDate(int.Parse(StartTextBox.Text));
 
-            if(!(start&&end))
+            if(start&&end)
+                if(int.Parse(StartTextBox.Text)>int.Parse(EndTextBox.Text))
+                {
+                    MessageBox.Show("Год начала выпуска больше года конца выпуска", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    ActiveControl = EndTextBox;
+                    EndTextBox.BackColor = Color.LightCoral;
+                    return false;   
+                }    
+
+
+
+            if (!(start&&end))
+            {
                 MessageBox.Show("Некорректно введен год", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if(!start)
+                {
+                    ActiveControl = StartTextBox;
+                    StartTextBox.BackColor = Color.LightCoral;
+                }
+                if (!end)
+                {
+                    ActiveControl = EndTextBox;
+                    EndTextBox.BackColor = Color.LightCoral;
+                }
+                return false;
+            }
 
 
             return start &&end;
+        }
+
+        private bool isRealDate(int v)
+        {
+            return v <= 2021 && v >= 1968;
         }
 
         private bool checkIsEmpty()
@@ -130,8 +158,16 @@ namespace CarDirectory
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                AddCar();
+                DialogResult = DialogResult.OK;
+                Hide();
             }
+        }
+
+        private void InfoPictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            toolTip1.ToolTipTitle = "Ограничение на год";
+            toolTip1.Show(">1968 и <2022",InfoPictureBox1, 5000);
+
         }
     }
 }
