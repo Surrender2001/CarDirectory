@@ -107,6 +107,7 @@ namespace CarDirectory
             this.EndTextBox.Size = new System.Drawing.Size(61, 31);
             this.EndTextBox.TabIndex = 3;
             this.EndTextBox.ValidatingType = typeof(int);
+            this.EndTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EndTextBox_KeyDown);
             // 
             // AddButton
             // 

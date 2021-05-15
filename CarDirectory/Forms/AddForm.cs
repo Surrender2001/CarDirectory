@@ -34,6 +34,7 @@ namespace CarDirectory
 
         private void BrandTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            BrandTextBox.BackColor = Color.Beige;
             if (e.KeyCode ==Keys.Enter)
             {
                 e.SuppressKeyPress = true;
@@ -43,6 +44,7 @@ namespace CarDirectory
 
         private void ModelTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            ModelTextBox.BackColor = Color.Beige;
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
@@ -52,6 +54,7 @@ namespace CarDirectory
 
         private void StartTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            StartTextBox.BackColor = Color.Beige;
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
@@ -61,33 +64,74 @@ namespace CarDirectory
 
         private void AddButton_Click(object sender, EventArgs e)
         {
+            AddCar();
+        }
+
+        private void AddCar()
+        {
             if (CheckValues())
-                Close();
+            {
+                Hide();
+                Dispose();
+            }
             else return;
         }
 
         private bool CheckValues()
         {
-            bool check = true;
-            if (BrandTextBox.Text.Length == 0)
+            return checkIsEmpty()&&checkIsCorrectYear();
+        }
+
+        private bool checkIsCorrectYear()
+        {
+            bool start=true, end=true;
+
+            if (!(EndTextBox.Text.Length == 0 || EndTextBox.Text.Length == 4))
             {
-                BrandTextBox.BackColor = Color.LightCoral;
-                MessageBox.Show("empty field");
-                check = false;
+                //MessageBox.Show("Некорректно введен год", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ActiveControl = EndTextBox;
+                EndTextBox.BackColor = Color.LightCoral;
+                end = false;
             }
-            if (ModelTextBox.Text.Length == 0)
+
+            if(StartTextBox.Text.Length != 4)
             {
-                ModelTextBox.BackColor = Color.LightCoral;
-                MessageBox.Show("empty field");              
-                check = false;
-            }
-            if (StartTextBox.Text.Length == 0)
-            {
+                //MessageBox.Show("Некорректно введен год", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
+                ActiveControl = StartTextBox;
                 StartTextBox.BackColor = Color.LightCoral;
-                MessageBox.Show("empty field");
-                check = false;
+                start = false;
             }
+
+            if(!(start&&end))
+                MessageBox.Show("Некорректно введен год", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+
+            return start &&end;
+        }
+
+        private bool checkIsEmpty()
+        {   
+            bool check = true;
+            if (BrandTextBox.Text.Length == 0 || ModelTextBox.Text.Length == 0 || StartTextBox.Text.Length == 0)
+                check = false;
+            BrandTextBox.BackColor = BrandTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
+            ModelTextBox.BackColor = ModelTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
+            StartTextBox.BackColor = StartTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
+
+            if (!check) MessageBox.Show("Заполните поля, выделенные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            ActiveControl = BrandTextBox;
             return check;
+        }
+
+        private void EndTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            EndTextBox.BackColor = Color.Beige;
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                AddCar();
+            }
         }
     }
 }
