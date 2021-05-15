@@ -41,6 +41,7 @@ namespace CarDirectory
 
         public void Add(string brand, string model)
         {
+            if (GetFullness() > 70) Resize();
             Cars[GetHash(brand + model)] = brand + model;
             Fullness++;
         }

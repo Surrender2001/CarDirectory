@@ -58,15 +58,11 @@ namespace CarDirectory
                 cell[4] = 0;              
                 dataGridView.Rows.Add(cell);
                 cars.Add(new Car(cell));
+                hashtable.Add((string)cell[0], (string)cell[1]);
             }
-            FillHashTable(ref cars);
         }
 
-        private void FillHashTable(ref List<Car> cars)
-        {
-            foreach (var car in cars)
-                hashtable.Add(car.Brand ,car.Model);
-        }
+
 
         private void testButton_Click(object sender, EventArgs e)
         {
