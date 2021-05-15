@@ -66,7 +66,6 @@ namespace CarDirectory
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void AddButton_Click(object sender, EventArgs e)
         {
             AddForm addForm = new AddForm();
@@ -74,7 +73,7 @@ namespace CarDirectory
             if(dialogResult==DialogResult.OK)
             {
                 Car car=addForm.AddNewCar();
-
+                //if(hashtable.IsThere())
             }
         }
 

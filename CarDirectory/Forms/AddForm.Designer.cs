@@ -202,6 +202,7 @@ namespace CarDirectory
             // 
             // InfoPictureBox1
             // 
+            this.InfoPictureBox1.Cursor = System.Windows.Forms.Cursors.Help;
             this.InfoPictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("InfoPictureBox1.Image")));
             this.InfoPictureBox1.Location = new System.Drawing.Point(345, 144);
             this.InfoPictureBox1.Name = "InfoPictureBox1";

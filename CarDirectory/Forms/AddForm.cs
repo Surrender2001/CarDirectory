@@ -17,7 +17,6 @@ namespace CarDirectory
             InitializeComponent();
            
         }
-        Car car=null;
 
         private void BrandTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
@@ -60,15 +59,19 @@ namespace CarDirectory
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
-            Hide();
+            if (IsCorrectCar())
+            {
+                DialogResult = DialogResult.OK;
+                Hide();
+            }
+            else return;
         }
 
         private bool IsCorrectCar()
         {
             return CheckValues();
         }
-
+        Car car;
         public Car AddNewCar()
         {
             if (IsCorrectCar())
@@ -158,8 +161,12 @@ namespace CarDirectory
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                DialogResult = DialogResult.OK;
-                Hide();
+                if (IsCorrectCar())
+                {
+                    DialogResult = DialogResult.OK;
+                    Hide();
+                }
+                else return;
             }
         }
 
