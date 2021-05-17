@@ -173,7 +173,7 @@ namespace CarDirectory
         private void InfoPictureBox1_MouseEnter(object sender, EventArgs e)
         {
             toolTip1.ToolTipTitle = "Ограничение на год";
-            toolTip1.Show(">1968 и <2022",InfoPictureBox1, 5000);
+            toolTip1.Show(">1967 и <2022",InfoPictureBox1, 5000);
 
         }
     }
