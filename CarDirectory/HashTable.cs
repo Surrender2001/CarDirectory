@@ -46,6 +46,13 @@ namespace CarDirectory
             Fullness++;
         }
 
+        public void Clear()
+        {
+            Array.Clear(Cars,0, Cars.Length);
+            Size = 200;
+            Fullness = 0;
+        }
+
         public double GetFullness()
         {
             return Fullness / Size * 100;

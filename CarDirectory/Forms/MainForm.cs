@@ -40,6 +40,7 @@ namespace CarDirectory
         private void ReadDbButton_Click(object sender, EventArgs e)
         {
             dataGridView.Rows.Clear();
+            hashtable.Clear();
             cars.Clear();
             try
             {
@@ -53,15 +54,17 @@ namespace CarDirectory
                 adapter.SelectCommand = command;
                 adapter.Fill(table);
                 object[] cell = new object[5];
+                string brand;
                 foreach (DataRow row in table.Rows)
                 {
                     row.ItemArray.CopyTo(cell,0);
-                    if(!setBrand.Contains((string)cell[0]))
-                        setBrand.Add((string)cell[0]);
-                    cell[4] = hashtable.GetHash((string)cell[0]+(string)cell[1]);              
+                    brand=(string)cell[0];
+                    if (!setBrand.Contains(brand))
+                        setBrand.Add(brand);
+                    cell[4] = hashtable.GetHash(brand + (string)cell[1]);              
                     dataGridView.Rows.Add(cell);
                     cars.Add(new Car(cell));
-                    hashtable.Add((string)cell[0], (string)cell[1]);
+                    hashtable.Add(brand, (string)cell[1]);
                 }
             }
             catch (Exception ex)
