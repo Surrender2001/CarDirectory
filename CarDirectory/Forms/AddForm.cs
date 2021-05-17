@@ -22,7 +22,7 @@ namespace CarDirectory
         {
             
             toolTip1.ToolTipTitle = "Неверный символ";
-            toolTip1.Show("Введите латинские буквы", BrandTextBox, 1000);
+            toolTip1.Show("Введите буквы", BrandTextBox, 1000);
         }
 
 
@@ -69,7 +69,7 @@ namespace CarDirectory
 
         private bool IsCorrectCar()
         {
-            return CheckValues();
+            return checkIsEmpty() && checkIsCorrectYear();
         }
         Car car;
         public Car AddNewCar()
@@ -77,11 +77,6 @@ namespace CarDirectory
             if (IsCorrectCar())
                 car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), int.Parse(EndTextBox.Text));
             return car;
-        }
-
-        private bool CheckValues()
-        {
-            return checkIsEmpty()&&checkIsCorrectYear();
         }
 
         private bool checkIsCorrectYear()

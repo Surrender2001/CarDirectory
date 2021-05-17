@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using CarDirectory.Forms;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -119,5 +120,16 @@ namespace CarDirectory
         }
 
 
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            DeleteForm deleteForm = new DeleteForm();
+            DialogResult dialogResult = deleteForm.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+
+
+            }
+            deleteForm.Dispose();
+        }
     }
 }
