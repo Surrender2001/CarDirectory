@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace CarDirectory
 {
-    public class Car
+    public class Car :IEquatable<Car>
     {
+        public Car()
+        {
+        }
+
         public Car(object[] cell)
         {
             Brand = (string)cell[0];
@@ -16,17 +20,23 @@ namespace CarDirectory
             End = (string)cell[3];
             Hash = (int)cell[4]; 
         }
-        public Car(string brand,string model,int start,int end)
+        public Car(string brand,string model,int start,string end)
         {
             Brand = brand;
             Model = model;
             Start = start;
-            End = end.ToString();
+            End = end;
         }
         public string Brand { get; set; }
         public string Model { get; set; }
         public int Start { get; set; }
         public string End { get; set; }
         public int Hash { get; set; }
+
+        public bool Equals(Car other)
+        {
+            if (other == null) return false;
+            return Brand.Equals(other.Brand) && Model.Equals(other.Model);
+        }
     }
 }

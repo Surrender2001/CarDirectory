@@ -46,6 +46,7 @@ namespace CarDirectory
             try
             {
                 DB db = new DB();// database
+                db.openConnection();
                 DataTable table = new DataTable();// table for reading
 
                 MySqlDataAdapter adapter = new MySqlDataAdapter();
@@ -67,6 +68,7 @@ namespace CarDirectory
                     cars.Add(new Car(cell));
                     hashtable.Add(brand, (string)cell[1]);
                 }
+                db.closeConnection();
             }
             catch (Exception ex)
             {
@@ -88,8 +90,9 @@ namespace CarDirectory
                         addForm.Dispose();
                         return;
                     }    
-                    if (!hashtable.IsThere(car.Brand+car.Model))
+                    if (!hashtable.IsThere(car.Brand+" "+car.Model))
                     {
+                        if (car.End == "") car.End = "-";
                         car.Hash= hashtable.GetHash(car.Brand + car.Model);
                         cars.Add(car);
                         hashtable.Add(car.Brand,car.Model);
@@ -122,14 +125,32 @@ namespace CarDirectory
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
+            string brand = "", model = "";
             DeleteForm deleteForm = new DeleteForm();
             DialogResult dialogResult = deleteForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-
+                deleteForm.GetCarName(out brand,out  model);
+                if (hashtable.IsThere(brand +" "+ model))
+                {
+                    hashtable.Delete(brand + " "+ model);
+                    cars.Remove(new Car() { Brand = brand, Model = model });
+                    dataGridView.Rows.Clear();
+                    RefreshDataGridView();
+                    MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    MessageBox.Show("Введенный вами элемент в справочнике не найден", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
 
             }
             deleteForm.Dispose();
+        }
+
+        private void RefreshDataGridView()
+        {
+            foreach (var car in cars)
+                dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, car.Hash);
         }
     }
 }

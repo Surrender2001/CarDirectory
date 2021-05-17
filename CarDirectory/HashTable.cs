@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace CarDirectory
 {
+    /// <summary>
+    /// как увеличивать хеш-таблицу: надо ли пересваивать новые хеши
+    /// спросить про двойное хеширование
+    /// </summary>
     class HashTable
     {
-        private int Size=200;
+        private int Size=500;
         private const double GOLDEN_RATIO = 0.618033;
         private double Fullness = 0;
         public string[] Cars;
@@ -26,8 +30,8 @@ namespace CarDirectory
                 s += brandAndModel[i];
 
             int hash1 = ((int)Math.Floor(Size * (s * GOLDEN_RATIO % 1)));
-            int hash2 = s % 20;
-            if (hash2 == 0) hash2 = 20;
+            int hash2 = s % 50;
+            if (hash2 == 0) hash2 =50;
             int j = 0, hash;
             while (true)
             {
@@ -49,7 +53,7 @@ namespace CarDirectory
         public void Clear()
         {
             Array.Clear(Cars,0, Cars.Length);
-            Size = 200;
+            Size = 500;
             Fullness = 0;
         }
 
@@ -87,5 +91,23 @@ namespace CarDirectory
             return false;
         }
 
+        public void Delete(string brandAndModel)
+        {
+            int s = 0;
+
+            for (int i = 0; i < brandAndModel.Length; i++)
+                s += brandAndModel[i];
+
+            int hash1 = ((int)Math.Floor(Size * (s * GOLDEN_RATIO % 1)));
+            int hash2 = s % 20;
+            if (hash2 == 0) hash2 = 20;
+            int j = 0, hash;
+            while (j < Size)
+            {
+                hash = (hash1 + j) % Size;//А так можно?
+                if (Cars[hash] == brandAndModel) { Cars[hash] = null; return; }
+                j++;
+            }
+        }
     }
 }

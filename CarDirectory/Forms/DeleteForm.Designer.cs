@@ -91,7 +91,7 @@ namespace CarDirectory.Forms
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(156, 44);
             this.AddButton.TabIndex = 32;
-            this.AddButton.Text = "Добавить";
+            this.AddButton.Text = "Удалить";
             this.AddButton.UseVisualStyleBackColor = false;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 

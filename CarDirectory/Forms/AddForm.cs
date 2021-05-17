@@ -75,12 +75,14 @@ namespace CarDirectory
         public Car AddNewCar()
         {
             if (IsCorrectCar())
-                car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), int.Parse(EndTextBox.Text));
+                car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
             return car;
         }
 
         private bool checkIsCorrectYear()
         {
+            if (EndTextBox.Text == "")
+                return true;
             bool start=true, end=true;
             if (!(EndTextBox.Text.Length == 0 || EndTextBox.Text.Length == 4))
             {
