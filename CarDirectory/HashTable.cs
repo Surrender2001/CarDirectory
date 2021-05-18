@@ -13,13 +13,16 @@ namespace CarDirectory
     /// </summary>
     class HashTable
     {
-        private int Size=500;
+        
+        private int DefaultSize = 100;
+        private int Size;
         private const double GOLDEN_RATIO = 0.618033;
         private double Fullness = 0;
         public string[] Cars;
      
         public HashTable()
         {
+            Size = DefaultSize;
             Cars = new string[Size];
         }
 
@@ -32,7 +35,7 @@ namespace CarDirectory
 
             int hash1 = ((int)Math.Floor(Size * (s * GOLDEN_RATIO % 1)));
             int hash2 = s % (Size/2);
-            if (hash2 == 0) hash2 = Size / 2;
+            if (hash2 == 0) hash2 = (Size / 2)+1;
             int j = 0, hash;
             while (true)
             {
@@ -44,7 +47,7 @@ namespace CarDirectory
             return hash;
         }
 
-        public void Add(string brand, string model)
+        public void Add(string brand,string model)
         {
             if (GetFullness() > 70) Resize();
             Cars[GetHash(brand + model)] = brand +" "+ model;
@@ -54,22 +57,32 @@ namespace CarDirectory
         public void Clear()
         {
             Array.Clear(Cars,0, Cars.Length);
-            Size = 500;
+            Size =DefaultSize;
             Fullness = 0;
         }
 
         public double GetFullness()
         {
-            return Fullness / Size * 100;
+            return Fullness/ Size * 100;
         }
 
         public void Resize()
         {
+            string[] tmpCars=new string[Size];
+            Cars.CopyTo(tmpCars, 0);
             Size *= 2;
-            string[] newCars = new string[Size];
-            for (int i = 0; i < Cars.Length; i++)
-                if (Cars[i] != null) newCars[i] = Cars[i];
-            Cars = newCars;
+            Array.Clear(Cars, 0, Cars.Length);
+            string[] newSizeCars = new string[Size];
+            Cars = newSizeCars;
+            for (int i = 0; i < tmpCars.Length; i++)
+                if (tmpCars[i] != null)
+                    Add(tmpCars[i]);  
+        }
+
+        private void Add(string brandAndModel)
+        {
+            Cars[GetHash(brandAndModel)] = brandAndModel;
+            Fullness++;
         }
 
         public bool IsThere(string brandAndModel)
@@ -109,6 +122,7 @@ namespace CarDirectory
                 if (Cars[hash] == brandAndModel) { Cars[hash] = null; return; }
                 j++;
             }
+            Fullness--;
         }
     }
 }

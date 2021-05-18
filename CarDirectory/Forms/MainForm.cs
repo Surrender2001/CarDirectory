@@ -47,28 +47,44 @@ namespace CarDirectory
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.ShowDialog();
             if (openFileDialog1.FileName == "")
-                return;
-
-
-            using (StreamReader sr = new StreamReader(openFileDialog1.FileName, System.Text.Encoding.Default))
             {
-                string s;
-                while ((s = sr.ReadLine()) != null)
+                return;
+            }
+            StreamReader input = null;
+            try
+            {
+                input = new StreamReader(openFileDialog1.FileName, Encoding.Default);
+                dataGridView.Rows.Clear();
+                while (!input.EndOfStream)
                 {
+                    string s = input.ReadLine();
                     Car car = new Car
                     {
                         Brand = s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[0],
                         Model = s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[1],
                         Start = int.Parse(s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[2]),
-                        End= s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[3]
+                        End = s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[3]
                     };
-                    car.Hash = hashTable.GetHash(car.Brand + car.Model);
+                    car.Hash = hashTable.GetHash(car.Brand+" "+car.Model);
+
                     cars.Add(car);
                     if (hashTable.GetFullness() > 70) hashTable.Resize();
                     hashTable.Add(car.Brand, car.Model);
+
                     dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hashTable.GetHash(car.Brand + car.Model));
+
+
                 }
             }
+            catch (Exception exception)
+            {
+
+            }
+            finally
+            {
+                input.Close();
+            }
+
 
 
         }
