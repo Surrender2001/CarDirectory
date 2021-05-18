@@ -51,6 +51,7 @@ namespace CarDirectory
             {
                 return;
             }
+
             StreamReader input = null;
             try
             {
@@ -68,18 +69,14 @@ namespace CarDirectory
                         End = subs[3]
                     };
                     cars.Add(car);
-                    if (hashTable.GetFullness() > 70) hashTable.Resize();
-
-
-
-                }
-
-                foreach (var car in cars)
-                {
-                    if (hashTable.GetFullness() > 70) hashTable.Resize();                    
-                    dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hashTable.GetHash(car.Brand + car.Model));
+                    if (hashTable.GetFullness() > 70)
+                    {
+                        hashTable.Resize();
+                        RefreshDataGridView();
+                    }
                     hashTable.Add(car.Brand, car.Model);
-
+                    dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hashTable.GetterHash(car.Brand + car.Model));
+                        
                 }
 
 
@@ -173,8 +170,8 @@ namespace CarDirectory
 
         private void RefreshDataGridView()
         {
-           // foreach (var car in cars)
-                //dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, car.Hash);
+            foreach (var car in cars)
+                dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hashTable.GetterHash(car.Brand+car.Model));
         }
     }
 }
