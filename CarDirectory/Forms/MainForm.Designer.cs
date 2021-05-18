@@ -29,8 +29,8 @@ namespace CarDirectory
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.CloseLabel = new System.Windows.Forms.Label();
             this.NameOfProjectLabel = new System.Windows.Forms.Label();
@@ -128,9 +128,9 @@ namespace CarDirectory
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(34, 322);
+            this.button4.Location = new System.Drawing.Point(32, 332);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(156, 44);
+            this.button4.Size = new System.Drawing.Size(162, 44);
             this.button4.TabIndex = 3;
             this.button4.Text = "Найти";
             this.button4.UseVisualStyleBackColor = false;
@@ -147,9 +147,9 @@ namespace CarDirectory
             this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DeleteButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DeleteButton.Location = new System.Drawing.Point(34, 245);
+            this.DeleteButton.Location = new System.Drawing.Point(32, 255);
             this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(156, 44);
+            this.DeleteButton.Size = new System.Drawing.Size(162, 44);
             this.DeleteButton.TabIndex = 2;
             this.DeleteButton.Text = "Удалить";
             this.DeleteButton.UseVisualStyleBackColor = false;
@@ -167,9 +167,9 @@ namespace CarDirectory
             this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.AddButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AddButton.Location = new System.Drawing.Point(34, 168);
+            this.AddButton.Location = new System.Drawing.Point(32, 178);
             this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(156, 44);
+            this.AddButton.Size = new System.Drawing.Size(162, 44);
             this.AddButton.TabIndex = 1;
             this.AddButton.Text = "Добавить";
             this.AddButton.UseVisualStyleBackColor = false;
@@ -187,11 +187,11 @@ namespace CarDirectory
             this.ReadDbButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ReadDbButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ReadDbButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ReadDbButton.Location = new System.Drawing.Point(34, 91);
+            this.ReadDbButton.Location = new System.Drawing.Point(32, 101);
             this.ReadDbButton.Name = "ReadDbButton";
-            this.ReadDbButton.Size = new System.Drawing.Size(156, 44);
+            this.ReadDbButton.Size = new System.Drawing.Size(162, 44);
             this.ReadDbButton.TabIndex = 0;
-            this.ReadDbButton.Text = "Считать с БД";
+            this.ReadDbButton.Text = "Считать с файла";
             this.ReadDbButton.UseVisualStyleBackColor = false;
             this.ReadDbButton.Click += new System.EventHandler(this.ReadDbButton_Click);
             // 
@@ -201,12 +201,12 @@ namespace CarDirectory
             this.dataGridView.AllowUserToDeleteRows = false;
             this.dataGridView.AllowUserToResizeRows = false;
             this.dataGridView.BackgroundColor = System.Drawing.Color.DeepSkyBlue;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Brand,
@@ -214,14 +214,14 @@ namespace CarDirectory
             this.Start,
             this.End,
             this.Hash});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("LG Display-Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("LG Display-Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(0, 0);
             this.dataGridView.Name = "dataGridView";

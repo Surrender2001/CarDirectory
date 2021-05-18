@@ -8,6 +8,7 @@ namespace CarDirectory
 {
     /// <summary>
     /// как увеличивать хеш-таблицу: надо ли пересваивать новые хеши
+    /// Надо пересваивать 
     /// спросить про двойное хеширование
     /// </summary>
     class HashTable
@@ -30,8 +31,8 @@ namespace CarDirectory
                 s += brandAndModel[i];
 
             int hash1 = ((int)Math.Floor(Size * (s * GOLDEN_RATIO % 1)));
-            int hash2 = s % 50;
-            if (hash2 == 0) hash2 =50;
+            int hash2 = s % (Size/2);
+            if (hash2 == 0) hash2 = Size / 2;
             int j = 0, hash;
             while (true)
             {
@@ -104,7 +105,7 @@ namespace CarDirectory
             int j = 0, hash;
             while (j < Size)
             {
-                hash = (hash1 + j) % Size;//А так можно?
+                hash = (hash1 + j) % Size;
                 if (Cars[hash] == brandAndModel) { Cars[hash] = null; return; }
                 j++;
             }
