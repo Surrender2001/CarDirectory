@@ -18,7 +18,6 @@ namespace CarDirectory
             Model = (string)cell[1];
             Start = (int)cell[2];
             End = (string)cell[3];
-            Hash = (int)cell[4]; 
         }
         public Car(string brand,string model,int start,string end)
         {
@@ -31,7 +30,6 @@ namespace CarDirectory
         public string Model { get; set; }
         public int Start { get; set; }
         public string End { get; set; }
-        public int Hash { get; set; }
 
         public bool Equals(Car other)
         {

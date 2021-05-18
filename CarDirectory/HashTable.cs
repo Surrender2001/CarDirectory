@@ -14,7 +14,7 @@ namespace CarDirectory
     class HashTable
     {
         
-        private int DefaultSize = 100;
+        private int DefaultSize = 20;
         private int Size;
         private const double GOLDEN_RATIO = 0.618033;
         private double Fullness = 0;
@@ -34,8 +34,8 @@ namespace CarDirectory
                 s += brandAndModel[i];
 
             int hash1 = ((int)Math.Floor(Size * (s * GOLDEN_RATIO % 1)));
-            int hash2 = s % (Size/2);
-            if (hash2 == 0) hash2 = (Size / 2)+1;
+            int hash2 = Size%13;
+            if (hash2 == 0) hash2 = 13;
             int j = 0, hash;
             while (true)
             {
@@ -68,10 +68,10 @@ namespace CarDirectory
 
         public void Resize()
         {
+            Fullness = 0;
             string[] tmpCars=new string[Size];
             Cars.CopyTo(tmpCars, 0);
             Size *= 2;
-            Array.Clear(Cars, 0, Cars.Length);
             string[] newSizeCars = new string[Size];
             Cars = newSizeCars;
             for (int i = 0; i < tmpCars.Length; i++)

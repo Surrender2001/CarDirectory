@@ -45,6 +45,7 @@ namespace CarDirectory
             hashTable.Clear();
             cars.Clear();
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Справочник (*.txt)|*.txt";
             openFileDialog1.ShowDialog();
             if (openFileDialog1.FileName == "")
             {
@@ -58,27 +59,37 @@ namespace CarDirectory
                 while (!input.EndOfStream)
                 {
                     string s = input.ReadLine();
+                    string[] subs = s.Split(new char[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                     Car car = new Car
                     {
-                        Brand = s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[0],
-                        Model = s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[1],
-                        Start = int.Parse(s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[2]),
-                        End = s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[3]
+                        Brand = subs[0],
+                        Model = subs[1],
+                        Start = int.Parse(subs[2]),
+                        End = subs[3]
                     };
-                    car.Hash = hashTable.GetHash(car.Brand+" "+car.Model);
-
                     cars.Add(car);
                     if (hashTable.GetFullness() > 70) hashTable.Resize();
-                    hashTable.Add(car.Brand, car.Model);
 
-                    dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hashTable.GetHash(car.Brand + car.Model));
 
 
                 }
-            }
-            catch (Exception exception)
-            {
 
+                foreach (var car in cars)
+                {
+                    if (hashTable.GetFullness() > 70) hashTable.Resize();                    
+                    dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hashTable.GetHash(car.Brand + car.Model));
+                    hashTable.Add(car.Brand, car.Model);
+
+                }
+
+
+
+                MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"где-то ошибка, кол-во записанных машин {cars.Count}", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information); 
             }
             finally
             {
@@ -105,11 +116,11 @@ namespace CarDirectory
                     }    
                     if (!hashTable.IsThere(car.Brand+" "+car.Model))
                     {
-                        if (car.End == "") car.End = "-";
-                        car.Hash= hashTable.GetHash(car.Brand + car.Model);
+                        //if (car.End == "") car.End = "-";
+                        //car.Hash= hashTable.GetHash(car.Brand + car.Model);
                         cars.Add(car);
                         hashTable.Add(car.Brand,car.Model);
-                        dataGridView.Rows.Add(car.Brand,car.Model,car.Start,car.End,car.Hash);
+                        //dataGridView.Rows.Add(car.Brand,car.Model,car.Start,car.End,car.Hash);
                         MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -162,8 +173,8 @@ namespace CarDirectory
 
         private void RefreshDataGridView()
         {
-            foreach (var car in cars)
-                dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, car.Hash);
+           // foreach (var car in cars)
+                //dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, car.Hash);
         }
     }
 }
