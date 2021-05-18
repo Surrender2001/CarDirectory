@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace CarDirectory
         }
         
         List<Car> cars = new List<Car>();
-        HashTable hashtable = new HashTable();
+        HashTable hashTable = new HashTable();
         HashSet<string> setBrand=new HashSet<string>();
         private void CloseLabel_Click(object sender, EventArgs e)
         {
@@ -41,39 +42,35 @@ namespace CarDirectory
         private void ReadDbButton_Click(object sender, EventArgs e)
         {
             dataGridView.Rows.Clear();
-            hashtable.Clear();
+            hashTable.Clear();
             cars.Clear();
-            try
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.ShowDialog();
+            if (openFileDialog1.FileName == "")
+                return;
+
+
+            using (StreamReader sr = new StreamReader(openFileDialog1.FileName, System.Text.Encoding.Default))
             {
-                DB db = new DB();// database
-                db.openConnection();
-                DataTable table = new DataTable();// table for reading
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter();
-
-                MySqlCommand command = new MySqlCommand("SELECT * FROM `car_dictionary`", db.getConnection());
-
-                adapter.SelectCommand = command;
-                adapter.Fill(table);
-                object[] cell = new object[5];
-                string brand;
-                foreach (DataRow row in table.Rows)
+                string s;
+                while ((s = sr.ReadLine()) != null)
                 {
-                    row.ItemArray.CopyTo(cell,0);
-                    brand=(string)cell[0];
-                    if (!setBrand.Contains(brand))
-                        setBrand.Add(brand);
-                    cell[4] = hashtable.GetHash(brand + (string)cell[1]);              
-                    dataGridView.Rows.Add(cell);
-                    cars.Add(new Car(cell));
-                    hashtable.Add(brand, (string)cell[1]);
+                    Car car = new Car
+                    {
+                        Brand = s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[0],
+                        Model = s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[1],
+                        Start = int.Parse(s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[2]),
+                        End= s.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries)[3]
+                    };
+                    car.Hash = hashTable.GetHash(car.Brand + car.Model);
+                    cars.Add(car);
+                    if (hashTable.GetFullness() > 70) hashTable.Resize();
+                    hashTable.Add(car.Brand, car.Model);
+                    dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hashTable.GetHash(car.Brand + car.Model));
                 }
-                db.closeConnection();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message,"Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+
+
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
@@ -90,12 +87,12 @@ namespace CarDirectory
                         addForm.Dispose();
                         return;
                     }    
-                    if (!hashtable.IsThere(car.Brand+" "+car.Model))
+                    if (!hashTable.IsThere(car.Brand+" "+car.Model))
                     {
                         if (car.End == "") car.End = "-";
-                        car.Hash= hashtable.GetHash(car.Brand + car.Model);
+                        car.Hash= hashTable.GetHash(car.Brand + car.Model);
                         cars.Add(car);
-                        hashtable.Add(car.Brand,car.Model);
+                        hashTable.Add(car.Brand,car.Model);
                         dataGridView.Rows.Add(car.Brand,car.Model,car.Start,car.End,car.Hash);
                         MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -131,9 +128,9 @@ namespace CarDirectory
             if (dialogResult == DialogResult.OK)
             {
                 deleteForm.GetCarName(out brand,out  model);
-                if (hashtable.IsThere(brand +" "+ model))
+                if (hashTable.IsThere(brand +" "+ model))
                 {
-                    hashtable.Delete(brand + " "+ model);
+                    hashTable.Delete(brand + " "+ model);
                     cars.Remove(new Car() { Brand = brand, Model = model });
                     dataGridView.Rows.Clear();
                     RefreshDataGridView();

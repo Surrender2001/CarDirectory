@@ -57,7 +57,6 @@
       <DependentUpon>AddForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Car.cs" />
-    <Compile Include="DB.cs" />
     <Compile Include="Forms\DeleteForm.cs">
       <SubType>Form</SubType>
     </Compile>
