@@ -6,19 +6,14 @@ using System.Threading.Tasks;
 
 namespace CarDirectory
 {
-    /// <summary>
-    /// как увеличивать хеш-таблицу: надо ли пересваивать новые хеши
-    /// Надо пересваивать 
-    /// спросить про двойное хеширование
-    /// </summary>
     class HashTable
     {
         
-        private const int DEFAULT_SIZE = 20;
-        private int Size;
+        private const int DEFAULT_SIZE = 5;
+        public int Size { get; private set; }
         private const double GOLDEN_RATIO = 0.618033;
         private double Fullness = 0;
-        public string[] Cars;
+        private string[] Cars;
      
         public HashTable()
         {
@@ -28,58 +23,83 @@ namespace CarDirectory
 
         public int GetNewHash(string key)
         {
-            int s = 0;
+            int s = 0, prime = 0,hash1,hash2,hash=0;
             for (int i = 0; i < key.Length; i++)
                 s += key[i];
 
-            int h1 = Hash1(s);
-            int h2 = Hash2(s);
-            int hash;
-            hash = h1 % Size;
-            if(Cars[hash]==null)
-                return hash;
+            hash1 = (int)Math.Floor(Size * (s * GOLDEN_RATIO % 1)) ;
+            if (Cars[hash1] == null)
+                return hash1;
             else
             {
-                for (int j = 1; j < Size; j++)
-                {
-                    hash = (h1 + j * h2) % Size;
-                    if (Cars[hash] == null)
+                for (int i = Size-1; i > 2; --i)
+                    if (IsPrime(i))
+                    {
+                        prime = i;
                         break;
+                    }
+                hash2=prime;
+                for (int i = 1; i < Size; ++i)
+                {
+                    hash = (hash1 + i * hash2) % Size;
+                    if (Cars[hash] == null)
+                        return hash;
                 }
-                return hash;
-            }     
+            }
+
+
+            return -1;
+        }
+        
+        public int GetHash(string key)
+        {
+            int s = 0, prime = 0, hash1, hash2, hash=0;
+            for (int i = 0; i < key.Length; i++)
+                s += key[i];
+
+            hash1 = (int)Math.Floor(Size * (s * GOLDEN_RATIO % 1));
+            if (Cars[hash1] == key)
+                return hash1;
+            else
+            {
+                for (int i = Size - 1; i > 2; --i)
+                    if (IsPrime(i))
+                    {
+                        prime = i;
+                        break;
+                    }
+                hash2 = prime;
+                for (int i = 1; i < Size; ++i)
+                {
+                    hash = (hash1 + i * hash2) % Size;
+                    if (Cars[hash] == key)
+                        return hash;
+                }
+            }
+            return -1;
         }
 
-        private int Hash2(int key)
+        private bool IsPrime(int a)
         {
-            for (int i = Size/2; i < Size; i++)
-                if (IsCoprime(key, i)) return i;
-            return Size - 1;
+            int count = 0;
+            for (int i = 2; i*i < a; ++i)
+                if (a % i == 0)
+                    ++count;  
+            if (a == 1 || count != 0) 
+                return false;
+            else 
+                return true;
         }
 
-        private bool IsCoprime(int a, int b)
+        public void Add(string brand,string model,out int hash)
         {
-            return a == b
-                   ? a == 1
-                   : a > b
-                        ? IsCoprime(a - b, b)
-                        : IsCoprime(b - a, a);
-        }
-        private int Hash1(int key)
-        {
-            return (int)Math.Floor(Size * (key * GOLDEN_RATIO % 1));
-        }
-
-        public void Add(string brand,string model)
-        {
-            if (GetFullness() > 70) Resize();
-            Cars[Hash(brand + model)] = brand+model;
+            hash = GetNewHash(brand + model);
+            Cars[hash] = brand+" "+model;
             Fullness++;
         }
 
         public void Clear()
         {
-            Array.Clear(Cars,0, Cars.Length);
             Size = DEFAULT_SIZE;
             Cars = new string[Size];
             Fullness = 0;
@@ -93,68 +113,50 @@ namespace CarDirectory
         public void Resize()
         {
             Fullness = 0;
-            string[] tmpCars=new string[Size];
+            string[] tmpCars = new string[Size];
             Cars.CopyTo(tmpCars, 0);
             Size *= 2;
-            string[] newSizeCars = new string[Size];
-            Cars = newSizeCars;
+            Cars =new string[Size];
             for (int i = 0; i < tmpCars.Length; i++)
                 if (tmpCars[i] != null)
-                    Add(tmpCars[i]);  
+                    Add(tmpCars[i]);
         }
 
         private void Add(string brandAndModel)
         {
-            Cars[Hash(brandAndModel)] = brandAndModel;
+            Cars[GetNewHash(brandAndModel)] = brandAndModel;
             Fullness++;
         }
 
-        public bool IsThere(string brandAndModel)=>FindElem(brandAndModel) != -1;
+        public bool IsThere(string brandAndModel)=>GetHash(brandAndModel) != -1;
 
-        private int FindElem(string key)
+
+        public void Delete(string key)
         {
-            throw new NotImplementedException();
-        }
+            int s = 0, prime = 0, hash1, hash2, hash = 0;
+            for (int i = 0; i < key.Length; i++)
+                s += key[i];
 
-        public void Delete(string brandAndModel)
-        {
-            int s = 0;
-
-            for (int i = 0; i < brandAndModel.Length; i++)
-                s += brandAndModel[i];
-
-            int hash1 = ((int)Math.Floor(Size * (s * GOLDEN_RATIO % 1)));
-            int hash2 = s % 20;
-            if (hash2 == 0) hash2 = 20;
-            int j = 0, hash;
-            while (j < Size)
+            hash1 = (int)Math.Floor(Size * (s * GOLDEN_RATIO % 1));
+            if (Cars[hash1] == key)
+                Cars[hash1] = null;
+            else
             {
-                hash = (hash1 + j) % Size;
-                if (Cars[hash] == brandAndModel) { Cars[hash] = null; return; }
-                j++;
+                for (int i = Size - 1; i > 2; --i)
+                    if (IsPrime(i))
+                    {
+                        prime = i;
+                        break;
+                    }
+                hash2 = prime;
+                for (int i = 1; i < Size; ++i)
+                {
+                    hash = (hash1 + i * hash2) % Size;
+                    if (Cars[hash] == key)
+                        Cars[hash] = null;
+                }
             }
             Fullness--;
-        }
-
-        public int GetterHash(string brandAndModel)
-        {
-            int s = 0;
-
-            for (int i = 0; i < brandAndModel.Length; i++)
-                s += brandAndModel[i];
-
-            int hash1 = ((int)Math.Floor(Size * (s * GOLDEN_RATIO % 1)));
-            int hash2 = Size % 13;
-            if (hash2 == 0) hash2 = 13;
-            int j = 0, hash;
-            while (true)
-            {
-                hash = (hash1 + j * hash2) % Size;
-                if (Cars[hash] == brandAndModel) break;
-                j++;
-                if (j > Size) break;
-            }
-            return hash;
         }
     }
 }
