@@ -14,7 +14,7 @@ namespace CarDirectory
         private const double GOLDEN_RATIO = 0.618033;
         private double Fullness = 0;
         private string[] Cars;
-     
+        private bool[] deleted;     
         public HashTable()
         {
             Size = DEFAULT_SIZE;
