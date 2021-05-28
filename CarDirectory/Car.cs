@@ -12,13 +12,7 @@ namespace CarDirectory
         {
         }
 
-        public Car(object[] cell)
-        {
-            Brand = (string)cell[0];
-            Model = (string)cell[1];
-            Start = (int)cell[2];
-            End = (string)cell[3];
-        }
+
         public Car(string brand,string model,int start,string end)
         {
             Brand = brand;

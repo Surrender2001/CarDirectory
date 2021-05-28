@@ -13,8 +13,7 @@ namespace CarDirectory
         public int Size { get; private set; }
         private const double GOLDEN_RATIO = 0.618033;
         private double Fullness = 0;
-        private string[] Cars;
-        private bool[] deleted;     
+        private string[] Cars;   
         public HashTable()
         {
             Size = DEFAULT_SIZE;
@@ -153,7 +152,11 @@ namespace CarDirectory
                 {
                     hash = (hash1 + i * hash2) % Size;
                     if (Cars[hash] == key)
+                    {
                         Cars[hash] = null;
+                        break;
+                    }
+                        
                 }
             }
             Fullness--;

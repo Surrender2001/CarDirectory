@@ -45,6 +45,7 @@ namespace CarDirectory
             this.Start = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HashTableButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -104,6 +105,7 @@ namespace CarDirectory
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.HashTableButton);
             this.splitContainer1.Panel1.Controls.Add(this.button4);
             this.splitContainer1.Panel1.Controls.Add(this.DeleteButton);
             this.splitContainer1.Panel1.Controls.Add(this.AddButton);
@@ -128,7 +130,7 @@ namespace CarDirectory
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(32, 332);
+            this.button4.Location = new System.Drawing.Point(32, 368);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(162, 44);
             this.button4.TabIndex = 3;
@@ -147,7 +149,7 @@ namespace CarDirectory
             this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DeleteButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DeleteButton.Location = new System.Drawing.Point(32, 255);
+            this.DeleteButton.Location = new System.Drawing.Point(32, 293);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(162, 44);
             this.DeleteButton.TabIndex = 2;
@@ -167,7 +169,7 @@ namespace CarDirectory
             this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.AddButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AddButton.Location = new System.Drawing.Point(32, 178);
+            this.AddButton.Location = new System.Drawing.Point(32, 218);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(162, 44);
             this.AddButton.TabIndex = 1;
@@ -187,7 +189,7 @@ namespace CarDirectory
             this.ReadDbButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ReadDbButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ReadDbButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ReadDbButton.Location = new System.Drawing.Point(32, 101);
+            this.ReadDbButton.Location = new System.Drawing.Point(32, 143);
             this.ReadDbButton.Name = "ReadDbButton";
             this.ReadDbButton.Size = new System.Drawing.Size(162, 44);
             this.ReadDbButton.TabIndex = 0;
@@ -265,6 +267,26 @@ namespace CarDirectory
             this.Hash.Name = "Hash";
             this.Hash.ReadOnly = true;
             // 
+            // HashTableButton
+            // 
+            this.HashTableButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HashTableButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
+            this.HashTableButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.HashTableButton.FlatAppearance.BorderSize = 0;
+            this.HashTableButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.HashTableButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HashTableButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.HashTableButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.HashTableButton.Location = new System.Drawing.Point(32, 68);
+            this.HashTableButton.Name = "HashTableButton";
+            this.HashTableButton.Size = new System.Drawing.Size(162, 44);
+            this.HashTableButton.TabIndex = 4;
+            this.HashTableButton.Text = "Хеш-таблица";
+            this.HashTableButton.UseVisualStyleBackColor = false;
+            this.HashTableButton.Click += new System.EventHandler(this.HashTableButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -303,6 +325,7 @@ namespace CarDirectory
         private System.Windows.Forms.DataGridViewTextBoxColumn Start;
         private System.Windows.Forms.DataGridViewTextBoxColumn End;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hash;
+        private System.Windows.Forms.Button HashTableButton;
     }
 }
 

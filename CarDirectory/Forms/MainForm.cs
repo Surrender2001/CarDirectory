@@ -19,10 +19,11 @@ namespace CarDirectory
         {
             InitializeComponent(); 
         }
-        
+       
         List<Car> cars = new List<Car>();
+        Car[] cars1;
+        
         HashTable hashTable = new HashTable();
-        HashSet<string> setBrand=new HashSet<string>();
         private void CloseLabel_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -44,7 +45,6 @@ namespace CarDirectory
             dataGridView.Rows.Clear();
             hashTable.Clear();
             cars.Clear();
-            setBrand.Clear();
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "Справочник (*.txt)|*.txt";
             openFileDialog1.ShowDialog();
@@ -75,7 +75,6 @@ namespace CarDirectory
                         Start = int.Parse(subs[2]),
                         End = subs[3]
                     };
-                    setBrand.Add(car.Brand);
                     cars.Add(car);
                     hashTable.Add(car.Brand, car.Model,out hash);
                     dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);                        
@@ -106,12 +105,12 @@ namespace CarDirectory
                 Car car=addForm.AddNewCar();
                 if(car!=null)
                 {
-                    if(!setBrand.Contains(car.Brand))
-                    {
-                        MessageBox.Show("Введенная марка автомобиля не содержится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        addForm.Dispose();
-                        return;
-                    }
+                    //if(!setBrand.Contains(car.Brand))
+                    //{
+                    //    MessageBox.Show("Введенная марка автомобиля не содержится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //    addForm.Dispose();
+                    //    return;
+                    //}
                     if (!hashTable.IsThere(car.Brand + " " + car.Model))
                     {
                         if (hashTable.GetFullness() > 70)
@@ -178,6 +177,11 @@ namespace CarDirectory
             dataGridView.Rows.Clear();
             foreach (var car in cars)
                 dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hashTable.GetHash(car.Brand+" "+car.Model));
+        }
+
+        private void HashTableButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
