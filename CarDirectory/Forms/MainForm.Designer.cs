@@ -35,6 +35,7 @@ namespace CarDirectory
             this.CloseLabel = new System.Windows.Forms.Label();
             this.NameOfProjectLabel = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.HashButton = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
@@ -45,7 +46,6 @@ namespace CarDirectory
             this.Start = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HashButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -117,6 +117,26 @@ namespace CarDirectory
             this.splitContainer1.Size = new System.Drawing.Size(973, 492);
             this.splitContainer1.SplitterDistance = 227;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // HashButton
+            // 
+            this.HashButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HashButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
+            this.HashButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.HashButton.FlatAppearance.BorderSize = 0;
+            this.HashButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.HashButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HashButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.HashButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.HashButton.Location = new System.Drawing.Point(33, 59);
+            this.HashButton.Name = "HashButton";
+            this.HashButton.Size = new System.Drawing.Size(162, 44);
+            this.HashButton.TabIndex = 4;
+            this.HashButton.Text = "Хеш-таблица";
+            this.HashButton.UseVisualStyleBackColor = false;
+            this.HashButton.Click += new System.EventHandler(this.HashButton_Click);
             // 
             // button4
             // 
@@ -266,26 +286,6 @@ namespace CarDirectory
             this.Hash.HeaderText = "Хеш";
             this.Hash.Name = "Hash";
             this.Hash.ReadOnly = true;
-            // 
-            // HashButton
-            // 
-            this.HashButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HashButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
-            this.HashButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.HashButton.FlatAppearance.BorderSize = 0;
-            this.HashButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.HashButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.HashButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.HashButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.HashButton.Location = new System.Drawing.Point(33, 59);
-            this.HashButton.Name = "HashButton";
-            this.HashButton.Size = new System.Drawing.Size(162, 44);
-            this.HashButton.TabIndex = 4;
-            this.HashButton.Text = "Хеш-таблица";
-            this.HashButton.UseVisualStyleBackColor = false;
-            this.HashButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 

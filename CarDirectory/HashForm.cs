@@ -16,5 +16,10 @@ namespace CarDirectory
         {
             InitializeComponent();
         }
+
+        private void ReadDbButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

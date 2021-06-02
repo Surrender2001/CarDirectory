@@ -43,7 +43,7 @@ namespace CarDirectory
             dataGridView.Rows.Clear();
             hashTable.Clear();
             cars.Clear();
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            var openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "Справочник (*.txt)|*.txt";
             openFileDialog1.ShowDialog();
             if (openFileDialog1.FileName == "")
@@ -75,7 +75,7 @@ namespace CarDirectory
                 }
                 RefreshDataGridView();
                 MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
-                    $"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness,2)}%\n" +
+                    $"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness,2)*100}%\n" +
                     $"Вместительность {hashTable.CurrentSize}",
                     "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -94,7 +94,7 @@ namespace CarDirectory
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
-            AddForm addForm = new AddForm();
+            var addForm = new AddForm();
             DialogResult dialogResult = addForm.ShowDialog();
             if(dialogResult==DialogResult.OK)
             {
@@ -147,7 +147,7 @@ namespace CarDirectory
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             string brand = "", model = "";
-            DeleteForm deleteForm = new DeleteForm();
+            var deleteForm = new DeleteForm();
             DialogResult dialogResult = deleteForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
@@ -179,9 +179,10 @@ namespace CarDirectory
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void HashButton_Click(object sender, EventArgs e)
         {
-
+            var hashForm = new HashForm();
+            DialogResult dialogResult = hashForm.ShowDialog();
         }
     }
 }
