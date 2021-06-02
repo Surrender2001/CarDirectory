@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace CarDirectory
 {
-    public class BrandAndModel //: IEquatable<BrandAndModel>
+    public class BrandAndModel : IEquatable<BrandAndModel>
     {
 
       
         public string Brand { get; set; }
         public string Model { get; set; }
         public bool Deleted { get; set; }
-        public BrandAndModel(string key, string value)
+        public BrandAndModel(string brand, string model)
         {
-            Brand = key;
-            Model = value;
+            Brand = brand;
+            Model = model;
             Deleted = false;
         }
 
@@ -55,7 +55,7 @@ namespace CarDirectory
         {
             int i = 0;
             int hash = Hash(key, i);
-            while (hashtable[hash] != null && !hashtable[hash].Equals(key))
+            while (hashtable[hash] != null && !hashtable[hash].ToString().Equals(key))
             {
                 i++;
                 hash = Hash(key, i);
@@ -85,7 +85,7 @@ namespace CarDirectory
 
         public int GetHash(string key)
         {
-            int s = 0, prime = 0, hash1, hash2, hash = 0;
+            int s = 0, hash1, hash2, hash = 0;
             for (int i = 0; i < key.Length; i++)
                 s += key[i];
 
@@ -138,6 +138,7 @@ namespace CarDirectory
             }
 
         }
+
         //public void Add(string key, out index)
         //{
         //    if (Fullness > MAX_FULLNESS) Expand();
@@ -170,23 +171,23 @@ namespace CarDirectory
                 Count++;
             }
         }
-        //public void Add(BrandAndModel bam,out int hash1)
-        //{
-        //    if (Fullness > MAX_FULLNESS) Expand();
-        //    int i = 0;
-        //    int hash = Hash(bam.ToString(), i);
-        //    while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Equals(bam))
-        //    {
-        //        i++;
-        //        hash = Hash(bam.ToString(), i);
-        //    }
-        //    if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Equals(bam))
-        //    {
-        //        hashtable[hash] = bam;
-        //        Count++;
-        //    }
-        //    hash1 = hash;
-        //}
+        public void Add(BrandAndModel bam, out int hash1)
+        {
+            if (Fullness > MAX_FULLNESS) Expand();
+            int i = 0;
+            int hash = Hash(bam.ToString(), i);
+            while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Equals(bam))
+            {
+                i++;
+                hash = Hash(bam.ToString(), i);
+            }
+            if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Equals(bam))
+            {
+                hashtable[hash] = bam;
+                Count++;
+            }
+            hash1 = hash;
+        }
         private int KeyToInt(string key)
         {
             int value = 0;
@@ -228,7 +229,9 @@ namespace CarDirectory
             Count = 0;
             Size *= 2;
             hashtable = new BrandAndModel[Size];
-            foreach (var item in oldtable) if (item != null) Add(item);
+            foreach (var item in oldtable) 
+                if (item != null) 
+                    Add(item);
         }
         private void Reduce()
         {
@@ -237,7 +240,9 @@ namespace CarDirectory
             Count = 0;
             Size /= 2;
             hashtable = new BrandAndModel[Size];
-            foreach (var item in oldtable) if (item != null && !item.Deleted) Add(item);
+            foreach (var item in oldtable) 
+                if (item != null && !item.Deleted) 
+                    Add(item);
         }
 
         //System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

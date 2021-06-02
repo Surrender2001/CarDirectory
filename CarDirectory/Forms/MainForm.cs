@@ -181,7 +181,7 @@ namespace CarDirectory
 
         private void HashButton_Click(object sender, EventArgs e)
         {
-            var hashForm = new HashForm();
+            var hashForm = new HashForm(ref hashTable);
             DialogResult dialogResult = hashForm.ShowDialog();
 
         }

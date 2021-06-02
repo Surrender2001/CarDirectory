@@ -32,53 +32,21 @@ namespace CarDirectory
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddForm));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.BrandTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.ModelTextBox = new System.Windows.Forms.MaskedTextBox();
             this.StartTextBox = new System.Windows.Forms.MaskedTextBox();
             this.EndTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.AddButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.InfoPictureBox1 = new System.Windows.Forms.PictureBox();
+            this.BrandTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.ModelTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.AddButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.InfoPictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // BrandTextBox
-            // 
-            this.BrandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BrandTextBox.BackColor = System.Drawing.Color.Beige;
-            this.BrandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.BrandTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BrandTextBox.Location = new System.Drawing.Point(278, 20);
-            this.BrandTextBox.Mask = "LLLLLLLLLLLLLLLLLLLL";
-            this.BrandTextBox.Name = "BrandTextBox";
-            this.BrandTextBox.RejectInputOnFirstFailure = true;
-            this.BrandTextBox.Size = new System.Drawing.Size(228, 31);
-            this.BrandTextBox.TabIndex = 0;
-            this.BrandTextBox.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.BrandTextBox_MaskInputRejected);
-            this.BrandTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BrandTextBox_KeyDown);
-            // 
-            // ModelTextBox
-            // 
-            this.ModelTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ModelTextBox.BackColor = System.Drawing.Color.Beige;
-            this.ModelTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ModelTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ModelTextBox.Location = new System.Drawing.Point(278, 82);
-            this.ModelTextBox.Mask = "AAAAAAAAAAAAAAAAAAAA";
-            this.ModelTextBox.Name = "ModelTextBox";
-            this.ModelTextBox.Size = new System.Drawing.Size(228, 31);
-            this.ModelTextBox.TabIndex = 1;
-            this.ModelTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModelTextBox_KeyDown);
             // 
             // StartTextBox
             // 
@@ -111,41 +79,6 @@ namespace CarDirectory
             this.EndTextBox.TabIndex = 3;
             this.EndTextBox.ValidatingType = typeof(int);
             this.EndTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EndTextBox_KeyDown);
-            // 
-            // AddButton
-            // 
-            this.AddButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
-            this.AddButton.FlatAppearance.BorderSize = 0;
-            this.AddButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddButton.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddButton.Location = new System.Drawing.Point(183, 271);
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(156, 44);
-            this.AddButton.TabIndex = 4;
-            this.AddButton.Text = "Добавить";
-            this.AddButton.UseVisualStyleBackColor = false;
-            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(22, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 31);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Марка";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(22, 82);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(101, 31);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Модель";
             // 
             // label3
             // 
@@ -212,6 +145,73 @@ namespace CarDirectory
             this.InfoPictureBox1.TabStop = false;
             this.InfoPictureBox1.MouseEnter += new System.EventHandler(this.InfoPictureBox1_MouseEnter);
             // 
+            // BrandTextBox
+            // 
+            this.BrandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BrandTextBox.BackColor = System.Drawing.Color.Beige;
+            this.BrandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.BrandTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BrandTextBox.Location = new System.Drawing.Point(278, 20);
+            this.BrandTextBox.Mask = "LLLLLLLLLLLLLLLLLLLL";
+            this.BrandTextBox.Name = "BrandTextBox";
+            this.BrandTextBox.RejectInputOnFirstFailure = true;
+            this.BrandTextBox.Size = new System.Drawing.Size(228, 31);
+            this.BrandTextBox.TabIndex = 0;
+            this.BrandTextBox.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.BrandTextBox_MaskInputRejected);
+            this.BrandTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BrandTextBox_KeyDown);
+            // 
+            // ModelTextBox
+            // 
+            this.ModelTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ModelTextBox.BackColor = System.Drawing.Color.Beige;
+            this.ModelTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ModelTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ModelTextBox.Location = new System.Drawing.Point(278, 82);
+            this.ModelTextBox.Mask = "AAAAAAAAAAAAAAAAAAAA";
+            this.ModelTextBox.Name = "ModelTextBox";
+            this.ModelTextBox.Size = new System.Drawing.Size(228, 31);
+            this.ModelTextBox.TabIndex = 1;
+            this.ModelTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModelTextBox_KeyDown);
+            // 
+            // AddButton
+            // 
+            this.AddButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
+            this.AddButton.FlatAppearance.BorderSize = 0;
+            this.AddButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AddButton.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddButton.Location = new System.Drawing.Point(183, 271);
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(156, 44);
+            this.AddButton.TabIndex = 4;
+            this.AddButton.Text = "Добавить";
+            this.AddButton.UseVisualStyleBackColor = false;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(22, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 31);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Марка";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(22, 82);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(101, 31);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Модель";
+            // 
             // AddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,18 +246,18 @@ namespace CarDirectory
         #endregion
 
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.MaskedTextBox BrandTextBox;
-        private System.Windows.Forms.MaskedTextBox ModelTextBox;
         private System.Windows.Forms.MaskedTextBox StartTextBox;
         private System.Windows.Forms.MaskedTextBox EndTextBox;
-        private System.Windows.Forms.Button AddButton;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.PictureBox InfoPictureBox1;
+        private System.Windows.Forms.MaskedTextBox BrandTextBox;
+        private System.Windows.Forms.MaskedTextBox ModelTextBox;
+        private System.Windows.Forms.Button AddButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
