@@ -70,5 +70,19 @@ namespace CarDirectory
             if (car.End == "")
                 car.End = "-";
         }
+
+        public static void CheckTextBox(ref MaskedTextBox ModelTextBox,ref MaskedTextBox BrandTextBox,ref MaskedTextBox StartTextBox,ref MaskedTextBox EndTextBox)
+        {
+            if (IsEmpty(ref ModelTextBox)) ModelTextBox.BackColor = Color.LightCoral;
+            if (IsEmpty(ref BrandTextBox)) BrandTextBox.BackColor = Color.LightCoral;
+            if (!IsCorrectYear(ref StartTextBox)) StartTextBox.BackColor = Color.LightCoral;
+            if (!IsCorrectEndYear(ref EndTextBox)) EndTextBox.BackColor = Color.LightCoral;
+        }
+        public static void CheckTextBox(ref MaskedTextBox ModelTextBox, ref MaskedTextBox BrandTextBox)
+        {
+            if (IsEmpty(ref ModelTextBox)) ModelTextBox.BackColor = Color.LightCoral;
+            if (IsEmpty(ref BrandTextBox)) BrandTextBox.BackColor = Color.LightCoral;
+        }
+
     }
 }

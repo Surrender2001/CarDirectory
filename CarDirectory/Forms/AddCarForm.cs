@@ -61,18 +61,17 @@ namespace CarDirectory
             }
         }
 
-        private void CheckTextBox()
-        {            
-            if(IsEmpty(ref ModelTextBox)) ModelTextBox.BackColor = Color.LightCoral;
-            if(IsEmpty(ref BrandTextBox)) BrandTextBox.BackColor = Color.LightCoral;
-            if(!IsCorrectYear(ref StartTextBox)) StartTextBox.BackColor = Color.LightCoral;
-            if (!IsCorrectEndYear(ref EndTextBox)) EndTextBox.BackColor = Color.LightCoral;
-
-        }
+        //private void CheckTextBox()
+        //{            
+        //    if(IsEmpty(ref ModelTextBox)) ModelTextBox.BackColor = Color.LightCoral;
+        //    if(IsEmpty(ref BrandTextBox)) BrandTextBox.BackColor = Color.LightCoral;
+        //    if(!IsCorrectYear(ref StartTextBox)) StartTextBox.BackColor = Color.LightCoral;
+        //    if (!IsCorrectEndYear(ref EndTextBox)) EndTextBox.BackColor = Color.LightCoral;
+        //}
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            CheckTextBox();
+            CheckTextBox(ref ModelTextBox, ref BrandTextBox, ref StartTextBox, ref EndTextBox);
             if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
             {
                 DialogResult = DialogResult.OK;
@@ -172,7 +171,7 @@ namespace CarDirectory
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                CheckTextBox();
+                CheckTextBox(ref ModelTextBox, ref BrandTextBox, ref StartTextBox, ref EndTextBox); 
                 if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
                 {
                     DialogResult = DialogResult.OK;

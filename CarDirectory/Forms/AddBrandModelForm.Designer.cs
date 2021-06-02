@@ -86,6 +86,8 @@ namespace CarDirectory
             this.ModelTextBox.Name = "ModelTextBox";
             this.ModelTextBox.Size = new System.Drawing.Size(249, 31);
             this.ModelTextBox.TabIndex = 8;
+            this.ModelTextBox.Click += new System.EventHandler(this.ModelTextBox_Click);
+            this.ModelTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModelTextBox_KeyDown);
             // 
             // BrandTextBox
             // 
@@ -101,6 +103,8 @@ namespace CarDirectory
             this.BrandTextBox.RejectInputOnFirstFailure = true;
             this.BrandTextBox.Size = new System.Drawing.Size(249, 31);
             this.BrandTextBox.TabIndex = 7;
+            this.BrandTextBox.Click += new System.EventHandler(this.BrandTextBox_Click);
+            this.BrandTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BrandTextBox_KeyDown);
             // 
             // label5
             // 
