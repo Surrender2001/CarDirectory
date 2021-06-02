@@ -34,7 +34,11 @@ namespace CarDirectory
         public bool Equals(Car other)
         {
             if (other == null) return false;
-            return Brand.Equals(other.Brand) && Model.Equals(other.Model);
+            return Brand.Equals(other.Brand) && Model.Equals(other.Model)&&Start==other.Start&&End==other.End;
+        }
+        public bool Equals(string brand,string model)
+        {
+            return Brand.Equals(brand) && Model.Equals(model);
         }
     }
 }

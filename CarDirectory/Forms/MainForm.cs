@@ -55,7 +55,6 @@ namespace CarDirectory
             StreamReader input = null;
             try
             {
-                int hash=0;
                 input = new StreamReader(openFileDialog1.FileName, Encoding.Default);
                 dataGridView.Rows.Clear();
                 while (!input.EndOfStream)
@@ -181,7 +180,7 @@ namespace CarDirectory
 
         private void HashButton_Click(object sender, EventArgs e)
         {
-            var hashForm = new HashForm(ref hashTable,ref dataGridView);
+            var hashForm = new HashForm(ref hashTable,ref dataGridView,ref cars);
             DialogResult dialogResult = hashForm.ShowDialog();
 
         } 

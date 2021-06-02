@@ -23,7 +23,6 @@ namespace CarDirectory
             Hide();
         }
 
-        BrandAndModel br;
 
         public BrandAndModel GetBrandAndModel()
         {

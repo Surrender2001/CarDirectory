@@ -82,7 +82,7 @@ namespace CarDirectory
 
         //    return hash;
         //}
-        /
+        //
         public int GetHash(string key)
         {
             int s = 0, hash1, hash2, hash = 0;

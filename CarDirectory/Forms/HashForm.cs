@@ -19,21 +19,20 @@ namespace CarDirectory
         {
             InitializeComponent();
         }
-        public HashForm(ref HashTable table):this()
-        {
-            hashTableTemp = table;
-        }
 
-        public HashForm(ref HashTable table,ref DataGridView dataGridView) : this(ref table)
+        public HashForm(ref HashTable table,ref DataGridView dataGridView,ref List<Car>cars) : this()
         {
-            dataGridView.Rows.Clear();
+            hashTable = table;
+            carList = cars;
+            gridView = dataGridView;
         }
 
         private HashTable hashTableTemp = new HashTable();
 
         List<BrandAndModel> cars = new List<BrandAndModel>();
         HashTable hashTable = new HashTable();
-        
+        List<Car> carList = new List<Car>();
+        DataGridView gridView = new DataGridView();
 
         private void ReadDbButton_Click(object sender, EventArgs e)
         {
@@ -144,6 +143,12 @@ namespace CarDirectory
                         if (result == DialogResult.Yes)
                         {
                             hashTableTemp.Delete(new BrandAndModel(brand, model));
+                            for (int i = 0; i < carList.Count; i++)
+                            {
+                                if (carList[i].Equals(carList[i].Brand, carList[i].Model))
+                                    carList.RemoveAt(i);
+                            }
+                            RefreshDataGridView(ref carList, ref gridView, ref hashTableTemp);
                         }
                         else return;
 
