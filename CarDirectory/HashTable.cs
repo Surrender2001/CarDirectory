@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarDirectory
 {
-    public class BrandAndModel : IEquatable<BrandAndModel>
+    public class BrandAndModel //: IEquatable<BrandAndModel>
     {
 
       
@@ -31,7 +31,7 @@ namespace CarDirectory
         }
     }
 
-    public class HashTable : System.Collections.Generic.IEnumerable<BrandAndModel>
+    public class HashTable //: System.Collections.Generic.IEnumerable<BrandAndModel>
     {        
         private BrandAndModel[] hashtable = new BrandAndModel[DEFAULT_SIZE];
         private const double MAX_FULLNESS = 0.7;
@@ -62,18 +62,61 @@ namespace CarDirectory
             }
             return hashtable[hash] != null && !hashtable[hash].Deleted ? hash : -1;
         }
-        public bool Contains(string key) => GetIndex(key) != -1;
-        public string GetValue(string key)
-        {
 
-            int index = GetIndex(key);
-            return index != -1 ? hashtable[index].Brand+ hashtable[index].Model : default;
-        }
-        public BrandAndModel GetPair(string key)
+        //public int GetHash(string key)
+        //{
+        //    if (Fullness > MAX_FULLNESS) Expand();
+        //    int i = 0;
+        //    int hash = Hash(key, i);
+        //    while (!hashtable[hash].Equals(key))
+        //    {
+        //        i++;
+        //        hash = Hash(key, i);
+        //    }
+        //    //if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Equals(key))
+        //    //{
+        //    //    hashtable[hash] = bam;
+        //    //    Count++;
+        //    //}
+        //    //hash1 = hash;
+
+        //    return hash;
+        //}
+
+        public int GetHash(string key)
         {
-            int index = GetIndex(key);
-            return index != -1 ? hashtable[index] : null;
+            int s = 0, prime = 0, hash1, hash2, hash = 0;
+            for (int i = 0; i < key.Length; i++)
+                s += key[i];
+
+            hash1 = H1(key);
+            if (hashtable[hash1].ToString() == key)
+                return hash1;
+            else
+            {
+                hash2 = H2(key);
+                for (int i = 1; i < Size; ++i)
+                {
+                    hash = (hash1 + i * hash2) % Size;
+                    if (hashtable[hash].ToString() == key)
+                        return hash;
+                }
+            }
+            return -1;
         }
+
+        public bool Contains(string key) => GetIndex(key) != -1;
+        //public string GetValue(string key)
+        //{
+
+        //    int index = GetIndex(key);
+        //    return index != -1 ? hashtable[index].Brand+ hashtable[index].Model : default;
+        //}
+        //public BrandAndModel GetPair(string key)
+        //{
+        //    int index = GetIndex(key);
+        //    return index != -1 ? hashtable[index] : null;
+        //}
         public void Delete(BrandAndModel bam)
         {
             int index = GetIndex(bam.ToString());
@@ -127,23 +170,23 @@ namespace CarDirectory
                 Count++;
             }
         }
-        public void Add(BrandAndModel bam,out int hash1)
-        {
-            if (Fullness > MAX_FULLNESS) Expand();
-            int i = 0;
-            int hash = Hash(bam.ToString(), i);
-            while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Equals(bam))
-            {
-                i++;
-                hash = Hash(bam.ToString(), i);
-            }
-            if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Equals(bam))
-            {
-                hashtable[hash] = bam;
-                Count++;
-            }
-            hash1 = hash;
-        }
+        //public void Add(BrandAndModel bam,out int hash1)
+        //{
+        //    if (Fullness > MAX_FULLNESS) Expand();
+        //    int i = 0;
+        //    int hash = Hash(bam.ToString(), i);
+        //    while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Equals(bam))
+        //    {
+        //        i++;
+        //        hash = Hash(bam.ToString(), i);
+        //    }
+        //    if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Equals(bam))
+        //    {
+        //        hashtable[hash] = bam;
+        //        Count++;
+        //    }
+        //    hash1 = hash;
+        //}
         private int KeyToInt(string key)
         {
             int value = 0;

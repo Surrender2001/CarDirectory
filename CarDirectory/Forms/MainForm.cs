@@ -61,6 +61,7 @@ namespace CarDirectory
                 {
                     string s = input.ReadLine();
                     string[] subs = s.Split(new char[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                    //check correct values
                     Car car = new Car
                     {
                         Brand = subs[0],
@@ -69,8 +70,8 @@ namespace CarDirectory
                         End = subs[3]
                     };
                     cars.Add(car);
-                    hashTable.Add(new BrandAndModel(car.Brand,car.Model),out hash);
-                    dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);                        
+                    hashTable.Add(new BrandAndModel(car.Brand,car.Model));
+                    //dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);                        
                 }
                 RefreshDataGridView();
                 MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
@@ -169,9 +170,13 @@ namespace CarDirectory
 
         private void RefreshDataGridView()
         {
+            int hash = 0;
             dataGridView.Rows.Clear();
             foreach (var car in cars)
-                dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, 0);
+            {
+                hash = hashTable.GetHash(car.Brand + car.Model);
+                dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);
+            }
         }
     }
 }
