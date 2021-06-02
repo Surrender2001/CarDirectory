@@ -1,7 +1,7 @@
 ﻿
 namespace CarDirectory.Forms
 {
-    partial class DeleteForm
+    partial class DeleteBrandAndModelForm
     {
         /// <summary>
         /// Required designer variable.
@@ -126,7 +126,7 @@ namespace CarDirectory.Forms
             this.BrandTextBox.TabIndex = 30;
             this.BrandTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BrandTextBox_KeyDown);
             // 
-            // DeleteForm
+            // DeleteBrandAndModelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -142,7 +142,7 @@ namespace CarDirectory.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "DeleteForm";
+            this.Name = "DeleteBrandAndModelForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Удалить";
             this.ResumeLayout(false);

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static CarDirectory.HelpMethod;
 
 namespace CarDirectory
 {
@@ -73,7 +74,7 @@ namespace CarDirectory
                     hashTable.Add(new BrandAndModel(car.Brand,car.Model));
                     //dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);                        
                 }
-                RefreshDataGridView();
+                RefreshDataGridView(ref cars,ref dataGridView,ref hashTable);
                 MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
                     $"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness,2)*100}%\n" +
                     $"Вместительность {hashTable.CurrentSize}",
@@ -147,7 +148,7 @@ namespace CarDirectory
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             string brand = "", model = "";
-            var deleteForm = new DeleteForm();
+            var deleteForm = new DeleteBrandAndModelForm();
             DialogResult dialogResult = deleteForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
@@ -157,7 +158,7 @@ namespace CarDirectory
                     hashTable.Delete(brand + " " + model);
                     cars.Remove(new Car() { Brand = brand, Model = model });
                     dataGridView.Rows.Clear();
-                    RefreshDataGridView();
+                    RefreshDataGridView(ref cars, ref dataGridView,ref hashTable);
                     MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -168,22 +169,22 @@ namespace CarDirectory
             deleteForm.Dispose();
         }
 
-        private void RefreshDataGridView()
-        {
-            int hash = 0;
-            dataGridView.Rows.Clear();
-            foreach (var car in cars)
-            {
-                hash = hashTable.GetHash(car.Brand + car.Model);
-                dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);
-            }
-        }
+        //public void RefreshDataGridView()
+        //{
+        //    int hash = 0;
+        //    dataGridView.Rows.Clear();
+        //    foreach (var car in cars)
+        //    {
+        //        hash = hashTable.GetHash(car.Brand + car.Model);
+        //        dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);
+        //    }
+        //}
 
         private void HashButton_Click(object sender, EventArgs e)
         {
-            var hashForm = new HashForm(ref hashTable);
+            var hashForm = new HashForm(ref hashTable,ref dataGridView);
             DialogResult dialogResult = hashForm.ShowDialog();
 
-        }
+        } 
     }
 }

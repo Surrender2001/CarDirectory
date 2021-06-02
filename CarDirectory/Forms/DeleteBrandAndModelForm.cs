@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CarDirectory.Forms
 {
-    public partial class DeleteForm : Form
+    public partial class DeleteBrandAndModelForm : Form
     {
-        public DeleteForm()
+        public DeleteBrandAndModelForm()
         {
             InitializeComponent();
         }
@@ -68,6 +68,5 @@ namespace CarDirectory.Forms
             ActiveControl = BrandTextBox;
             return check;
         }
-
     }
 }
