@@ -147,16 +147,15 @@ namespace CarDirectory
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            string brand = "", model = "";
-            var deleteForm = new DeleteBrandAndModelForm();
+            DeleteCarForm deleteForm = new DeleteCarForm();
             DialogResult dialogResult = deleteForm.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                deleteForm.GetCarName(out brand,out  model);
-                if (hashTable.Contains(brand + model))
+                Car car=deleteForm.GetCar();
+                if (hashTable.Contains(car.Brand + car.Model))
                 {
-                    hashTable.Delete(brand + " " + model);
-                    cars.Remove(new Car() { Brand = brand, Model = model });
+                    hashTable.Delete(car.Brand + car.Model);
+                    cars.Remove(new Car() { Brand = car.Brand, Model = car.Model });
                     dataGridView.Rows.Clear();
                     RefreshDataGridView(ref cars, ref dataGridView,ref hashTable);
                     MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);

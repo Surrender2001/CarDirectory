@@ -16,5 +16,16 @@ namespace CarDirectory
         {
             InitializeComponent();
         }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Hide();
+        }
+        public Car GetCar()
+        {
+            return new Car() { Brand=BrandTextBox.Text, Model =ModelTextBox.Text, Start=int.Parse(StartTextBox.Text), End=EndTextBox.Text };
+        }
+
     }
 }
