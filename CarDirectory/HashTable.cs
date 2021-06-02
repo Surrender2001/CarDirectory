@@ -94,22 +94,7 @@ namespace CarDirectory
             }
 
         }
-        //public void Add(string key, TValue value)
-        //{
-        //    if (Fullness > MAX_FULLNESS) Expand();
-        //    int i = 0;
-        //    int hash = Hash(key, i);
-        //    while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Key.Equals(key))
-        //    {
-        //        i++;
-        //        hash = Hash(key, i);
-        //    }
-        //    if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Key.Equals(key))
-        //    {
-        //        hashtable[hash] = new BrandAndModel(key, value);
-        //        Count++;
-        //    }
-        //}
+
         public void Add(BrandAndModel bam)
         {
             if (Fullness > MAX_FULLNESS) Expand();
