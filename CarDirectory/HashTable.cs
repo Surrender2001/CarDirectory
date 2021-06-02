@@ -6,157 +6,194 @@ using System.Threading.Tasks;
 
 namespace CarDirectory
 {
-    class HashTable
+    public class BrandAndModel : IEquatable<BrandAndModel>
     {
-        
-        private const int DEFAULT_SIZE = 5;
-        public int Size { get; private set; }
+
+      
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public bool Deleted { get; set; }
+        public BrandAndModel(string key, string value)
+        {
+            Brand = key;
+            Model = value;
+            Deleted = false;
+        }
+
+        public bool Equals(BrandAndModel other)
+        {
+            return other.Brand == Brand && other.Model == Model;
+        }
+
+        public override string ToString() 
+        {
+            return Brand + Model;
+        }
+    }
+
+    public class Hashtable : System.Collections.Generic.IEnumerable<BrandAndModel>
+    {        
+        private BrandAndModel[] hashtable = new BrandAndModel[DEFAULT_SIZE];
+        private const double MAX_FULLNESS = 0.7;
+        private const double MIN_FULLNESS = 0.2;
         private const double GOLDEN_RATIO = 0.618033;
-        private double Fullness = 0;
-        private string[] Cars;
-     
-        public HashTable()
+        private const int DEFAULT_SIZE = 8;
+
+        private int Size = DEFAULT_SIZE;
+        private int Count = 0;
+        public double Fullness => (double)Count / Size;
+        public int Stores => Count;
+        public int CurrentSize => Size;
+        public void Clear()
         {
             Size = DEFAULT_SIZE;
-            Cars = new string[Size];
+            Count = 0;
+            hashtable = new BrandAndModel[DEFAULT_SIZE];
         }
-
-        public int GetNewHash(string key)
+        protected int GetIndex(string key)
         {
-            int s = 0, prime = 0,hash1,hash2,hash=0;
-            for (int i = 0; i < key.Length; i++)
-                s += key[i];
-
-            hash1 = (int)Math.Floor(Size * (s * GOLDEN_RATIO % 1)) ;
-            if (Cars[hash1] == null)
-                return hash1;
-            else
+            int i = 0;
+            int hash = Hash(key, i);
+            while (hashtable[hash] != null && !hashtable[hash].Equals(key))
             {
-                for (int i = Size-1; i > 2; --i)
-                    if (IsPrime(i))
-                    {
-                        prime = i;
-                        break;
-                    }
-                hash2=prime;
-                for (int i = 1; i < Size; ++i)
-                {
-                    hash = (hash1 + i * hash2) % Size;
-                    if (Cars[hash] == null)
-                        return hash;
-                }
+                i++;
+                hash = Hash(key, i);
+            }
+            return hashtable[hash] != null && !hashtable[hash].Deleted ? hash : -1;
+        }
+        public bool Contains(string key) => GetIndex(key) != -1;
+        public string GetValue(string key)
+        {
+
+            int index = GetIndex(key);
+            return index != -1 ? hashtable[index].Brand+ hashtable[index].Model : default;
+        }
+        public BrandAndModel GetPair(string key)
+        {
+            int index = GetIndex(key);
+            return index != -1 ? hashtable[index] : null;
+        }
+        public void Delete(BrandAndModel bam)
+        {
+            int index = GetIndex(bam.ToString());
+            if (index != -1)
+            {
+                hashtable[index].Deleted = true;
+                Count--;
+                if (Fullness < MIN_FULLNESS) Reduce();
+            }
+        }
+        public void Delete(string key)
+        {
+            int index = GetIndex(key);
+            if (index != -1)
+            {
+                hashtable[index].Deleted = true;
+                Count--;
+                if (Fullness < MIN_FULLNESS) Reduce();
             }
 
-
-            return -1;
         }
-        
-        public int GetHash(string key)
+        //public void Add(string key, TValue value)
+        //{
+        //    if (Fullness > MAX_FULLNESS) Expand();
+        //    int i = 0;
+        //    int hash = Hash(key, i);
+        //    while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Key.Equals(key))
+        //    {
+        //        i++;
+        //        hash = Hash(key, i);
+        //    }
+        //    if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Key.Equals(key))
+        //    {
+        //        hashtable[hash] = new BrandAndModel(key, value);
+        //        Count++;
+        //    }
+        //}
+        public void Add(BrandAndModel bam)
         {
-            int s = 0, prime = 0, hash1, hash2, hash=0;
-            for (int i = 0; i < key.Length; i++)
-                s += key[i];
-
-            hash1 = (int)Math.Floor(Size * (s * GOLDEN_RATIO % 1));
-            if (Cars[hash1] == key)
-                return hash1;
-            else
+            if (Fullness > MAX_FULLNESS) Expand();
+            int i = 0;
+            int hash = Hash(bam.ToString(), i);
+            while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Equals(bam))
             {
-                for (int i = Size - 1; i > 2; --i)
-                    if (IsPrime(i))
-                    {
-                        prime = i;
-                        break;
-                    }
-                hash2 = prime;
-                for (int i = 1; i < Size; ++i)
-                {
-                    hash = (hash1 + i * hash2) % Size;
-                    if (Cars[hash] == key)
-                        return hash;
-                }
+                i++;
+                hash = Hash(bam.ToString(), i);
             }
-            return -1;
+            if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Equals(bam))
+            {
+                hashtable[hash] = bam;
+                Count++;
+            }
+        }
+        private int KeyToInt(string key)
+        {
+            int value = 0;
+            foreach (var ch in key) value += ch;
+            return value;
+        }
+        private int Hash(string key, int i) => (H1(key) + i * H2(key)) % Size;
+        private int H1(string key)
+        {
+            return (int)Math.Floor(Size * (KeyToInt(key) * GOLDEN_RATIO % 1)); 
+        }
+        private int H2(string key)
+        {
+            int prime=2;
+            for (int i = Size - 1; i > 2; --i)
+                if (IsPrime(i))
+                {
+                    prime = i;
+                    break;
+                }
+           return prime;
         }
 
         private bool IsPrime(int a)
         {
             int count = 0;
-            for (int i = 2; i*i < a; ++i)
+            for (int i = 2; i * i < a; ++i)
                 if (a % i == 0)
-                    ++count;  
-            if (a == 1 || count != 0) 
+                    ++count;
+            if (a == 1 || count != 0)
                 return false;
-            else 
+            else
                 return true;
         }
 
-        public void Add(string brand,string model,out int hash)
+        private void Expand()
         {
-            hash = GetNewHash(brand + model);
-            Cars[hash] = brand+" "+model;
-            Fullness++;
-        }
-
-        public void Clear()
-        {
-            Size = DEFAULT_SIZE;
-            Cars = new string[Size];
-            Fullness = 0;
-        }
-
-        public double GetFullness()
-        {
-            return Fullness/ Size * 100;
-        }
-
-        public void Resize()
-        {
-            Fullness = 0;
-            string[] tmpCars = new string[Size];
-            Cars.CopyTo(tmpCars, 0);
+            var oldtable = hashtable;
+            Count = 0;
             Size *= 2;
-            Cars =new string[Size];
-            for (int i = 0; i < tmpCars.Length; i++)
-                if (tmpCars[i] != null)
-                    Add(tmpCars[i]);
+            hashtable = new BrandAndModel[Size];
+            foreach (var item in oldtable) if (item != null) Add(item);
+        }
+        private void Reduce()
+        {
+            if (Size <= DEFAULT_SIZE) return;
+            var oldtable = hashtable;
+            Count = 0;
+            Size /= 2;
+            hashtable = new BrandAndModel[Size];
+            foreach (var item in oldtable) if (item != null && !item.Deleted) Add(item);
         }
 
-        private void Add(string brandAndModel)
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            Cars[GetNewHash(brandAndModel)] = brandAndModel;
-            Fullness++;
+            int i = 0;
+            while (i < Size && hashtable[i] == null) i++;
+            if (hashtable[i] != null && !hashtable[i].Deleted) yield return hashtable[i];
         }
-
-        public bool IsThere(string brandAndModel)=>GetHash(brandAndModel) != -1;
-
-
-        public void Delete(string key)
+        System.Collections.Generic.IEnumerator<BrandAndModel> System.Collections.Generic.IEnumerable<BrandAndModel>.GetEnumerator()
         {
-            int s = 0, prime = 0, hash1, hash2, hash = 0;
-            for (int i = 0; i < key.Length; i++)
-                s += key[i];
-
-            hash1 = (int)Math.Floor(Size * (s * GOLDEN_RATIO % 1));
-            if (Cars[hash1] == key)
-                Cars[hash1] = null;
-            else
+            int i = 0;
+            while (i < Size)
             {
-                for (int i = Size - 1; i > 2; --i)
-                    if (IsPrime(i))
-                    {
-                        prime = i;
-                        break;
-                    }
-                hash2 = prime;
-                for (int i = 1; i < Size; ++i)
-                {
-                    hash = (hash1 + i * hash2) % Size;
-                    if (Cars[hash] == key)
-                        Cars[hash] = null;
-                }
+                while (i + 1 < Size && hashtable[i] == null) i++;
+                if (hashtable[i] != null && !hashtable[i].Deleted) yield return hashtable[i];
+                i++;
             }
-            Fullness--;
         }
     }
 }

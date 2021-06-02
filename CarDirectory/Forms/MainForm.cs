@@ -21,7 +21,7 @@ namespace CarDirectory
         }
         
         List<Car> cars = new List<Car>();
-        HashTable hashTable = new HashTable();
+        HashTable<string,Car> hashTable = new HashTable<string, Car>();
         HashSet<string> setBrand=new HashSet<string>();
         private void CloseLabel_Click(object sender, EventArgs e)
         {
