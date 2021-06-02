@@ -31,7 +31,7 @@ namespace CarDirectory
         }
     }
 
-    public class Hashtable : System.Collections.Generic.IEnumerable<BrandAndModel>
+    public class HashTable : System.Collections.Generic.IEnumerable<BrandAndModel>
     {        
         private BrandAndModel[] hashtable = new BrandAndModel[DEFAULT_SIZE];
         private const double MAX_FULLNESS = 0.7;
@@ -50,6 +50,7 @@ namespace CarDirectory
             Count = 0;
             hashtable = new BrandAndModel[DEFAULT_SIZE];
         }
+
         protected int GetIndex(string key)
         {
             int i = 0;
@@ -94,7 +95,22 @@ namespace CarDirectory
             }
 
         }
-
+        //public void Add(string key, out index)
+        //{
+        //    if (Fullness > MAX_FULLNESS) Expand();
+        //    int i = 0;
+        //    int hash = Hash(key, i);
+        //    while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Key.Equals(key))
+        //    {
+        //        i++;
+        //        hash = Hash(key, i);
+        //    }
+        //    if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Key.Equals(key))
+        //    {
+        //        hashtable[hash] = new BrandAndModel(key, value);
+        //        Count++;
+        //    }
+        //}
         public void Add(BrandAndModel bam)
         {
             if (Fullness > MAX_FULLNESS) Expand();
@@ -110,6 +126,23 @@ namespace CarDirectory
                 hashtable[hash] = bam;
                 Count++;
             }
+        }
+        public void Add(BrandAndModel bam,out int hash1)
+        {
+            if (Fullness > MAX_FULLNESS) Expand();
+            int i = 0;
+            int hash = Hash(bam.ToString(), i);
+            while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Equals(bam))
+            {
+                i++;
+                hash = Hash(bam.ToString(), i);
+            }
+            if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Equals(bam))
+            {
+                hashtable[hash] = bam;
+                Count++;
+            }
+            hash1 = hash;
         }
         private int KeyToInt(string key)
         {
@@ -164,21 +197,21 @@ namespace CarDirectory
             foreach (var item in oldtable) if (item != null && !item.Deleted) Add(item);
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            int i = 0;
-            while (i < Size && hashtable[i] == null) i++;
-            if (hashtable[i] != null && !hashtable[i].Deleted) yield return hashtable[i];
-        }
-        System.Collections.Generic.IEnumerator<BrandAndModel> System.Collections.Generic.IEnumerable<BrandAndModel>.GetEnumerator()
-        {
-            int i = 0;
-            while (i < Size)
-            {
-                while (i + 1 < Size && hashtable[i] == null) i++;
-                if (hashtable[i] != null && !hashtable[i].Deleted) yield return hashtable[i];
-                i++;
-            }
-        }
+        //System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        //{
+        //    int i = 0;
+        //    while (i < Size && hashtable[i] == null) i++;
+        //    if (hashtable[i] != null && !hashtable[i].Deleted) yield return hashtable[i];
+        //}
+        //System.Collections.Generic.IEnumerator<BrandAndModel> System.Collections.Generic.IEnumerable<BrandAndModel>.GetEnumerator()
+        //{
+        //    int i = 0;
+        //    while (i < Size)
+        //    {
+        //        while (i + 1 < Size && hashtable[i] == null) i++;
+        //        if (hashtable[i] != null && !hashtable[i].Deleted) yield return hashtable[i];
+        //        i++;
+        //    }
+        //}
     }
 }
