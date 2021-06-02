@@ -154,7 +154,7 @@ namespace CarDirectory
                 if (hashTable.Contains(car.Brand + car.Model))
                 {
                     hashTable.Delete(car.Brand + car.Model);
-                    cars.Remove(new Car() { Brand = car.Brand, Model = car.Model });
+                    cars.Remove(new Car() { Brand = car.Brand, Model = car.Model, Start = car.Start, End = car.End });
                     dataGridView.Rows.Clear();
                     RefreshDataGridView(ref cars, ref dataGridView,ref hashTable);
                     MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -167,22 +167,10 @@ namespace CarDirectory
             deleteForm.Dispose();
         }
 
-        //public void RefreshDataGridView()
-        //{
-        //    int hash = 0;
-        //    dataGridView.Rows.Clear();
-        //    foreach (var car in cars)
-        //    {
-        //        hash = hashTable.GetHash(car.Brand + car.Model);
-        //        dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);
-        //    }
-        //}
-
         private void HashButton_Click(object sender, EventArgs e)
         {
             var hashForm = new HashForm(ref hashTable,ref dataGridView,ref cars);
             DialogResult dialogResult = hashForm.ShowDialog();
-
-        } 
+        }
     }
 }

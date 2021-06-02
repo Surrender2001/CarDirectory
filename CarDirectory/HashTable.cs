@@ -171,23 +171,23 @@ namespace CarDirectory
                 Count++;
             }
         }
-        public void Add(BrandAndModel bam, out int hash1)
-        {
-            if (Fullness > MAX_FULLNESS) Expand();
-            int i = 0;
-            int hash = Hash(bam.ToString(), i);
-            while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Equals(bam))
-            {
-                i++;
-                hash = Hash(bam.ToString(), i);
-            }
-            if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Equals(bam))
-            {
-                hashtable[hash] = bam;
-                Count++;
-            }
-            hash1 = hash;
-        }
+        //public void Add(BrandAndModel bam, out int hash1)
+        //{
+        //    if (Fullness > MAX_FULLNESS) Expand();
+        //    int i = 0;
+        //    int hash = Hash(bam.ToString(), i);
+        //    while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Equals(bam))
+        //    {
+        //        i++;
+        //        hash = Hash(bam.ToString(), i);
+        //    }
+        //    if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Equals(bam))
+        //    {
+        //        hashtable[hash] = bam;
+        //        Count++;
+        //    }
+        //    hash1 = hash;
+        //}
         private int KeyToInt(string key)
         {
             int value = 0;

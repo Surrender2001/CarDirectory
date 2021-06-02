@@ -22,16 +22,15 @@ namespace CarDirectory
 
         public HashForm(ref HashTable table,ref DataGridView dataGridView,ref List<Car>cars) : this()
         {
-            hashTable = table;
+            hashTableTemp = table;
             carList = cars;
             gridView = dataGridView;
         }
 
         private HashTable hashTableTemp = new HashTable();
-
+        List<Car> carList = new List<Car>();
         List<BrandAndModel> cars = new List<BrandAndModel>();
         HashTable hashTable = new HashTable();
-        List<Car> carList = new List<Car>();
         DataGridView gridView = new DataGridView();
 
         private void ReadDbButton_Click(object sender, EventArgs e)
