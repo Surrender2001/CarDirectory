@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static CarDirectory.HelpMethod;
 
 namespace CarDirectory.Forms
 {
@@ -19,7 +20,7 @@ namespace CarDirectory.Forms
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (checkIsEmpty())
+            if (!IsEmpty(ref ModelTextBox))
             {
                 DialogResult = DialogResult.OK;
                 Hide();
@@ -47,7 +48,7 @@ namespace CarDirectory.Forms
             ModelTextBox.BackColor = Color.Beige;
             if (e.KeyCode == Keys.Enter)
             {
-                if(checkIsEmpty())
+                if(!IsEmpty(ref ModelTextBox))
                 {
                     e.SuppressKeyPress = true;
                     DialogResult = DialogResult.OK;
@@ -57,16 +58,16 @@ namespace CarDirectory.Forms
             }
         }
 
-        private bool checkIsEmpty()
-        {
-            bool check = true;
-            if (BrandTextBox.Text.Length == 0 || ModelTextBox.Text.Length == 0)
-                check = false;
-            BrandTextBox.BackColor = BrandTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
-            ModelTextBox.BackColor = ModelTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
-            if (!check) MessageBox.Show("Заполните поля, выделенные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            ActiveControl = BrandTextBox;
-            return check;
-        }
+        //private bool checkIsEmpty()
+        //{
+        //    bool check = true;
+        //    if (BrandTextBox.Text.Length == 0 || ModelTextBox.Text.Length == 0)
+        //        check = false;
+        //    BrandTextBox.BackColor = BrandTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
+        //    ModelTextBox.BackColor = ModelTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
+        //    if (!check) MessageBox.Show("Заполните поля, выделенные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //    ActiveControl = BrandTextBox;
+        //    return check;
+        //}
     }
 }

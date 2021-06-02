@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static CarDirectory.HelpMethod;
 
 namespace CarDirectory
 {
@@ -59,79 +60,80 @@ namespace CarDirectory
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (IsCorrectCar())
+            if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
             {
                 DialogResult = DialogResult.OK;
                 Hide();
             }
-            else return;
+            else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private bool IsCorrectCar()
         {
-            return checkIsEmpty() && checkIsCorrectYear();
+            return checkIsEmpty(); //&& checkIsCorrectYear();
         }
         Car car;
         public Car AddNewCar()
         {
-            if (IsCorrectCar())
+            if (!IsEmpty(ref ModelTextBox)&&!IsEmpty(ref BrandTextBox)&&IsCorrectYear(ref StartTextBox)&& IsCorrectEndYear(ref EndTextBox))
                 car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
+            FixEndCar(ref car);
             return car;
         }
 
-        private bool checkIsCorrectYear()
-        {
-            if (EndTextBox.Text == "")
-                return true;
-            bool start=true, end=true;
-            if (!(EndTextBox.Text.Length == 0 || EndTextBox.Text.Length == 4))
-            {
-                ActiveControl = EndTextBox;
-                EndTextBox.BackColor = Color.LightCoral;
-                end = false;
-            }
-            else if (EndTextBox.Text.Length == 4)
-                end = isRealDate(int.Parse(EndTextBox.Text));
+        //private bool checkIsCorrectYear()
+        //{
+        //    if (EndTextBox.Text == "")
+        //        return true;
+        //    bool start=true, end=true;
+        //    if (!(EndTextBox.Text.Length == 0 || EndTextBox.Text.Length == 4))
+        //    {
+        //        ActiveControl = EndTextBox;
+        //        EndTextBox.BackColor = Color.LightCoral;
+        //        end = false;
+        //    }
+        //    else if (EndTextBox.Text.Length == 4)
+        //        end = isRealDate(int.Parse(EndTextBox.Text));
 
-            if(StartTextBox.Text.Length != 4)
-            { 
-                ActiveControl = StartTextBox;
-                StartTextBox.BackColor = Color.LightCoral;
-                start = false;
-            }
-            else if (StartTextBox.Text.Length == 4)
-                start = isRealDate(int.Parse(StartTextBox.Text));
+        //    if(StartTextBox.Text.Length != 4)
+        //    { 
+        //        ActiveControl = StartTextBox;
+        //        StartTextBox.BackColor = Color.LightCoral;
+        //        start = false;
+        //    }
+        //    else if (StartTextBox.Text.Length == 4)
+        //        start = isRealDate(int.Parse(StartTextBox.Text));
 
-            if(start&&end)
-                if(int.Parse(StartTextBox.Text)>int.Parse(EndTextBox.Text))
-                {
-                    MessageBox.Show("Год начала выпуска больше года конца выпуска", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    ActiveControl = EndTextBox;
-                    EndTextBox.BackColor = Color.LightCoral;
-                    return false;   
-                }    
-
-
-
-            if (!(start&&end))
-            {
-                MessageBox.Show("Некорректно введен год", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                if(!start)
-                {
-                    ActiveControl = StartTextBox;
-                    StartTextBox.BackColor = Color.LightCoral;
-                }
-                if (!end)
-                {
-                    ActiveControl = EndTextBox;
-                    EndTextBox.BackColor = Color.LightCoral;
-                }
-                return false;
-            }
+        //    if(start&&end)
+        //        if(int.Parse(StartTextBox.Text)>int.Parse(EndTextBox.Text))
+        //        {
+        //            MessageBox.Show("Год начала выпуска больше года конца выпуска", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //            ActiveControl = EndTextBox;
+        //            EndTextBox.BackColor = Color.LightCoral;
+        //            return false;   
+        //        }    
 
 
-            return start &&end;
-        }
+
+        //    if (!(start&&end))
+        //    {
+        //        MessageBox.Show("Некорректно введен год", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        if(!start)
+        //        {
+        //            ActiveControl = StartTextBox;
+        //            StartTextBox.BackColor = Color.LightCoral;
+        //        }
+        //        if (!end)
+        //        {
+        //            ActiveControl = EndTextBox;
+        //            EndTextBox.BackColor = Color.LightCoral;
+        //        }
+        //        return false;
+        //    }
+
+
+        //    return start &&end;
+        //}
 
         private bool isRealDate(int v)
         {

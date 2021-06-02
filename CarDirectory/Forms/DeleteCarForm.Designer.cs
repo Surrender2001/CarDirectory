@@ -223,7 +223,9 @@ namespace CarDirectory
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DeleteButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "DeleteCarForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DeleteCarForm";
             ((System.ComponentModel.ISupportInitialize)(this.InfoPictureBox1)).EndInit();
             this.ResumeLayout(false);

@@ -186,7 +186,7 @@ namespace CarDirectory
             this.AddButton.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.AddButton.Location = new System.Drawing.Point(183, 271);
             this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(156, 44);
+            this.AddButton.Size = new System.Drawing.Size(162, 44);
             this.AddButton.TabIndex = 4;
             this.AddButton.Text = "Добавить";
             this.AddButton.UseVisualStyleBackColor = false;
