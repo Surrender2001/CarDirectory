@@ -1048,28 +1048,7 @@ Toyota;Venza;2008;-
 Toyota;Verso;2009;-		
 Toyota;Vitz;2005;-		
 Toyota;Yaris;1999;-		
-Toyota;Yaris Verso;1999;2005		
-UAZ;Pickup;2008;-		
-UAZ;Патриот;2005;-		
-UAZ;Хантер;2003;-		
-VAZ;2101-2107;1976;2012		
-VAZ;2108	2109	 21099;1984;2004
-VAZ;2110	2111	 2112;1996;-
-VAZ;2113	2114	 2115;1997;-
-VAZ;4x4 Urban;2014;-		
-VAZ;Granta;2011;-		
-VAZ;Largus;2012;-		
-VAZ;Largus Cross;2015;-		
-VAZ;Vesta Cross;2018;-		
-VAZ;Vesta Sport;2018;-		
-VAZ;Vesta SW;2017;-		
-VAZ;XRay;2016;-		
-VAZ;XRay Cross;2018;-		
-VAZ;Веста;2015;-		
-VAZ;Калина;2004;-		
-VAZ;Нива 4X4;1977;-		
-VAZ;Ока;1988;2008		
-VAZ;Приора;2007;-		
+Toyota;Yaris Verso;1999;2005			
 Volkswagen;Amarok;1990;-		
 Volkswagen;Arteon;2017;-		
 Volkswagen;Beetle;2011;-		
