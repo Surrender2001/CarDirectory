@@ -17,13 +17,20 @@ namespace CarDirectory
         {
             InitializeComponent();
         }
+        public HashForm(ref HashTable table)
+        {
+            
+        }
 
         List<BrandAndModel> cars = new List<BrandAndModel>();
         HashTable hashTable = new HashTable();
 
         private void ReadDbButton_Click(object sender, EventArgs e)
         {
-            var openFileDialog1 = new OpenFileDialog();
+            var openFileDialog1 = new OpenFileDialog();                
+            dataGridView.Rows.Clear();
+            hashTable.Clear();
+            cars.Clear();
             openFileDialog1.Filter = "Справочник (*.txt)|*.txt";
             openFileDialog1.ShowDialog();
             if (openFileDialog1.FileName == "")
@@ -36,7 +43,7 @@ namespace CarDirectory
             {
                 int hash = 0;
                 input = new StreamReader(openFileDialog1.FileName, Encoding.Default);
-                dataGridView.Rows.Clear();
+
                 while (!input.EndOfStream)
                 {
                     string s = input.ReadLine();
@@ -75,6 +82,39 @@ namespace CarDirectory
                 hash = hashTable.GetHash(car.Brand + car.Model);
                 dataGridView.Rows.Add(car.Brand, car.Model,hashTable.GetHash(car.Brand + car.Model));
             }
+        }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+
+            var addForm = new AddForm();
+            DialogResult dialogResult = addForm.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                Car car = addForm.AddNewCar();
+                //if(car!=null)
+                //{
+
+                //    //if (!hashTable.IsThere(car.Brand + " " + car.Model))
+                //    //{
+                //    //    if (hashTable.GetFullness() > 70)
+                //    //    {
+                //    //        hashTable.Resize();
+                //    //        RefreshDataGridView();
+                //    //    }
+                //    //    if (car.End == "") car.End = "-";
+                //    //    cars.Add(car);
+                //    //    hashTable.Add(car.Brand, car.Model, out int hash);
+                //    //    dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);
+                //    //    MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    //}
+                //    //else MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //}
+
+            }
+            addForm.Dispose();
+
         }
     }
 }
