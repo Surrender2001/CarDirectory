@@ -62,6 +62,7 @@ namespace CarDirectory
             this.StartTextBox.Size = new System.Drawing.Size(61, 31);
             this.StartTextBox.TabIndex = 2;
             this.StartTextBox.ValidatingType = typeof(int);
+            this.StartTextBox.Click += new System.EventHandler(this.StartTextBox_Click);
             this.StartTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.StartTextBox_KeyDown);
             // 
             // EndTextBox
@@ -78,6 +79,7 @@ namespace CarDirectory
             this.EndTextBox.Size = new System.Drawing.Size(61, 31);
             this.EndTextBox.TabIndex = 3;
             this.EndTextBox.ValidatingType = typeof(int);
+            this.EndTextBox.Click += new System.EventHandler(this.EndTextBox_Click);
             this.EndTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EndTextBox_KeyDown);
             // 
             // label3
@@ -160,6 +162,7 @@ namespace CarDirectory
             this.BrandTextBox.Size = new System.Drawing.Size(228, 31);
             this.BrandTextBox.TabIndex = 0;
             this.BrandTextBox.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.BrandTextBox_MaskInputRejected);
+            this.BrandTextBox.Click += new System.EventHandler(this.BrandTextBox_Click);
             this.BrandTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BrandTextBox_KeyDown);
             // 
             // ModelTextBox
@@ -175,6 +178,7 @@ namespace CarDirectory
             this.ModelTextBox.Name = "ModelTextBox";
             this.ModelTextBox.Size = new System.Drawing.Size(228, 31);
             this.ModelTextBox.TabIndex = 1;
+            this.ModelTextBox.Click += new System.EventHandler(this.ModelTextBox_Click);
             this.ModelTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModelTextBox_KeyDown);
             // 
             // AddButton

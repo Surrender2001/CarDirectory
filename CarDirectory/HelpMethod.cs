@@ -35,14 +35,10 @@ namespace CarDirectory
     
         public static bool IsEmpty(ref MaskedTextBox textBox)
         {
-            if(textBox.Text.Length == 0)
-                textBox.BackColor = Color.LightCoral;
             return textBox.Text.Length == 0;
         }
         public static bool IsEmpty(ref TextBox textBox)
         {
-            if (textBox.Text.Length == 0)
-                textBox.BackColor = Color.LightCoral;
             return textBox.Text.Length == 0;
         }
         public static bool IsCorrectYear(ref MaskedTextBox textBox)

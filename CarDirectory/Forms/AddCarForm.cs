@@ -35,31 +35,44 @@ namespace CarDirectory
             {
                 e.SuppressKeyPress = true;
                 ActiveControl = ModelTextBox;
+                ModelTextBox.BackColor = Color.Beige;
             }
         }
 
         private void ModelTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            ModelTextBox.BackColor = Color.Beige;
+            
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 ActiveControl =StartTextBox;
+                StartTextBox.BackColor = Color.Beige;
             }
         }
 
         private void StartTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            StartTextBox.BackColor = Color.Beige;
+            
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 ActiveControl = EndTextBox;
+                EndTextBox.BackColor = Color.Beige;
             }
+        }
+
+        private void CheckTextBox()
+        {            
+            if(IsEmpty(ref ModelTextBox)) ModelTextBox.BackColor = Color.LightCoral;
+            if(IsEmpty(ref BrandTextBox)) BrandTextBox.BackColor = Color.LightCoral;
+            if(!IsCorrectYear(ref StartTextBox)) StartTextBox.BackColor = Color.LightCoral;
+            if (!IsCorrectEndYear(ref EndTextBox)) EndTextBox.BackColor = Color.LightCoral;
+
         }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
+            CheckTextBox();
             if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
             {
                 DialogResult = DialogResult.OK;
@@ -68,10 +81,10 @@ namespace CarDirectory
             else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        private bool IsCorrectCar()
-        {
-            return checkIsEmpty(); //&& checkIsCorrectYear();
-        }
+        //private bool IsCorrectCar()
+        //{
+        //    return checkIsEmpty(); //&& checkIsCorrectYear();
+        //}
         Car car;
         public Car AddNewCar()
         {
@@ -135,37 +148,37 @@ namespace CarDirectory
         //    return start &&end;
         //}
 
-        private bool isRealDate(int v)
-        {
-            return v <= 2021 && v >= 1968;
-        }
+        //private bool isRealDate(int v)
+        //{
+        //    return v <= 2021 && v >= 1968;
+        //}
 
-        private bool checkIsEmpty()
-        {   
-            bool check = true;
-            if (BrandTextBox.Text.Length == 0 || ModelTextBox.Text.Length == 0 || StartTextBox.Text.Length == 0)
-                check = false;
-            BrandTextBox.BackColor = BrandTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
-            ModelTextBox.BackColor = ModelTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
-            StartTextBox.BackColor = StartTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
+        //private bool checkIsEmpty()
+        //{   
+        //    bool check = true;
+        //    if (BrandTextBox.Text.Length == 0 || ModelTextBox.Text.Length == 0 || StartTextBox.Text.Length == 0)
+        //        check = false;
+        //    BrandTextBox.BackColor = BrandTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
+        //    ModelTextBox.BackColor = ModelTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
+        //    StartTextBox.BackColor = StartTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
 
-            if (!check) MessageBox.Show("Заполните поля, выделенные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            ActiveControl = BrandTextBox;
-            return check;
-        }
+        //    if (!check) MessageBox.Show("Заполните поля, выделенные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //    ActiveControl = label1;
+        //    return check;
+        //}
 
         private void EndTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            EndTextBox.BackColor = Color.Beige;
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                if (IsCorrectCar())
+                CheckTextBox();
+                if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
                 {
                     DialogResult = DialogResult.OK;
                     Hide();
                 }
-                else return;
+                else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -174,6 +187,26 @@ namespace CarDirectory
             toolTip1.ToolTipTitle = "Ограничение на год";
             toolTip1.Show(">1967 и <2022",InfoPictureBox1, 5000);
 
+        }
+
+        private void BrandTextBox_Click(object sender, EventArgs e)
+        {
+            BrandTextBox.BackColor = Color.Beige;
+        }
+
+        private void ModelTextBox_Click(object sender, EventArgs e)
+        {
+            ModelTextBox.BackColor = Color.Beige;
+        }
+
+        private void StartTextBox_Click(object sender, EventArgs e)
+        {
+            StartTextBox.BackColor = Color.Beige;
+        }
+
+        private void EndTextBox_Click(object sender, EventArgs e)
+        {
+            EndTextBox.BackColor = Color.Beige;
         }
     }
 }
