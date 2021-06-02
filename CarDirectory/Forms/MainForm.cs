@@ -178,5 +178,10 @@ namespace CarDirectory
                 dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
