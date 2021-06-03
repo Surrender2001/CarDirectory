@@ -94,7 +94,6 @@ namespace CarDirectory
                     if (IsCorrectDates(ref cars, ref car, ref index))
                     {
                         cars.Add(car);
-                        hashTable.Add(new BrandAndModel(car.Brand, car.Model));
                         RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
                         MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         DialogResult = DialogResult.OK;

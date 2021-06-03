@@ -93,7 +93,7 @@ namespace CarDirectory
         public static bool IsCorrectDates(ref List<Car> cars, ref Car car, ref int index)
         {
             if (cars[index].End != "-" && car.End != "-")
-                return ((car.Start < cars[index].Start && int.Parse(car.End) < cars[index].Start) || (car.Start > int.Parse(cars[index].End) && int.Parse(car.End) < int.Parse(cars[index].End)));
+                return ((car.Start < cars[index].Start && int.Parse(car.End) < cars[index].Start) || (car.Start > int.Parse(cars[index].End) && int.Parse(car.End) > int.Parse(cars[index].End)));
             return true;
         }
         public static bool IsCorrectStartAndEndYear(ref MaskedTextBox StartTextBox, ref MaskedTextBox EndTextBox)

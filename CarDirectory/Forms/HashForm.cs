@@ -80,16 +80,7 @@ namespace CarDirectory
 
 
         }            
-        //private void RefreshDataGridView()
-        //{
-        //    int hash = 0;
-        //    dataGridView.Rows.Clear();
-        //    foreach (var car in cars)
-        //    {
-        //        hash = hashTable.GetHash(car.Brand + car.Model);
-        //        dataGridView.Rows.Add(car.Brand, car.Model,hashTable.GetHash(car.Brand + car.Model));
-        //    }
-        //}
+
 
         private void AddButton_Click(object sender, EventArgs e)
         {
@@ -101,22 +92,15 @@ namespace CarDirectory
                 var car = addForm.GetBrandAndModel();
                 if (car != null)
                 {
-                    
                     if (!hashTable.Contains(car.Brand + car.Model))
                     {
-                        //if (hashTable.GetFullness() > 70)
-                        //{
-                        //    hashTable.Resize();
-                        //}
                         cars.Add(car);
                         hashTable.Add(new BrandAndModel(car.Brand,car.Model));
-                        //dataGridView.Rows.Add(car.Brand, car.Model, hash);
                         MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
                 }
-
             }
             addForm.Dispose();
 

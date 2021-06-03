@@ -109,20 +109,16 @@ namespace CarDirectory
                 Top += e.Y - lastPoint.Y;
             }
         }
-
         private void NameOfProjectLabel_MouseDown(object sender, MouseEventArgs e)
         {
             lastPoint = new Point(e.X, e.Y);
         }
-
-
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             DeleteCarForm deleteForm = new DeleteCarForm(ref cars, ref hashTable, ref dataGridView);
             _ = deleteForm.ShowDialog();
             deleteForm.Dispose();
         }
-
         private void HashButton_Click(object sender, EventArgs e)
         {
             var hashForm = new HashForm(ref hashTable,ref dataGridView,ref cars);
