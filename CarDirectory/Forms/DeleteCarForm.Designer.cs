@@ -30,7 +30,6 @@ namespace CarDirectory
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteCarForm));
             this.DeleteButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -39,14 +38,12 @@ namespace CarDirectory
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.InfoPictureBox1 = new System.Windows.Forms.PictureBox();
             this.EndTextBox = new System.Windows.Forms.MaskedTextBox();
             this.StartTextBox = new System.Windows.Forms.MaskedTextBox();
             this.ModelTextBox = new System.Windows.Forms.MaskedTextBox();
             this.BrandTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.InfoPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // DeleteButton
@@ -137,18 +134,6 @@ namespace CarDirectory
             this.label1.TabIndex = 38;
             this.label1.Text = "Марка";
             // 
-            // InfoPictureBox1
-            // 
-            this.InfoPictureBox1.Cursor = System.Windows.Forms.Cursors.Help;
-            this.InfoPictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("InfoPictureBox1.Image")));
-            this.InfoPictureBox1.Location = new System.Drawing.Point(327, 155);
-            this.InfoPictureBox1.Name = "InfoPictureBox1";
-            this.InfoPictureBox1.Size = new System.Drawing.Size(31, 31);
-            this.InfoPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.InfoPictureBox1.TabIndex = 49;
-            this.InfoPictureBox1.TabStop = false;
-            this.InfoPictureBox1.MouseEnter += new System.EventHandler(this.InfoPictureBox1_MouseEnter);
-            // 
             // EndTextBox
             // 
             this.EndTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -213,6 +198,7 @@ namespace CarDirectory
             this.BrandTextBox.RejectInputOnFirstFailure = true;
             this.BrandTextBox.Size = new System.Drawing.Size(242, 31);
             this.BrandTextBox.TabIndex = 45;
+            this.BrandTextBox.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.BrandTextBox_MaskInputRejected);
             this.BrandTextBox.Click += new System.EventHandler(this.BrandTextBox_Click);
             this.BrandTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BrandTextBox_KeyDown);
             // 
@@ -234,7 +220,6 @@ namespace CarDirectory
             this.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.ClientSize = new System.Drawing.Size(530, 332);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.InfoPictureBox1);
             this.Controls.Add(this.EndTextBox);
             this.Controls.Add(this.StartTextBox);
             this.Controls.Add(this.ModelTextBox);
@@ -251,7 +236,6 @@ namespace CarDirectory
             this.Name = "DeleteCarForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DeleteCarForm";
-            ((System.ComponentModel.ISupportInitialize)(this.InfoPictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -266,7 +250,6 @@ namespace CarDirectory
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox InfoPictureBox1;
         private System.Windows.Forms.MaskedTextBox EndTextBox;
         private System.Windows.Forms.MaskedTextBox StartTextBox;
         private System.Windows.Forms.MaskedTextBox ModelTextBox;

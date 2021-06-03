@@ -96,60 +96,60 @@ namespace CarDirectory
         private void AddButton_Click(object sender, EventArgs e)
         {
             int index = 0;
-            var addForm = new AddForm();
-            DialogResult dialogResult = addForm.ShowDialog();
-            if(dialogResult==DialogResult.OK)
-            {
-                Car car=addForm.AddNewCar();
-                if (brandSet.Contains(car.Brand))
-                {
-                    if (IsSameModel(ref cars, ref car,ref index))
-                    {
-                        if (IsSameDate(ref cars, ref car, ref index)) 
-                        {
-                            MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            addForm.Dispose();
-                            return;
-                        } 
-                        if(IsCorrectDates(ref cars, ref car, ref index))
-                        {
-                            cars.Add(car);
-                            hashTable.Add(new BrandAndModel(car.Brand, car.Model));
-                            RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
-                            MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            addForm.Dispose();
-                            return;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            addForm.Dispose();
-                            return;
-                        }
+            //var addForm = new AddForm(ref brandSet,ref cars, ref hashTable,ref dataGridView);
+            //DialogResult dialogResult = addForm.ShowDialog();
+            //if(dialogResult==DialogResult.OK)
+            //{
+            //    Car car=addForm.AddNewCar();
+            //    if (brandSet.Contains(car.Brand))
+            //    {
+            //        if (IsSameModel(ref cars, ref car,ref index))
+            //        {
+            //            if (IsSameDate(ref cars, ref car, ref index)) 
+            //            {
+            //                MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                addForm.Dispose();
+            //                return;
+            //            } 
+            //            if(IsCorrectDates(ref cars, ref car, ref index))
+            //            {
+            //                cars.Add(car);
+            //                hashTable.Add(new BrandAndModel(car.Brand, car.Model));
+            //                RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+            //                MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                addForm.Dispose();
+            //                return;
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                addForm.Dispose();
+            //                return;
+            //            }
 
-                    }
-                    else
-                    {
-                        if (IsCorrectDates(ref cars, ref car, ref index))
-                        {
-                            cars.Add(car);
-                            hashTable.Add(new BrandAndModel(car.Brand, car.Model));
-                            RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
-                            MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            addForm.Dispose();
-                            return;
-                        }
-                        else                
-                        {
-                            MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            addForm.Dispose();
-                            return;
-                        }
-                    }   
-                }
-                else MessageBox.Show("Введенный вами марка автомобиля не найдена в справочникe", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            addForm.Dispose();
+            //        }
+            //        else
+            //        {
+            //            if (IsCorrectDates(ref cars, ref car, ref index))
+            //            {
+            //                cars.Add(car);
+            //                hashTable.Add(new BrandAndModel(car.Brand, car.Model));
+            //                RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+            //                MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                addForm.Dispose();
+            //                return;
+            //            }
+            //            else                
+            //            {
+            //                MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                addForm.Dispose();
+            //                return;
+            //            }
+            //        }   
+            //    }
+            //    else MessageBox.Show("Введенный вами марка автомобиля не найдена в справочникe", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //addForm.Dispose();
         }
 
         Point lastPoint;
@@ -170,24 +170,8 @@ namespace CarDirectory
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            DeleteCarForm deleteForm = new DeleteCarForm();
-            DialogResult dialogResult = deleteForm.ShowDialog();
-            if (dialogResult == DialogResult.OK)
-            {
-                Car car=deleteForm.GetCar();
-                if (hashTable.Contains(car.Brand + car.Model))
-                {
-                    hashTable.Delete(car.Brand + car.Model);
-                    cars.Remove(new Car() { Brand = car.Brand, Model = car.Model, Start = car.Start, End = car.End });
-                    dataGridView.Rows.Clear();
-                    RefreshDataGridView(ref cars, ref dataGridView,ref hashTable);
-                    MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                    MessageBox.Show("Введенный вами элемент в справочнике не найден", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-            }
+            DeleteCarForm deleteForm = new DeleteCarForm(ref cars, ref hashTable, ref dataGridView);
+            _ = deleteForm.ShowDialog();
             deleteForm.Dispose();
         }
 

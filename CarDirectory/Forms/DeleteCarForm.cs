@@ -16,29 +16,45 @@ namespace CarDirectory
         public DeleteCarForm()
         {
             InitializeComponent();
+            ActiveControl = BrandTextBox;
+        }
+
+        public DeleteCarForm(ref List<Car> cars, ref HashTable hashTable, ref DataGridView dataGridView):this()
+        {
+            this.cars = cars;
+            this.hashTable = hashTable;
+            this.dataGridView = dataGridView;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             CheckTextBox(ref ModelTextBox, ref BrandTextBox, ref StartTextBox, ref EndTextBox);
-            if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
+            if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox) && IsCorrectStartAndEndYear(ref StartTextBox, ref EndTextBox))
+                DeleteCar();
+            else 
+                MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+        private List<Car> cars;
+        private HashTable hashTable;
+        private DataGridView dataGridView;
+
+        public void DeleteCar()
+        {
+            var car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
+            FixEndCar(ref car);
+            if (cars.Contains(car))
             {
+                hashTable.Delete(car.Brand + car.Model);
+                cars.Remove(new Car() { Brand = car.Brand, Model = car.Model, Start = car.Start, End = car.End });
+                dataGridView.Rows.Clear();
+                RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+                Visible = false;
+                MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
-                Hide();
             }
-            else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+                MessageBox.Show("Введенный вами элемент в справочнике не найден", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        public Car GetCar()
-        {
-            return new Car() { Brand=BrandTextBox.Text, Model =ModelTextBox.Text, Start=int.Parse(StartTextBox.Text), End=EndTextBox.Text };
-        }
-
-        private void InfoPictureBox1_MouseEnter(object sender, EventArgs e)
-        {
-            toolTip1.ToolTipTitle = "Ограничение на год";
-            toolTip1.Show(">1967 и <2022", InfoPictureBox1, 5000);
-        }
-
         private void BrandTextBox_Click(object sender, EventArgs e)
         {
             BrandTextBox.BackColor = Color.Beige;
@@ -95,14 +111,14 @@ namespace CarDirectory
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                CheckTextBox(ref ModelTextBox, ref BrandTextBox, ref StartTextBox, ref EndTextBox); 
-                if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
-                {
-                    DialogResult = DialogResult.OK;
-                    Hide();
-                }
-                else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DeleteButton_Click(sender, e);
             }
+        }
+
+        private void BrandTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            toolTip1.ToolTipTitle = "Неверный символ";
+            toolTip1.Show("Введите буквы", BrandTextBox, 1000);
         }
     }
 }
