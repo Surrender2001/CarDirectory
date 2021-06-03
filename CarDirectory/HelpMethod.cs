@@ -9,9 +9,9 @@ using System.Windows.Forms;
 namespace CarDirectory
 {
     public static class HelpMethod
-    { 
+    {
 
-        public static void RefreshDataGridView(ref List<Car> cars,ref DataGridView dataGridView,ref HashTable hashTable)
+        public static void RefreshDataGridView(ref List<Car> cars, ref DataGridView dataGridView, ref HashTable hashTable)
         {
             int hash;
             dataGridView.Rows.Clear();
@@ -29,10 +29,10 @@ namespace CarDirectory
             foreach (var car in cars)
             {
                 hash = hashTable.GetHash(car.Brand + car.Model);
-                dataGridView.Rows.Add(car.Brand, car.Model,hash);
+                dataGridView.Rows.Add(car.Brand, car.Model, hash);
             }
         }
-    
+
         public static bool IsEmpty(ref MaskedTextBox textBox)
         {
             return textBox.Text.Length == 0;
@@ -45,7 +45,7 @@ namespace CarDirectory
         {
             int result;
             if (int.TryParse(textBox.Text, out result))
-                if(result>1967&&result<2022)
+                if (result > 1967 && result < 2022)
                     return true;
             return false;
         }
@@ -71,7 +71,7 @@ namespace CarDirectory
                 car.End = "-";
         }
 
-        public static void CheckTextBox(ref MaskedTextBox ModelTextBox,ref MaskedTextBox BrandTextBox,ref MaskedTextBox StartTextBox,ref MaskedTextBox EndTextBox)
+        public static void CheckTextBox(ref MaskedTextBox ModelTextBox, ref MaskedTextBox BrandTextBox, ref MaskedTextBox StartTextBox, ref MaskedTextBox EndTextBox)
         {
             if (IsEmpty(ref ModelTextBox)) ModelTextBox.BackColor = Color.LightCoral;
             if (IsEmpty(ref BrandTextBox)) BrandTextBox.BackColor = Color.LightCoral;
@@ -83,6 +83,26 @@ namespace CarDirectory
             if (IsEmpty(ref ModelTextBox)) ModelTextBox.BackColor = Color.LightCoral;
             if (IsEmpty(ref BrandTextBox)) BrandTextBox.BackColor = Color.LightCoral;
         }
+        public static bool IsSameModel(ref List<Car> cars, ref Car car,ref int index)
+        {
+            for (int i = 0; i < cars.Count; i++)
+                if (cars[i].Brand == car.Brand && cars[i].Model == car.Model)
+                {
+                    index = i;
+                    return true;
+                }
+            return false;
+        }
+        public static bool IsSameDate(ref List<Car> cars, ref Car car,ref int index)
+        {
+            return (cars[index].Start == car.Start && cars[index].End == car.End);
+        }
 
+        public static bool IsCorrectDates(ref List<Car> cars, ref Car car, ref int index)
+        {
+            if (cars[index].End != "-" && car.End != "-")
+                return ((car.Start < cars[index].Start && int.Parse(car.End) < cars[index].Start) || (car.Start > int.Parse(cars[index].End) && int.Parse(car.End) < int.Parse(cars[index].End)));
+            return true;
+        }
     }
 }

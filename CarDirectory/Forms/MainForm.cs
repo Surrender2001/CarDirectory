@@ -23,6 +23,7 @@ namespace CarDirectory
         
         List<Car> cars = new List<Car>();
         HashTable hashTable = new HashTable();
+        HashSet<string> brandSet = new HashSet<string>();
         private void CloseLabel_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -44,6 +45,7 @@ namespace CarDirectory
             dataGridView.Rows.Clear();
             hashTable.Clear();
             cars.Clear();
+            brandSet.Clear();
             var openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "Справочник (*.txt)|*.txt";
             openFileDialog1.ShowDialog();
@@ -56,7 +58,6 @@ namespace CarDirectory
             try
             {
                 input = new StreamReader(openFileDialog1.FileName, Encoding.Default);
-                dataGridView.Rows.Clear();
                 while (!input.EndOfStream)
                 {
                     string s = input.ReadLine();
@@ -71,7 +72,7 @@ namespace CarDirectory
                     };
                     cars.Add(car);
                     hashTable.Add(new BrandAndModel(car.Brand,car.Model));
-                    //dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);                        
+                    brandSet.Add(car.Brand);
                 }
                 RefreshDataGridView(ref cars,ref dataGridView,ref hashTable);
                 MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
@@ -94,36 +95,59 @@ namespace CarDirectory
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
+            int index = 0;
             var addForm = new AddForm();
             DialogResult dialogResult = addForm.ShowDialog();
             if(dialogResult==DialogResult.OK)
             {
                 Car car=addForm.AddNewCar();
-                //if(car!=null)
-                //{
-                //    if(!setBrand.Contains(car.Brand))
-                //    {
-                //        MessageBox.Show("Введенная марка автомобиля не содержится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //        addForm.Dispose();
-                //        return;
-                //    }
-                //    //if (!hashTable.IsThere(car.Brand + " " + car.Model))
-                //    //{
-                //    //    if (hashTable.GetFullness() > 70)
-                //    //    {
-                //    //        hashTable.Resize();
-                //    //        RefreshDataGridView();
-                //    //    }
-                //    //    if (car.End == "") car.End = "-";
-                //    //    cars.Add(car);
-                //    //    hashTable.Add(car.Brand, car.Model, out int hash);
-                //    //    dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);
-                //    //    MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //    //}
-                //    //else MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (brandSet.Contains(car.Brand))
+                {
+                    if (IsSameModel(ref cars, ref car,ref index))
+                    {
+                        if (IsSameDate(ref cars, ref car, ref index)) 
+                        {
+                            MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            addForm.Dispose();
+                            return;
+                        } 
+                        if(IsCorrectDates(ref cars, ref car, ref index))
+                        {
+                            cars.Add(car);
+                            hashTable.Add(new BrandAndModel(car.Brand, car.Model));
+                            RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+                            MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            addForm.Dispose();
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            addForm.Dispose();
+                            return;
+                        }
 
-                //}
-
+                    }
+                    else
+                    {
+                        if (IsCorrectDates(ref cars, ref car, ref index))
+                        {
+                            cars.Add(car);
+                            hashTable.Add(new BrandAndModel(car.Brand, car.Model));
+                            RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+                            MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            addForm.Dispose();
+                            return;
+                        }
+                        else                
+                        {
+                            MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            addForm.Dispose();
+                            return;
+                        }
+                    }   
+                }
+                else MessageBox.Show("Введенный вами марка автомобиля не найдена в справочникe", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             addForm.Dispose();
         }
