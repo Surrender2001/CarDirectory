@@ -72,19 +72,59 @@ namespace CarDirectory
         {
             CheckTextBox(ref ModelTextBox, ref BrandTextBox, ref StartTextBox, ref EndTextBox);
             if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox) && IsCorrectStartAndEndYear(ref StartTextBox, ref EndTextBox))
-            {
-                DialogResult = DialogResult.OK;
-                Hide();
-            }
+                AddNewCar();
+            
             else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        public Car AddNewCar()
+        public void AddNewCar()
         {
-            if (!IsEmpty(ref ModelTextBox)&&!IsEmpty(ref BrandTextBox)&&IsCorrectYear(ref StartTextBox)&& IsCorrectEndYear(ref EndTextBox)&&IsCorrectStartAndEndYear(ref StartTextBox,ref EndTextBox))
-                car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
+            int index=0;
+            car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
             FixEndCar(ref car);
-            return car;
+            if (brandSet.Contains(car.Brand))
+            {
+                if (IsSameModel(ref cars, ref car, ref index))
+                {
+                    if (IsSameDate(ref cars, ref car, ref index))
+                    {
+                        MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    if (IsCorrectDates(ref cars, ref car, ref index))
+                    {
+                        cars.Add(car);
+                        hashTable.Add(new BrandAndModel(car.Brand, car.Model));
+                        RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+                        MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult = DialogResult.OK;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                }
+                else
+                {
+                    if (IsCorrectDates(ref cars, ref car, ref index))
+                    {
+                        cars.Add(car);
+                        hashTable.Add(new BrandAndModel(car.Brand, car.Model));
+                        RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+                        MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult = DialogResult.OK;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+            }
+            else MessageBox.Show("Введенный вами марка автомобиля не найдена в справочникe", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void EndTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -92,13 +132,7 @@ namespace CarDirectory
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                CheckTextBox(ref ModelTextBox, ref BrandTextBox, ref StartTextBox, ref EndTextBox); 
-                if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox) && IsCorrectStartAndEndYear(ref StartTextBox, ref EndTextBox))
-                {
-                    DialogResult = DialogResult.OK;
-                    Hide();
-                }
-                else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AddButton_Click(sender, e);
             }
         }
 
