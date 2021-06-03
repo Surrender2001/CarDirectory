@@ -42,10 +42,11 @@ namespace CarDirectory
         {
             var car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
             FixEndCar(ref car);
-            if (cars.Contains(car))
-            {
-                hashTable.Delete(car.Brand + car.Model);
+            if (hashTable.Contains(car.Brand+car.Model))
+            {                
                 cars.Remove(new Car() { Brand = car.Brand, Model = car.Model, Start = car.Start, End = car.End });
+                if(!IsFoundBrandAndModel(ref cars,car.Brand,car.Model))
+                    hashTable.Delete(car.Brand + car.Model);
                 dataGridView.Rows.Clear();
                 RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
                 Visible = false;

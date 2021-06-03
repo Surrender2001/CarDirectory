@@ -102,5 +102,14 @@ namespace CarDirectory
                 return int.Parse(StartTextBox.Text) < int.Parse(EndTextBox.Text);
             return true;
         }
+
+        public static bool IsFoundBrandAndModel(ref List<Car> cars, string brand, string model)
+        {
+            foreach (var item in cars)
+                if (item.Brand == brand && item.Model == model)
+                    return true;
+            return false;
+
+        }
     }
 }
