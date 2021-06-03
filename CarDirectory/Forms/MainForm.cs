@@ -62,7 +62,7 @@ namespace CarDirectory
                 {
                     string s = input.ReadLine();
                     string[] subs = s.Split(new char[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                    //check correct values
+                    if (!int.TryParse(subs[2],out int result)||!IsCorrectEndYear(subs[2])) throw new Exception();
                     Car car = new Car
                     {
                         Brand = subs[0],
@@ -74,7 +74,6 @@ namespace CarDirectory
                     hashTable.Add(new BrandAndModel(car.Brand,car.Model));
                     brandSet.Add(car.Brand);
                 }
-                RefreshDataGridView(ref cars,ref dataGridView,ref hashTable);
                 MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
                     $"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness,2)*100}%\n" +
                     $"Вместительность {hashTable.CurrentSize}",
@@ -87,6 +86,7 @@ namespace CarDirectory
             }
             finally
             {
+                RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
                 input.Close();
             }
 
@@ -122,7 +122,7 @@ namespace CarDirectory
         private void HashButton_Click(object sender, EventArgs e)
         {
             var hashForm = new HashForm(ref hashTable,ref dataGridView,ref cars);
-            DialogResult dialogResult = hashForm.ShowDialog();
+            _ = hashForm.ShowDialog();
             hashForm.Dispose();
         }
     }

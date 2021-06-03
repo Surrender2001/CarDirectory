@@ -54,6 +54,15 @@ namespace CarDirectory
                     return true;
             return false;
         }
+        public static bool IsCorrectEndYear(string end)
+        {
+            int result;
+            if (end=="-") return true;
+            if (int.TryParse(end, out result))
+                if (result > 1967 && result < 2022)
+                    return true;
+            return false;
+        }
         public static void FixEndCar(ref Car car)
         {
             if (car.End == "")

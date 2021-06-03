@@ -108,19 +108,12 @@ namespace CarDirectory
                 }
                 else
                 {
-                    if (IsCorrectDates(ref cars, ref car, ref index))
-                    {
-                        cars.Add(car);
-                        hashTable.Add(new BrandAndModel(car.Brand, car.Model));
-                        RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
-                        MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        DialogResult = DialogResult.OK;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
+                    cars.Add(car);
+                    hashTable.Add(new BrandAndModel(car.Brand, car.Model));
+                    RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+                    Visible = false;
+                    MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult = DialogResult.OK;
                 }
             }
             else MessageBox.Show("Введенный вами марка автомобиля не найдена в справочникe", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
