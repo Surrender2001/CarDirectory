@@ -24,6 +24,7 @@ namespace CarDirectory
         List<Car> cars = new List<Car>();
         HashTable hashTable = new HashTable();
         HashSet<string> brandSet = new HashSet<string>();
+        RBTree<int, Car> rBTree = new RBTree<int, Car>();
         private void CloseLabel_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -73,6 +74,7 @@ namespace CarDirectory
                     cars.Add(car);
                     hashTable.Add(new BrandAndModel(car.Brand,car.Model));
                     brandSet.Add(car.Brand);
+                    rBTree.Add(car.Start, car);
                 }
                 MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
                     $"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness,2)*100}%\n" +

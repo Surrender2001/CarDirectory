@@ -111,7 +111,6 @@ namespace CarDirectory
                 return int.Parse(StartTextBox.Text) < int.Parse(EndTextBox.Text);
             return true;
         }
-
         public static bool IsFoundBrandAndModel(ref List<Car> cars, string brand, string model)
         {
             foreach (var item in cars)
@@ -119,6 +118,12 @@ namespace CarDirectory
                     return true;
             return false;
 
+        }
+        public static void Swap<T>(ref T a, ref T b)
+        {
+            T temp = a;
+            a = b;
+            b = temp;
         }
     }
 }
