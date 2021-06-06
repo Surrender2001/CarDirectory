@@ -87,6 +87,27 @@ namespace CarDirectory
                 ptr.parent = ptr_l;
             }
         }
+
+        public bool Contains(TKey key,TValue value) => Find(key,value) != null;
+
+        private RBTreeNode<TKey, TValue> Find(TKey key, TValue value)
+        {
+            if (root == null) return null;
+            RBTreeNode<TKey, TValue> ptr = root;
+            while (ptr != null)
+            {
+                if (ptr.key.Equals(key))
+                {
+                    foreach (var item in ptr.list)
+                        if(item.Key.Equals(value))
+                        return ptr; 
+                }
+                else if (ptr.key.CompareTo(key) == -1) ptr = ptr.right;
+                else ptr = ptr.left;
+            }
+            return null;
+        }
+
         private void BalanceAfterAddition(RBTreeNode<TKey, TValue> ptr)
         {
             RBTreeNode<TKey, TValue> parent = null;
@@ -326,7 +347,7 @@ namespace CarDirectory
             }
             return null;
         }
-        public bool Contains(TKey key) => Find(key) == null;
+        public bool Contains(TKey key) => Find(key) != null;
         public void Remove(TKey key, TValue value)
         {
             if (root == null) return;

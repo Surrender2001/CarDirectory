@@ -18,19 +18,20 @@ namespace CarDirectory
             InitializeComponent();          
         }
 
-        public AddForm(ref HashSet<string> brandSet, ref List<Car> cars, ref HashTable hashTable, ref DataGridView dataGridView): this()
+        public AddForm( ref List<Car> cars, ref HashTable hashTable,ref RBTree<string, string> rBTreeModel,ref RBTree<int,Car> rBTreeYear,ref DataGridView dataGridView): this()
         {
-            this.brandSet = brandSet;
+            this.rBTreeYear = rBTreeYear;
+            this.rBTreeModel = rBTreeModel;
             this.cars = cars;
             this.hashTable = hashTable;
             this.dataGridView = dataGridView;
         }
         Car car;
-        private HashSet<string> brandSet;
+        private RBTree<string, string> rBTreeModel;
         private List<Car> cars;
         private HashTable hashTable;
         private DataGridView dataGridView;
-
+        private RBTree<int, Car> rBTreeYear;
         private void BrandTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
             toolTip1.ToolTipTitle = "Неверный символ";
@@ -82,9 +83,9 @@ namespace CarDirectory
             int index=0;
             car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
             FixEndCar(ref car);
-            if (brandSet.Contains(car.Brand))
+            if (rBTreeModel.Contains(car.Brand))
             {
-                if (IsSameModel(ref cars, ref car, ref index))
+                if (rBTreeModel.Contains(car.Brand, car.Model))
                 {
                     if (IsSameDate(ref cars, ref car, ref index))
                     {
@@ -97,19 +98,16 @@ namespace CarDirectory
                         RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
                         MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         DialogResult = DialogResult.OK;
-
                     }
                     else
-                    {
                         MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-
                 }
                 else
                 {
                     cars.Add(car);
                     hashTable.Add(new BrandAndModel(car.Brand, car.Model));
+                    rBTreeModel.Add(car.Brand, car.Model);
+                    rBTreeYear.Add(car.Start, car);
                     RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
                     Visible = false;
                     MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);

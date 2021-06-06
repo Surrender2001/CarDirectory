@@ -23,9 +23,8 @@ namespace CarDirectory
         
         List<Car> cars = new List<Car>();
         HashTable hashTable = new HashTable();
-        HashSet<string> brandSet = new HashSet<string>();
-        RBTree<int, Car> rBTree = new RBTree<int, Car>();
-        RBTree<string, string> rbTreeModel = new RBTree<string, string>(); 
+        RBTree<int, Car> rBTreeYear = new RBTree<int, Car>();
+        RBTree<string, string> rBTreeModel = new RBTree<string, string>(); 
         private void CloseLabel_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -47,8 +46,8 @@ namespace CarDirectory
             dataGridView.Rows.Clear();
             hashTable.Clear();
             cars.Clear();
-            brandSet.Clear();
-
+            rBTreeYear.Clear();
+            rBTreeModel.Clear();
             try
             {
                 using (var ofd = new OpenFileDialog() { Filter = "txt files (*.txt)|*.txt" })
@@ -69,8 +68,8 @@ namespace CarDirectory
                                 };
                                 cars.Add(car);
                                 hashTable.Add(new BrandAndModel(car.Brand, car.Model));
-                                brandSet.Add(car.Brand);
-                                rBTree.Add(car.Start, car);
+                                rBTreeYear.Add(car.Start, car);
+                                rBTreeModel.Add(car.Brand, car.Model);
                             }
                 RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
                 MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
@@ -85,7 +84,7 @@ namespace CarDirectory
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
-            var addForm = new AddForm(ref brandSet,ref cars, ref hashTable,ref dataGridView);
+            var addForm = new AddForm( ref cars, ref hashTable,ref rBTreeModel,ref rBTreeYear, ref dataGridView);
             _ = addForm.ShowDialog();
             addForm.Dispose();
         }
@@ -123,7 +122,7 @@ namespace CarDirectory
 
             for (int i = 2005; i < 2010; i++)
             {
-                dlListCarsTemp = rBTree.GetValues(i);
+                dlListCarsTemp = rBTreeYear.GetValues(i);
                 foreach (var item in dlListCarsTemp)
                     dlListCars.AddLast(item.Key);
             }
