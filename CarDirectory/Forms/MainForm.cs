@@ -25,6 +25,7 @@ namespace CarDirectory
         HashTable hashTable = new HashTable();
         HashSet<string> brandSet = new HashSet<string>();
         RBTree<int, Car> rBTree = new RBTree<int, Car>();
+        RBTree<string, string> rbTreeModel = new RBTree<string, string>(); 
         private void CloseLabel_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -47,53 +48,40 @@ namespace CarDirectory
             hashTable.Clear();
             cars.Clear();
             brandSet.Clear();
-            var openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Справочник (*.txt)|*.txt";
-            openFileDialog1.ShowDialog();
-            if (openFileDialog1.FileName == "")
-            {
-                return;
-            }
 
-            StreamReader input = null;
             try
             {
-                input = new StreamReader(openFileDialog1.FileName, Encoding.Default);
-                while (!input.EndOfStream)
-                {
-                    string s = input.ReadLine();
-                    string[] subs = s.Split(new char[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (!int.TryParse(subs[2],out int result)||!IsCorrectEndYear(subs[2])) throw new Exception();
-                    Car car = new Car
-                    {
-                        Brand = subs[0],
-                        Model = subs[1],
-                        Start = int.Parse(subs[2]),
-                        End = subs[3]
-                    };
-                    cars.Add(car);
-                    hashTable.Add(new BrandAndModel(car.Brand,car.Model));
-                    brandSet.Add(car.Brand);
-                    rBTree.Add(car.Start, car);
-                }
+                using (var ofd = new OpenFileDialog() { Filter = "txt files (*.txt)|*.txt" })
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                        using (var sw = new StreamReader(ofd.FileName, Encoding.Default))
+                            while (!sw.EndOfStream)
+                            {
+                                string s = sw.ReadLine();
+                                string[] subs = s.Split(new char[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                                if (!int.TryParse(subs[2], out int result) || !IsCorrectEndYear(subs[2]))
+                                    throw new Exception("Ошибка чтения файла");
+                                var car = new Car
+                                {
+                                    Brand = subs[0],
+                                    Model = subs[1],
+                                    Start = int.Parse(subs[2]),
+                                    End = subs[3]
+                                };
+                                cars.Add(car);
+                                hashTable.Add(new BrandAndModel(car.Brand, car.Model));
+                                brandSet.Add(car.Brand);
+                                rBTree.Add(car.Start, car);
+                            }
+                RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
                 MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
-                    $"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness,2)*100}%\n" +
+                    $"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness, 2) * 100}%\n" +
                     $"Вместительность {hashTable.CurrentSize}",
                     "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show($"где-то ошибка, кол-во записанных машин {cars.Count}", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                MessageBox.Show($"{ex.Message}, кол-во записанных машин {cars.Count}", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information); 
             }
-            finally
-            {
-                RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
-                input.Close();
-            }
-
-
-
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
@@ -128,7 +116,7 @@ namespace CarDirectory
             hashForm.Dispose();
         }
         DoubleLinkedList<Car> dlListCars = new DoubleLinkedList<Car>();
-        private void button4_Click(object sender, EventArgs e)
+        private void FindButton_Click(object sender, EventArgs e)
         {
             dataGridView.Rows.Clear();
             DoubleLinkedList<Car> dlListCarsTemp;
@@ -141,6 +129,15 @@ namespace CarDirectory
             }
             RefreshDataGridView(ref dlListCars, ref dataGridView, ref hashTable);
 
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            using (var sfd = new SaveFileDialog() {Filter = "txt files (*.txt)|*.txt"})
+            if (sfd.ShowDialog() == DialogResult.OK)
+                using (var sw = new StreamWriter(sfd.FileName))
+                    foreach (var car in cars)
+                        sw.WriteLine(car);
         }
     }
 }

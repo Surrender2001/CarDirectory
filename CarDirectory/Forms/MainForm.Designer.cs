@@ -36,7 +36,7 @@ namespace CarDirectory
             this.NameOfProjectLabel = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.HashButton = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.FindButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.ReadDbButton = new System.Windows.Forms.Button();
@@ -45,6 +45,7 @@ namespace CarDirectory
             this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Start = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -104,8 +105,9 @@ namespace CarDirectory
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.SaveButton);
             this.splitContainer1.Panel1.Controls.Add(this.HashButton);
-            this.splitContainer1.Panel1.Controls.Add(this.button4);
+            this.splitContainer1.Panel1.Controls.Add(this.FindButton);
             this.splitContainer1.Panel1.Controls.Add(this.DeleteButton);
             this.splitContainer1.Panel1.Controls.Add(this.AddButton);
             this.splitContainer1.Panel1.Controls.Add(this.ReadDbButton);
@@ -129,7 +131,7 @@ namespace CarDirectory
             this.HashButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.HashButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.HashButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.HashButton.Location = new System.Drawing.Point(33, 59);
+            this.HashButton.Location = new System.Drawing.Point(33, 34);
             this.HashButton.Name = "HashButton";
             this.HashButton.Size = new System.Drawing.Size(162, 44);
             this.HashButton.TabIndex = 4;
@@ -137,25 +139,25 @@ namespace CarDirectory
             this.HashButton.UseVisualStyleBackColor = false;
             this.HashButton.Click += new System.EventHandler(this.HashButton_Click);
             // 
-            // button4
+            // FindButton
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.FindButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(33, 359);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(162, 44);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Найти";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.FindButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
+            this.FindButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.FindButton.FlatAppearance.BorderSize = 0;
+            this.FindButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.FindButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FindButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FindButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.FindButton.Location = new System.Drawing.Point(33, 334);
+            this.FindButton.Name = "FindButton";
+            this.FindButton.Size = new System.Drawing.Size(162, 44);
+            this.FindButton.TabIndex = 3;
+            this.FindButton.Text = "Найти";
+            this.FindButton.UseVisualStyleBackColor = false;
+            this.FindButton.Click += new System.EventHandler(this.FindButton_Click);
             // 
             // DeleteButton
             // 
@@ -169,7 +171,7 @@ namespace CarDirectory
             this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DeleteButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DeleteButton.Location = new System.Drawing.Point(33, 284);
+            this.DeleteButton.Location = new System.Drawing.Point(33, 259);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(162, 44);
             this.DeleteButton.TabIndex = 2;
@@ -189,7 +191,7 @@ namespace CarDirectory
             this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.AddButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AddButton.Location = new System.Drawing.Point(33, 209);
+            this.AddButton.Location = new System.Drawing.Point(33, 184);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(162, 44);
             this.AddButton.TabIndex = 1;
@@ -209,11 +211,11 @@ namespace CarDirectory
             this.ReadDbButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ReadDbButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ReadDbButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ReadDbButton.Location = new System.Drawing.Point(33, 134);
+            this.ReadDbButton.Location = new System.Drawing.Point(33, 109);
             this.ReadDbButton.Name = "ReadDbButton";
             this.ReadDbButton.Size = new System.Drawing.Size(162, 44);
             this.ReadDbButton.TabIndex = 0;
-            this.ReadDbButton.Text = "Считать с файла";
+            this.ReadDbButton.Text = "Загрузить";
             this.ReadDbButton.UseVisualStyleBackColor = false;
             this.ReadDbButton.Click += new System.EventHandler(this.ReadDbButton_Click);
             // 
@@ -279,6 +281,26 @@ namespace CarDirectory
             this.End.Name = "End";
             this.End.ReadOnly = true;
             // 
+            // SaveButton
+            // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
+            this.SaveButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SaveButton.FlatAppearance.BorderSize = 0;
+            this.SaveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SaveButton.Location = new System.Drawing.Point(33, 409);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(162, 44);
+            this.SaveButton.TabIndex = 5;
+            this.SaveButton.Text = "Сохранить";
+            this.SaveButton.UseVisualStyleBackColor = false;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -308,7 +330,7 @@ namespace CarDirectory
         private System.Windows.Forms.Label NameOfProjectLabel;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button FindButton;
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Button ReadDbButton;
@@ -317,6 +339,7 @@ namespace CarDirectory
         private System.Windows.Forms.DataGridViewTextBoxColumn Model;
         private System.Windows.Forms.DataGridViewTextBoxColumn Start;
         private System.Windows.Forms.DataGridViewTextBoxColumn End;
+        private System.Windows.Forms.Button SaveButton;
     }
 }
 
