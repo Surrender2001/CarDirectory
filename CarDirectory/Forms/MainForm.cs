@@ -71,6 +71,7 @@ namespace CarDirectory
                                 rBTreeYear.Add(car.Start, car);
                                 rBTreeModel.Add(car.Brand, car.Model);
                             }
+                cars.Sort();
                 RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
                 MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
                     $"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness, 2) * 100}%\n" +

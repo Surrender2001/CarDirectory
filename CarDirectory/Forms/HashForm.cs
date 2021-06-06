@@ -34,48 +34,31 @@ namespace CarDirectory
         DataGridView gridView = new DataGridView();
 
         private void ReadDbButton_Click(object sender, EventArgs e)
-        {
-            var openFileDialog1 = new OpenFileDialog();                
+        {              
             dataGridView.Rows.Clear();
             hashTable.Clear();
             cars.Clear();
-            openFileDialog1.Filter = "Справочник (*.txt)|*.txt";
-            openFileDialog1.ShowDialog();
-            if (openFileDialog1.FileName == "")
-            {
-                return;
-            }
 
-            StreamReader input = null;
             try
-            { 
-                input = new StreamReader(openFileDialog1.FileName, Encoding.Default);
-
-                while (!input.EndOfStream)
-                {
-                    string s = input.ReadLine();
-                    string[] subs = s.Split(new char[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                    //check correct values
-                    var car = new BrandAndModel(subs[0], subs[1]);
-                    
-                    cars.Add(car);
-                    hashTable.Add(new BrandAndModel(car.Brand, car.Model));
-                    //dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);                        
-                }
-                RefreshDataGridView(ref cars,ref dataGridView,ref hashTable);
-                MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
+            {
+                using (var ofd = new OpenFileDialog() { Filter = "txt files (*.txt)|*.txt" })
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                        using (var sw = new StreamReader(ofd.FileName, Encoding.Default))
+                            while (!sw.EndOfStream)
+                            {
+                                string s = sw.ReadLine();
+                                string[] subs = s.Split(new char[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                                hashTable.Add(new BrandAndModel(subs[0],subs[1]));
+                            }
+                RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+                MessageBox.Show($"Файл успешно считан, кол-во записанных моделей {cars.Count}\n" +
                     $"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness, 2) * 100}%\n" +
                     $"Вместительность {hashTable.CurrentSize}",
                     "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show($"где-то ошибка, кол-во записанных машин {cars.Count}", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            finally
-            {
-                input.Close();
+                MessageBox.Show($"{ex.Message}, кол-во записанных машин {cars.Count}", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
 
@@ -85,23 +68,8 @@ namespace CarDirectory
         private void AddButton_Click(object sender, EventArgs e)
         {
 
-            var addForm = new AddBrandModelForm();
-            DialogResult dialogResult = addForm.ShowDialog();
-            if (dialogResult == DialogResult.OK)
-            {
-                var car = addForm.GetBrandAndModel();
-                if (car != null)
-                {
-                    if (!hashTable.Contains(car.Brand + car.Model))
-                    {
-                        cars.Add(car);
-                        hashTable.Add(new BrandAndModel(car.Brand,car.Model));
-                        MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
-                }
-            }
+            var addForm = new AddBrandModelForm(ref hashTable,ref dataGridView);
+            _ = addForm.ShowDialog();
             addForm.Dispose();
 
         }

@@ -13,9 +13,17 @@ namespace CarDirectory
 {
     public partial class AddBrandModelForm : Form
     {
+        private HashTable hashTable;
+        private DataGridView dataGridView;
         public AddBrandModelForm()
         {
             InitializeComponent();
+        }
+
+        public AddBrandModelForm(ref HashTable hashTable,ref DataGridView dataGridView)
+        {
+            this.hashTable = hashTable;
+            this.dataGridView = dataGridView;
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -23,8 +31,13 @@ namespace CarDirectory
             CheckTextBox(ref ModelTextBox, ref BrandTextBox);
             if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox))
             {
-                DialogResult = DialogResult.OK;
-                Hide();
+
+                    if (!hashTable.Contains(BrandTextBox.Text + ModelTextBox.Text))
+                    {
+                        hashTable.Add(new BrandAndModel(BrandTextBox.Text , ModelTextBox.Text));
+                        MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
