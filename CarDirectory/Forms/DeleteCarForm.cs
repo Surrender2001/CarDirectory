@@ -19,8 +19,10 @@ namespace CarDirectory
             ActiveControl = BrandTextBox;
         }
 
-        public DeleteCarForm(ref List<Car> cars, ref HashTable hashTable, ref DataGridView dataGridView):this()
+        public DeleteCarForm(ref List<Car> cars, ref HashTable hashTable,ref RBTree<string,string> rBTreeModel,ref RBTree<int,Car> rBTreeYear, ref DataGridView dataGridView):this()
         {
+            this.rBTreeModel = rBTreeModel;
+            this.rBTreeYear = rBTreeYear;
             this.cars = cars;
             this.hashTable = hashTable;
             this.dataGridView = dataGridView;
@@ -37,16 +39,19 @@ namespace CarDirectory
         private List<Car> cars;
         private HashTable hashTable;
         private DataGridView dataGridView;
-
+        private RBTree<string, string> rBTreeModel;
+        RBTree<int, Car> rBTreeYear;
         public void DeleteCar()
         {
             var car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
             FixEndCar(ref car);
-            if (hashTable.Contains(car.Brand+car.Model))
+            if (rBTreeModel.Contains(car.Brand,car.Model))
             {                
-                cars.Remove(new Car() { Brand = car.Brand, Model = car.Model, Start = car.Start, End = car.End });
+                cars.Remove(car);
                 if(!IsFoundBrandAndModel(ref cars,car.Brand,car.Model))
                     hashTable.Delete(car.Brand + car.Model);
+                rBTreeModel.Remove(car.Brand, car.Model);
+                rBTreeYear.Remove(car.Start, car);
                 dataGridView.Rows.Clear();
                 RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
                 Visible = false;

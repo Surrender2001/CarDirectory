@@ -104,7 +104,7 @@ namespace CarDirectory
         }
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            DeleteCarForm deleteForm = new DeleteCarForm(ref cars, ref hashTable, ref dataGridView);
+            DeleteCarForm deleteForm = new DeleteCarForm(ref cars, ref hashTable,ref rBTreeModel,ref rBTreeYear, ref dataGridView);
             _ = deleteForm.ShowDialog();
             deleteForm.Dispose();
         }

@@ -1,7 +1,5 @@
 ﻿using System;
 using static CarDirectory.HelpMethod;
-//using static Misc.Misc;
-//using DoubleLinkedList;
 
 namespace CarDirectory
 {
