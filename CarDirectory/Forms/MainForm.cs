@@ -127,5 +127,20 @@ namespace CarDirectory
             _ = hashForm.ShowDialog();
             hashForm.Dispose();
         }
+        DoubleLinkedList<Car> dlListCars = new DoubleLinkedList<Car>();
+        private void button4_Click(object sender, EventArgs e)
+        {
+            dataGridView.Rows.Clear();
+            DoubleLinkedList<Car> dlListCarsTemp;
+
+            for (int i = 2005; i < 2010; i++)
+            {
+                dlListCarsTemp = rBTree.GetValues(i);
+                foreach (var item in dlListCarsTemp)
+                    dlListCars.AddLast(item.Key);
+            }
+            RefreshDataGridView(ref dlListCars, ref dataGridView, ref hashTable);
+
+        }
     }
 }

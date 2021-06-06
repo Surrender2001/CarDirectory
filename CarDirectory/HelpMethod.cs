@@ -12,13 +12,10 @@ namespace CarDirectory
     {
         public static void RefreshDataGridView(ref List<Car> cars, ref DataGridView dataGridView, ref HashTable hashTable)
         {
-            int hash;
             dataGridView.Rows.Clear();
             foreach (var car in cars)
-            {
-                hash = hashTable.GetHash(car.Brand + car.Model);
-                dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);
-            }
+                dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End);
+            
         }
         public static void RefreshDataGridView(ref List<BrandAndModel> cars, ref DataGridView dataGridView, ref HashTable hashTable)
         {
@@ -27,9 +24,17 @@ namespace CarDirectory
             foreach (var car in cars)
             {
                 hash = hashTable.GetHash(car.Brand + car.Model);
-                dataGridView.Rows.Add(car.Brand, car.Model, hash);
+                dataGridView.Rows.Add(car.Brand, car.Model,hash);
             }
+            
         }
+        public static void RefreshDataGridView(ref DoubleLinkedList<Car> cars, ref DataGridView dataGridView, ref HashTable hashTable)
+        {
+            dataGridView.Rows.Clear();
+            foreach (var car in cars)
+                dataGridView.Rows.Add(car.Key.Brand, car.Key.Model,car.Key.Start,car.Key.End);
+        }
+
         public static bool IsEmpty(ref MaskedTextBox textBox)
         {
             return textBox.Text.Length == 0;
