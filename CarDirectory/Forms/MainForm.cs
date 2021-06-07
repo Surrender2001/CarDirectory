@@ -21,10 +21,9 @@ namespace CarDirectory
             InitializeComponent(); 
         }
         
-        List<Car> cars = new List<Car>();
         HashTable hashTable = new HashTable();
         RBTree<int, Car> rBTreeYear = new RBTree<int, Car>();
-        RBTree<string, string> rBTreeModel = new RBTree<string, string>(); 
+        RBTree<string, Car> rBTreeCar = new RBTree<string, Car>();
         private void CloseLabel_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -45,9 +44,7 @@ namespace CarDirectory
         {
             dataGridView.Rows.Clear();
             hashTable.Clear();
-            cars.Clear();
             rBTreeYear.Clear();
-            rBTreeModel.Clear();
             try
             {
                 using (var ofd = new OpenFileDialog() { Filter = "txt files (*.txt)|*.txt" })
@@ -66,26 +63,23 @@ namespace CarDirectory
                                     Start = int.Parse(subs[2]),
                                     End = subs[3]
                                 };
-                                cars.Add(car);
                                 hashTable.Add(new BrandAndModel(car.Brand, car.Model));
                                 rBTreeYear.Add(car.Start, car);
-                                rBTreeModel.Add(car.Brand, car.Model);
+                                rBTreeCar.Add(car.Brand, car);
                             }
-                cars.Sort();
-                RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
-                MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
-                    $"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness, 2) * 100}%\n" +
+                RefreshDataGridView(ref rBTreeCar, ref dataGridView);
+                MessageBox.Show($"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness, 2) * 100}%\n" +
                     $"Вместительность {hashTable.CurrentSize}",
                     "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message}, кол-во записанных машин {cars.Count}", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                MessageBox.Show($"{ex.Message}, кол-во записанных машин ----", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information); 
             }
         }
         private void AddButton_Click(object sender, EventArgs e)
         {
-            var addForm = new AddForm( ref cars, ref hashTable,ref rBTreeModel,ref rBTreeYear, ref dataGridView);
+            var addForm = new AddForm(ref hashTable,ref rBTreeCar,ref rBTreeYear, ref dataGridView);
             _ = addForm.ShowDialog();
             addForm.Dispose();
         }
@@ -105,15 +99,15 @@ namespace CarDirectory
         }
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            DeleteCarForm deleteForm = new DeleteCarForm(ref cars, ref hashTable,ref rBTreeModel,ref rBTreeYear, ref dataGridView);
+            DeleteCarForm deleteForm = new DeleteCarForm(ref hashTable, ref rBTreeCar, ref rBTreeYear, ref dataGridView);
             _ = deleteForm.ShowDialog();
             deleteForm.Dispose();
         }
         private void HashButton_Click(object sender, EventArgs e)
         {
-            var hashForm = new HashForm(ref hashTable,ref dataGridView,ref cars);
-            _ = hashForm.ShowDialog();
-            hashForm.Dispose();
+            //var hashForm = new HashForm(ref hashTable,ref dataGridView,ref cars);
+            //_ = hashForm.ShowDialog();
+            //hashForm.Dispose();
         }
         DoubleLinkedList<Car> dlListCars = new DoubleLinkedList<Car>();
         private void FindButton_Click(object sender, EventArgs e)
@@ -136,7 +130,7 @@ namespace CarDirectory
             using (var sfd = new SaveFileDialog() {Filter = "txt files (*.txt)|*.txt"})
             if (sfd.ShowDialog() == DialogResult.OK)
                 using (var sw = new StreamWriter(sfd.FileName))
-                    foreach (var car in cars)
+                    foreach (var car in rBTreeCar)
                         sw.WriteLine(car);
         }
     }

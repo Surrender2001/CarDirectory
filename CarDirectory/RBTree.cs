@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using static CarDirectory.HelpMethod;
 
 namespace CarDirectory
@@ -34,7 +35,7 @@ namespace CarDirectory
                 (right != null && right.color == Color.RED);
         }
     }
-    public class RBTree<TKey, TValue> : System.Collections.Generic.IEnumerable<RBTreeNode<TKey, TValue>> where TKey : IComparable
+    public class RBTree<TKey, TValue> : System.Collections.Generic.IEnumerable<RBTreeNode<TKey, TValue>> where TKey : IComparable where TValue:IEquatable<TValue>
     {
         public RBTreeNode<TKey, TValue> First
         {
@@ -56,7 +57,7 @@ namespace CarDirectory
                 return node;
             }
         }
-        private RBTreeNode<TKey, TValue> root = null;
+        public RBTreeNode<TKey, TValue> root { get; private set; } = null;
         private enum Direction { LEFT, RIGHT };
         private void Rotate(RBTreeNode<TKey, TValue> ptr, Direction dir)
         {
@@ -85,27 +86,39 @@ namespace CarDirectory
                 ptr.parent = ptr_l;
             }
         }
-
         public bool Contains(TKey key,TValue value) => Find(key,value) != null;
-
         private RBTreeNode<TKey, TValue> Find(TKey key, TValue value)
         {
             if (root == null) return null;
             RBTreeNode<TKey, TValue> ptr = root;
+            var tmp = ptr;
             while (ptr != null)
             {
+                if (ptr == tmp) return null;
                 if (ptr.key.Equals(key))
-                {
                     foreach (var item in ptr.list)
-                        if(item.Key.Equals(value))
+                    {
+                        var temp = item.Key;
+                        if(temp.Equals(value))
                         return ptr; 
-                }
+                        tmp = ptr;
+                    }
                 else if (ptr.key.CompareTo(key) == -1) ptr = ptr.right;
                 else ptr = ptr.left;
             }
             return null;
-        }
 
+
+            //if (root == null) return null;
+            //RBTreeNode<TKey, TValue> ptr = root;
+            //while (ptr != null)
+            //{
+            //    if (ptr.key.Equals(key)) return ptr;
+            //    else if (ptr.key.CompareTo(key) == -1) ptr = ptr.right;
+            //    else ptr = ptr.left;
+            //}
+            //return null;
+        }
         private void BalanceAfterAddition(RBTreeNode<TKey, TValue> ptr)
         {
             RBTreeNode<TKey, TValue> parent = null;
@@ -372,7 +385,24 @@ namespace CarDirectory
                 return list;
             }
         }
-
+        public void Inorder(ref DataGridView dataGrid,RBTreeNode<TKey, TValue> node )
+        {
+            if (node == null)
+                return;
+            Inorder(ref dataGrid, node.left);
+            foreach (var item in node.Value)
+                dataGrid.Rows.Add(node.key,item.Key);
+            Inorder(ref dataGrid, node.right);
+        }
+        public void Inorder(ref DataGridView dataGrid, RBTreeNode<TKey, Car> node)
+        {
+            if (node == null)
+                return;
+            Inorder(ref dataGrid, node.left);
+            foreach (var item in node.Value)
+                dataGrid.Rows.Add(node.key, item.Key.Model, item.Key.Start,item.Key.End);
+            Inorder(ref dataGrid, node.right);
+        }
         System.Collections.Generic.IEnumerator<RBTreeNode<TKey, TValue>> System.Collections.Generic.IEnumerable<RBTreeNode<TKey, TValue>>.GetEnumerator()
         {
             if (root == null) yield break;

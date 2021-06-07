@@ -18,17 +18,15 @@ namespace CarDirectory
             InitializeComponent();          
         }
 
-        public AddForm( ref List<Car> cars, ref HashTable hashTable,ref RBTree<string, string> rBTreeModel,ref RBTree<int,Car> rBTreeYear,ref DataGridView dataGridView): this()
+        public AddForm(ref HashTable hashTable,ref RBTree<string, Car> rBTreeCar,ref RBTree<int,Car> rBTreeYear,ref DataGridView dataGridView): this()
         {
             this.rBTreeYear = rBTreeYear;
-            this.rBTreeModel = rBTreeModel;
-            this.cars = cars;
+            this.rBTreeCar = rBTreeCar;
             this.hashTable = hashTable;
             this.dataGridView = dataGridView;
         }
         Car car;
-        private RBTree<string, string> rBTreeModel;
-        private List<Car> cars;
+        private RBTree<string, Car> rBTreeCar;
         private HashTable hashTable;
         private DataGridView dataGridView;
         private RBTree<int, Car> rBTreeYear;
@@ -80,22 +78,23 @@ namespace CarDirectory
 
         public void AddNewCar()
         {
-            int index=0;
             car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
             FixEndCar(ref car);
-            if (rBTreeModel.Contains(car.Brand))
+            if (rBTreeCar.Contains(car.Brand))
             {
-                if (rBTreeModel.Contains(car.Brand, car.Model))
+                if (hashTable.Contains(car.Brand+car.Model))
                 {
-                    if (IsSameDate(ref cars, ref car, ref index))
+                    if (rBTreeCar.Contains(car.Brand,car))
                     {
                         MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
-                    if (IsCorrectDates(ref cars, ref car, ref index))
+                    if (IsCorrectDates(ref rBTreeCar, ref car))
                     {
-                        cars.Add(car);
-                        RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+                        rBTreeCar.Add(car.Brand, car);
+                        rBTreeYear.Add(car.Start, car);
+                        RefreshDataGridView(ref rBTreeCar, ref dataGridView);
+                        Visible = false;
                         MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         DialogResult = DialogResult.OK;
                     }
@@ -104,11 +103,10 @@ namespace CarDirectory
                 }
                 else
                 {
-                    cars.Add(car);
                     hashTable.Add(new BrandAndModel(car.Brand, car.Model));
-                    rBTreeModel.Add(car.Brand, car.Model);
+                    rBTreeCar.Add(car.Brand,car);
                     rBTreeYear.Add(car.Start, car);
-                    RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+                    RefreshDataGridView(ref rBTreeCar, ref dataGridView);
                     Visible = false;
                     MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;

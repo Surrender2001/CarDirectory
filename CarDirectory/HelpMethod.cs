@@ -34,15 +34,19 @@ namespace CarDirectory
             foreach (var car in cars)
                 dataGridView.Rows.Add(car.Key.Brand, car.Key.Model,car.Key.Start,car.Key.End);
         }
-
+        public static void RefreshDataGridView(ref RBTree<string,Car> rBTreeCar, ref DataGridView dataGridView)
+        {
+            dataGridView.Rows.Clear();
+            rBTreeCar.Inorder(ref dataGridView, rBTreeCar.root);
+        }
         public static bool IsEmpty(ref MaskedTextBox textBox)
         {
             return textBox.Text.Length == 0;
         }
-        public static bool IsEmpty(ref TextBox textBox)
-        {
-            return textBox.Text.Length == 0;
-        }
+        //public static bool IsEmpty(ref TextBox textBox)
+        //{
+        //    return textBox.Text.Length == 0;
+        //}
         public static bool IsCorrectYear(ref MaskedTextBox textBox)
         {
             if (int.TryParse(textBox.Text, out int result))
@@ -90,24 +94,27 @@ namespace CarDirectory
             if (IsEmpty(ref ModelTextBox)) ModelTextBox.BackColor = Color.LightCoral;
             if (IsEmpty(ref BrandTextBox)) BrandTextBox.BackColor = Color.LightCoral;
         }
-        public static bool IsSameModel(ref List<Car> cars, ref Car car,ref int index)
-        {
-            for (int i = 0; i < cars.Count; i++)
-                if (cars[i].Brand == car.Brand && cars[i].Model == car.Model)
-                {
-                    index = i;
-                    return true;
-                }
-            return false;
-        }
+        //public static bool IsSameModel(ref List<Car> cars, ref Car car,ref int index)
+        //{
+        //    for (int i = 0; i < cars.Count; i++)
+        //        if (cars[i].Brand == car.Brand && cars[i].Model == car.Model)
+        //        {
+        //            index = i;
+        //            return true;
+        //        }
+        //    return false;
+        //}
         public static bool IsSameDate(ref List<Car> cars, ref Car car,ref int index)
         {
             return (cars[index].Start == car.Start && cars[index].End == car.End);
         }
-        public static bool IsCorrectDates(ref List<Car> cars, ref Car car, ref int index)
+        public static bool IsCorrectDates(ref RBTree<string,Car> rBTreeCar, ref Car car)
         {
-            if (cars[index].End != "-" && car.End != "-")
-                return ((car.Start < cars[index].Start && int.Parse(car.End) < cars[index].Start) || (car.Start > int.Parse(cars[index].End) && int.Parse(car.End) > int.Parse(cars[index].End)));
+            var templist = rBTreeCar.GetValues(car.Brand);
+            foreach (var item in templist)
+                if(item.Key.Brand==car.Brand&&item.Key.Model==car.Model)
+                    if (item.Key.End != "-" && car.End != "-")
+                        return ((car.Start < item.Key.Start && int.Parse(car.End) < item.Key.Start) || (car.Start > int.Parse(item.Key.End) && int.Parse(car.End) > int.Parse(item.Key.End)));
             return true;
         }
         public static bool IsCorrectStartAndEndYear(ref MaskedTextBox StartTextBox, ref MaskedTextBox EndTextBox)
@@ -130,5 +137,6 @@ namespace CarDirectory
             a = b;
             b = temp;
         }
+        
     }
 }

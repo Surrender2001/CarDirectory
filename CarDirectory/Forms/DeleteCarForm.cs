@@ -18,13 +18,11 @@ namespace CarDirectory
             InitializeComponent();
             ActiveControl = BrandTextBox;
         }
-
-        public DeleteCarForm(ref List<Car> cars, ref HashTable hashTable,ref RBTree<string,string> rBTreeModel,ref RBTree<int,Car> rBTreeYear, ref DataGridView dataGridView):this()
+        public DeleteCarForm(ref HashTable hashTable, ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView):this()
         {
-            this.rBTreeModel = rBTreeModel;
-            this.rBTreeYear = rBTreeYear;
-            this.cars = cars;
             this.hashTable = hashTable;
+            this.rBTreeCar = rBTreeCar;
+            this.rBTreeYear = rBTreeYear;
             this.dataGridView = dataGridView;
         }
 
@@ -41,6 +39,8 @@ namespace CarDirectory
         private DataGridView dataGridView;
         private RBTree<string, string> rBTreeModel;
         RBTree<int, Car> rBTreeYear;
+        private RBTree<string, Car> rBTreeCar;
+
         public void DeleteCar()
         {
             var car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
