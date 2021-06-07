@@ -130,8 +130,9 @@ namespace CarDirectory
             using (var sfd = new SaveFileDialog() {Filter = "txt files (*.txt)|*.txt"})
             if (sfd.ShowDialog() == DialogResult.OK)
                 using (var sw = new StreamWriter(sfd.FileName))
-                    foreach (var car in rBTreeCar)
-                        sw.WriteLine(car);
+                    foreach (var carNode in rBTreeCar)
+                            foreach(var car in carNode.list)
+                                sw.WriteLine(car.Key.Brand+"\t"+ car.Key.Model + "\t" +car.Key.Start + "\t" +car.Key.End);
         }
     }
 }
