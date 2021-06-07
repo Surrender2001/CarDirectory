@@ -4,7 +4,7 @@ using static CarDirectory.HelpMethod;
 
 namespace CarDirectory
 {
-    public class RBTreeNode<TKey, TValue>
+    public class RBTreeNode<TKey, TValue> where TKey : IComparable where TValue : IEquatable<TValue>
     {
         internal enum Color { BLACK, RED };
         internal TKey key;
@@ -34,6 +34,8 @@ namespace CarDirectory
             return (left != null && left.color == Color.RED) ||
                 (right != null && right.color == Color.RED);
         }
+
+
     }
     public class RBTree<TKey, TValue> : System.Collections.Generic.IEnumerable<RBTreeNode<TKey, TValue>> where TKey : IComparable where TValue:IEquatable<TValue>
     {
@@ -57,6 +59,30 @@ namespace CarDirectory
                 return node;
             }
         }
+        public bool Contains(TKey key, string value) => Find(key, value) != null;
+        private object Find(TKey key, string value)
+        {
+            if (root == null) return null;
+            RBTreeNode<TKey, TValue> ptr = root;
+            var tmp = ptr;
+            while (ptr != null)
+            {
+                if (ptr.key.Equals(key))
+                {
+                    foreach (var item in ptr.list)
+                    {
+                        if (item.Key.Equals(value))
+                            return ptr;
+                        tmp = ptr;
+                    }
+                    if (ptr == tmp) return null;
+                }
+                else if (ptr.key.CompareTo(key) == -1) ptr = ptr.right;
+                else ptr = ptr.left;
+            }
+            return null;
+        }
+
         public RBTreeNode<TKey, TValue> root { get; private set; } = null;
         private enum Direction { LEFT, RIGHT };
         private void Rotate(RBTreeNode<TKey, TValue> ptr, Direction dir)
@@ -94,30 +120,21 @@ namespace CarDirectory
             var tmp = ptr;
             while (ptr != null)
             {
-                if (ptr == tmp) return null;
+                
                 if (ptr.key.Equals(key))
+                {
                     foreach (var item in ptr.list)
                     {
-                        var temp = item.Key;
-                        if(temp.Equals(value))
+                        if(item.Key.Equals(value))
                         return ptr; 
                         tmp = ptr;
                     }
+                if (ptr == tmp) return null;
+                }
                 else if (ptr.key.CompareTo(key) == -1) ptr = ptr.right;
                 else ptr = ptr.left;
             }
             return null;
-
-
-            //if (root == null) return null;
-            //RBTreeNode<TKey, TValue> ptr = root;
-            //while (ptr != null)
-            //{
-            //    if (ptr.key.Equals(key)) return ptr;
-            //    else if (ptr.key.CompareTo(key) == -1) ptr = ptr.right;
-            //    else ptr = ptr.left;
-            //}
-            //return null;
         }
         private void BalanceAfterAddition(RBTreeNode<TKey, TValue> ptr)
         {

@@ -1,4 +1,6 @@
-﻿namespace CarDirectory
+﻿using System;
+
+namespace CarDirectory
 {
     public class DoubleLinkedListNode<T>
     {
@@ -11,9 +13,18 @@
             Next = next;
             Prev = prev;
         }
+        public bool Equals(T other)
+        {
+            return true;
+        }
     }
-    public class DoubleLinkedList<T> : System.Collections.Generic.IEnumerable<DoubleLinkedListNode<T>>
+    public class DoubleLinkedList<T> : System.Collections.Generic.IEnumerable<DoubleLinkedListNode<T>> 
     {
+        public bool Equals(T other)
+        {
+
+            return true;
+        }
         public DoubleLinkedListNode<T> First { get; private set; } = null;
         public DoubleLinkedListNode<T> Last { get; private set; } = null;
         public int Size { get; private set; } = 0;
@@ -91,7 +102,7 @@
             DoubleLinkedListNode<T> ptr = First;
             do
             {
-                if (ptr.Key.Equals(key)) return ptr;
+                if (ptr.Key.ToString().Equals(key.ToString())) return ptr;
                 ptr = ptr.Next;
             } while (ptr != null);
             return null;

@@ -34,10 +34,8 @@ namespace CarDirectory
             else 
                 MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
-        private List<Car> cars;
         private HashTable hashTable;
         private DataGridView dataGridView;
-        private RBTree<string, string> rBTreeModel;
         RBTree<int, Car> rBTreeYear;
         private RBTree<string, Car> rBTreeCar;
 
@@ -45,15 +43,13 @@ namespace CarDirectory
         {
             var car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
             FixEndCar(ref car);
-            if (rBTreeModel.Contains(car.Brand,car.Model))
-            {                
-                cars.Remove(car);
-                if(!IsFoundBrandAndModel(ref cars,car.Brand,car.Model))
+            if (rBTreeCar.Contains(car.Brand,car))
+            {   
+                rBTreeCar.Remove(car.Brand, car);
+                rBTreeYear.Remove(car.Start, car);             
+                if(!rBTreeCar.Contains(car.Brand, car.Model))
                     hashTable.Delete(car.Brand + car.Model);
-                rBTreeModel.Remove(car.Brand, car.Model);
-                rBTreeYear.Remove(car.Start, car);
-                dataGridView.Rows.Clear();
-                RefreshDataGridView(ref cars, ref dataGridView, ref hashTable);
+                RefreshDataGridView(ref rBTreeCar, ref dataGridView);
                 Visible = false;
                 MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
