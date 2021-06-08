@@ -46,8 +46,8 @@ namespace CarDirectory
             if (rBTreeCar.Contains(car.Brand,car))
             {   
                 rBTreeCar.Remove(car.Brand, car);
-                rBTreeYear.Remove(car.Start, car);             
-                if(!rBTreeCar.Contains(car.Brand, car.Model))
+                rBTreeYear.Remove(car.Start, car);
+                if (!RBTreeContains(ref rBTreeCar, car.Brand, car.Model))
                     hashTable.Delete(car.Brand + car.Model);
                 RefreshDataGridView(ref rBTreeCar, ref dataGridView);
                 Visible = false;

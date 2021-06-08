@@ -138,5 +138,14 @@ namespace CarDirectory
             b = temp;
         }
         
+        public static bool RBTreeContains(ref RBTree<string,Car>rBTree, string brand, string model)
+        {
+            var tmpList = rBTree.GetValues(brand);
+            foreach (var item in tmpList)
+                if (item.Key.Model == model)
+                    return true;
+            return false;
+        }
+
     }
 }

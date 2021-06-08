@@ -74,7 +74,7 @@ namespace CarDirectory
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message}, кол-во записанных машин ----", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                MessageBox.Show($"{ex.Message}, кол-во записанных машин", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information); 
             }
         }
         private void AddButton_Click(object sender, EventArgs e)
