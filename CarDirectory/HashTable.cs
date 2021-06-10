@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CarDirectory
 {
@@ -51,7 +52,7 @@ namespace CarDirectory
             hashtable = new BrandAndModel[DEFAULT_SIZE];
         }
 
-        protected int GetIndex(string key)
+        private int GetIndex(string key)
         {
             int i = 0;
             int hash = Hash(key, i);
@@ -85,7 +86,7 @@ namespace CarDirectory
         //
         public int GetHash(string key)
         {
-            int s = 0, hash1, hash2, hash = 0;
+            int s = 0, hash1, hash2, hash;
             for (int i = 0; i < key.Length; i++)
                 s += key[i];
 
@@ -194,7 +195,7 @@ namespace CarDirectory
             foreach (var ch in key) value += ch;
             return value;
         }
-        private int Hash(string key, int i) => (H1(key) + i * H2(key)) % Size;
+        public int Hash(string key, int i) => (H1(key) + i * H2(key)) % Size;
         private int H1(string key)
         {
             return (int)Math.Floor(Size * (KeyToInt(key) * GOLDEN_RATIO % 1)); 
@@ -243,6 +244,14 @@ namespace CarDirectory
             foreach (var item in oldtable) 
                 if (item != null && !item.Deleted) 
                     Add(item);
+        }
+
+        public void DisplayOnDataGrisView(ref DataGridView dataGridView)
+        {
+            for (int i = 0; i < Size; ++i)
+                if (hashtable[i] != null)
+                    dataGridView.Rows.Add(hashtable[i].Brand, hashtable[i].Model, Hash(hashtable[i].Brand + hashtable[i].Model, 0), GetIndex(hashtable[i].Brand + hashtable[i].Model));
+            
         }
 
         //System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

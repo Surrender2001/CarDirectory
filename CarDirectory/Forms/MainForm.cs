@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static CarDirectory.HelpMethod;
@@ -42,20 +43,24 @@ namespace CarDirectory
 
         private void ReadDbButton_Click(object sender, EventArgs e)
         {
-            dataGridView.Rows.Clear();
-            hashTable.Clear();
-            rBTreeYear.Clear();
             try
             {
                 using (var ofd = new OpenFileDialog() { Filter = "txt files (*.txt)|*.txt" })
                     if (ofd.ShowDialog() == DialogResult.OK)
+                    {            
+                        dataGridView.Rows.Clear();
+                        hashTable.Clear();
+                        rBTreeYear.Clear();
+                        int i = 0;
                         using (var sw = new StreamReader(ofd.FileName, Encoding.Default))
                             while (!sw.EndOfStream)
                             {
+                                i++;
                                 string s = sw.ReadLine();
                                 string[] subs = s.Split(new char[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                                if (!int.TryParse(subs[2], out int result) || !IsCorrectEndYear(subs[2]))
-                                    throw new Exception("Ошибка чтения файла");
+                                //if (!int.TryParse(subs[2], out int result) || !IsCorrectYear(result)||Regex.IsMatch(subs[0], @"[A-Za-zА-Яа-я0-9]")|| Regex.IsMatch(subs[1], @"[A-Za-zА-Яа-я0-9]"))
+                                if(!int.TryParse(subs[2], out int result) || !IsCorrectYear(result)||!IsCorrectEndYear(subs[3])||!Regex.IsMatch(subs[0], @"^[a-zA-ZА-Яа-я- ]+$")|| !Regex.IsMatch(subs[1], @"^[A-Za-zА-Яа-я0-9-&()/+ ]+$")) 
+                                    throw new Exception($"Ошибка чтения файла brand: {subs[0]} model: {subs[1]}");
                                 var car = new Car
                                 {
                                     Brand = subs[0],
@@ -67,14 +72,15 @@ namespace CarDirectory
                                 rBTreeYear.Add(car.Start, car);
                                 rBTreeCar.Add(car.Brand, car);
                             }
-                RefreshDataGridView(ref rBTreeCar, ref dataGridView);
-                MessageBox.Show($"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness, 2) * 100}%\n" +
-                    $"Вместительность {hashTable.CurrentSize}",
-                    "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        RefreshDataGridView(ref rBTreeCar, ref dataGridView);
+                        MessageBox.Show($"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness, 2) * 100}%\n" +
+                            $"Вместительность {hashTable.CurrentSize}",
+                            "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message}, кол-во записанных машин", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                MessageBox.Show($"{ex.Message} ", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information); 
             }
         }
         private void AddButton_Click(object sender, EventArgs e)
@@ -105,9 +111,9 @@ namespace CarDirectory
         }
         private void HashButton_Click(object sender, EventArgs e)
         {
-            //var hashForm = new HashForm(ref hashTable,ref dataGridView,ref cars);
-            //_ = hashForm.ShowDialog();
-            //hashForm.Dispose();
+            var hashForm = new HashForm(ref hashTable, ref rBTreeCar, ref rBTreeYear, ref dataGridView);
+            _ = hashForm.ShowDialog();
+            hashForm.Dispose();
         }
         DoubleLinkedList<Car> dlListCars = new DoubleLinkedList<Car>();
         private void FindButton_Click(object sender, EventArgs e)

@@ -402,15 +402,6 @@ namespace CarDirectory
                 return list;
             }
         }
-        public void Inorder(ref DataGridView dataGrid,RBTreeNode<TKey, TValue> node )
-        {
-            if (node == null)
-                return;
-            Inorder(ref dataGrid, node.left);
-            foreach (var item in node.Value)
-                dataGrid.Rows.Add(node.key,item.Key);
-            Inorder(ref dataGrid, node.right);
-        }
         public void Inorder(ref DataGridView dataGrid, RBTreeNode<TKey, Car> node)
         {
             if (node == null)

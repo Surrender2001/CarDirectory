@@ -42,20 +42,20 @@ namespace CarDirectory
 
         public void DeleteCar()
         {
-            //var car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
-            //FixEndCar(ref car);
+            string text = EndTextBox.Text;
+            FixEndCar(ref text, out string endYear);
             bool isFound = false;
             Car car = null;
             var tmpList = rBTreeCar.GetValues(BrandTextBox.Text);
             foreach (var item in tmpList)
-                if (item.Key.Model == ModelTextBox.Text && item.Key.Start == int.Parse(StartTextBox.Text) && item.Key.End == EndTextBox.Text)
+                if (item.Key.Model == ModelTextBox.Text && item.Key.Start == int.Parse(StartTextBox.Text) && item.Key.End == endYear)
                 {
                     car = item.Key;
                     rBTreeCar.Remove(car.Brand, car);
                     rBTreeYear.Remove(car.Start, car);
                     isFound = true;
                 }                    
-            if (!RBTreeContains(ref rBTreeCar, car.Brand, car.Model))
+            if (!RBTreeContains(ref rBTreeCar, BrandTextBox.Text, ModelTextBox.Text))
                 hashTable.Delete(car.Brand + car.Model);
             RefreshDataGridView(ref rBTreeCar, ref dataGridView);
             Visible = false;

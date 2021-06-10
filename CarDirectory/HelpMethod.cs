@@ -17,17 +17,7 @@ namespace CarDirectory
                 dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End);
             
         }
-        public static void RefreshDataGridView(ref List<BrandAndModel> cars, ref DataGridView dataGridView, ref HashTable hashTable)
-        {
-            int hash;
-            dataGridView.Rows.Clear();
-            foreach (var car in cars)
-            {
-                hash = hashTable.GetHash(car.Brand + car.Model);
-                dataGridView.Rows.Add(car.Brand, car.Model,hash);
-            }
-            
-        }
+        public static void RefreshDataGridView(ref DataGridView dataGridView, ref HashTable hashTable) => hashTable.DisplayOnDataGrisView(ref dataGridView);
         public static void RefreshDataGridView(ref DoubleLinkedList<Car> cars, ref DataGridView dataGridView, ref HashTable hashTable)
         {
             dataGridView.Rows.Clear();
@@ -54,6 +44,8 @@ namespace CarDirectory
                     return true;
             return false;
         }
+        public static bool IsCorrectYear(int v) => v > 1967 && v < 2022;
+
         public static bool IsCorrectEndYear(ref MaskedTextBox textBox)
         {
             if (textBox.Text.Length == 0) return true;
@@ -64,12 +56,17 @@ namespace CarDirectory
         }
         public static bool IsCorrectEndYear(string end)
         {
-            int result;
-            if (end=="-") return true;
-            if (int.TryParse(end, out result))
+            if (end == "-") return true;
+            if (int.TryParse(end, out int result))
                 if (result > 1967 && result < 2022)
                     return true;
             return false;
+        }
+        public static void FixEndCar(ref string text,out string endYear)
+        {
+            if (text == "")
+                endYear = "-";
+            else endYear = text;
         }
         public static void FixEndCar(ref Car car)
         {
