@@ -56,9 +56,8 @@ namespace CarDirectory
         }
         public static bool IsCorrectEndYear(ref MaskedTextBox textBox)
         {
-            int result;
             if (textBox.Text.Length == 0) return true;
-            if (int.TryParse(textBox.Text, out result))
+            if (int.TryParse(textBox.Text, out int result))
                 if (result > 1967 && result < 2022)
                     return true;
             return false;
@@ -113,13 +112,29 @@ namespace CarDirectory
             var templist = rBTreeCar.GetValues(car.Brand);
             foreach (var item in templist)
                 if(item.Key.Brand==car.Brand&&item.Key.Model==car.Model)
+                {
                     if (item.Key.End != "-" && car.End != "-")
-                        return ((car.Start < item.Key.Start && int.Parse(car.End) < item.Key.Start) || (car.Start > int.Parse(item.Key.End) && int.Parse(car.End) > int.Parse(item.Key.End)));
+                    {
+                        if(!((car.Start < item.Key.Start && int.Parse(car.End) < item.Key.Start) || (car.Start > int.Parse(item.Key.End) && int.Parse(car.End) > int.Parse(item.Key.End))))
+                            return false;
+                    }
+                    else if (item.Key.End == "-" && car.End != "-")
+                    {
+                        if (!(car.Start < item.Key.Start && int.Parse(car.End) < item.Key.Start))
+                            return false;
+                    }
+                    else if (item.Key.End != "-" && car.End == "-")
+                    {
+                        if (!(car.Start > int.Parse(item.Key.End)))
+                            return false;
+                    }
+                    else return false;
+                }
             return true;
         }
         public static bool IsCorrectStartAndEndYear(ref MaskedTextBox StartTextBox, ref MaskedTextBox EndTextBox)
         {
-            if (!IsEmpty(ref StartTextBox) && !IsEmpty(ref EndTextBox))
+            if (!IsEmpty(ref EndTextBox))
                 return int.Parse(StartTextBox.Text) < int.Parse(EndTextBox.Text);
             return true;
         }
