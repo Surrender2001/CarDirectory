@@ -29,8 +29,9 @@ namespace CarDirectory
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             CheckTextBox(ref ModelTextBox, ref BrandTextBox, ref StartTextBox, ref EndTextBox);
-            if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox) && IsCorrectStartAndEndYear(ref StartTextBox, ref EndTextBox))
-                DeleteCar();
+            if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
+                if(IsCorrectStartAndEndYear(ref StartTextBox, ref EndTextBox))
+                    DeleteCar();
             else 
                 MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
@@ -41,19 +42,26 @@ namespace CarDirectory
 
         public void DeleteCar()
         {
-            var car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
-            FixEndCar(ref car);
-            if (rBTreeCar.Contains(car.Brand,car))
-            {   
-                rBTreeCar.Remove(car.Brand, car);
-                rBTreeYear.Remove(car.Start, car);
-                if (!RBTreeContains(ref rBTreeCar, car.Brand, car.Model))
-                    hashTable.Delete(car.Brand + car.Model);
-                RefreshDataGridView(ref rBTreeCar, ref dataGridView);
-                Visible = false;
+            //var car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
+            //FixEndCar(ref car);
+            bool isFound = false;
+            Car car = null;
+            var tmpList = rBTreeCar.GetValues(BrandTextBox.Text);
+            foreach (var item in tmpList)
+                if (item.Key.Model == ModelTextBox.Text && item.Key.Start == int.Parse(StartTextBox.Text) && item.Key.End == EndTextBox.Text)
+                {
+                    car = item.Key;
+                    rBTreeCar.Remove(car.Brand, car);
+                    rBTreeYear.Remove(car.Start, car);
+                    isFound = true;
+                }                    
+            if (!RBTreeContains(ref rBTreeCar, car.Brand, car.Model))
+                hashTable.Delete(car.Brand + car.Model);
+            RefreshDataGridView(ref rBTreeCar, ref dataGridView);
+            Visible = false;
+            DialogResult = DialogResult.OK;
+            if (isFound)
                 MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DialogResult = DialogResult.OK;
-            }
             else
                 MessageBox.Show("Введенный вами элемент в справочнике не найден", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
