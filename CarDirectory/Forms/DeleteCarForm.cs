@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static CarDirectory.HelpMethod;
 
@@ -18,7 +12,8 @@ namespace CarDirectory
             InitializeComponent();
             ActiveControl = BrandTextBox;
         }
-        public DeleteCarForm(ref HashTable hashTable, ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView):this()
+
+        public DeleteCarForm(ref HashTable hashTable, ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView) : this()
         {
             this.hashTable = hashTable;
             this.rBTreeCar = rBTreeCar;
@@ -28,16 +23,17 @@ namespace CarDirectory
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            CheckTextBox(ref ModelTextBox, ref BrandTextBox, ref StartTextBox, ref EndTextBox);
-            if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
-                if(IsCorrectStartAndEndYear(ref StartTextBox, ref EndTextBox))
+            CheckTextBox(ref BrandTextBox, ref ModelTextBox, ref StartTextBox, ref EndTextBox);
+            if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectStartYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
+                if (IsCorrectStartAndEndYear(ref StartTextBox, ref EndTextBox))
                     DeleteCar();
-            else 
-                MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                    MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
         private HashTable hashTable;
         private DataGridView dataGridView;
-        RBTree<int, Car> rBTreeYear;
+        private RBTree<int, Car> rBTreeYear;
         private RBTree<string, Car> rBTreeCar;
 
         public void DeleteCar()
@@ -54,7 +50,7 @@ namespace CarDirectory
                     rBTreeCar.Remove(car.Brand, car);
                     rBTreeYear.Remove(car.Start, car);
                     isFound = true;
-                }                    
+                }
             if (!RBTreeContains(ref rBTreeCar, BrandTextBox.Text, ModelTextBox.Text))
                 hashTable.Delete(car.Brand + car.Model);
             RefreshDataGridView(ref rBTreeCar, ref dataGridView);
@@ -65,6 +61,7 @@ namespace CarDirectory
             else
                 MessageBox.Show("Введенный вами элемент в справочнике не найден", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
         private void BrandTextBox_Click(object sender, EventArgs e)
         {
             BrandTextBox.BackColor = Color.Beige;

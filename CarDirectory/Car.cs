@@ -1,24 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarDirectory
 {
-    public class Car :IEquatable<Car>
+    public class Car : IEquatable<Car>
     {
         public Car()
         {
         }
 
-        public Car(string brand,string model,int start,string end)
+        public Car(string brand, string model, int start, string end)
         {
             Brand = brand;
             Model = model;
             Start = start;
             End = end;
         }
+
         public string Brand { get; set; }
         public string Model { get; set; }
         public int Start { get; set; }
@@ -27,17 +24,9 @@ namespace CarDirectory
         public bool Equals(Car other)
         {
             if (other == null) return false;
-            return Brand.Equals(other.Brand) && Model.Equals(other.Model)&&Start==other.Start&&End==other.End;
-        }
-        public bool Equals(string brand,string model)
-        {
-            return Brand.Equals(brand) && Model.Equals(model);
+            return Brand.Equals(other.Brand) && Model.Equals(other.Model) && Start == other.Start && End == other.End;
         }
 
-        public bool Equals(string model)
-        {
-            return Model.Equals(model);
-        }
         public override string ToString()
         {
             return Brand + "\t" + Model + "\t" + Start + "\t" + End;

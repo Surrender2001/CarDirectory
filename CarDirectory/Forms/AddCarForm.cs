@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static CarDirectory.HelpMethod;
 
@@ -15,21 +9,23 @@ namespace CarDirectory
     {
         public AddForm()
         {
-            InitializeComponent();          
+            InitializeComponent();
         }
 
-        public AddForm(ref HashTable hashTable,ref RBTree<string, Car> rBTreeCar,ref RBTree<int,Car> rBTreeYear,ref DataGridView dataGridView): this()
+        public AddForm(ref HashTable hashTable, ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView) : this()
         {
             this.rBTreeYear = rBTreeYear;
             this.rBTreeCar = rBTreeCar;
             this.hashTable = hashTable;
             this.dataGridView = dataGridView;
         }
-        Car car;
+
+        private Car car;
         private RBTree<string, Car> rBTreeCar;
         private HashTable hashTable;
         private DataGridView dataGridView;
         private RBTree<int, Car> rBTreeYear;
+
         private void BrandTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
             toolTip1.ToolTipTitle = "Неверный символ";
@@ -39,7 +35,7 @@ namespace CarDirectory
         private void BrandTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             BrandTextBox.BackColor = Color.Beige;
-            if (e.KeyCode ==Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 ActiveControl = ModelTextBox;
@@ -52,13 +48,13 @@ namespace CarDirectory
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                ActiveControl =StartTextBox;
+                ActiveControl = StartTextBox;
                 StartTextBox.BackColor = Color.Beige;
             }
         }
 
         private void StartTextBox_KeyDown(object sender, KeyEventArgs e)
-        { 
+        {
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
@@ -69,12 +65,11 @@ namespace CarDirectory
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            CheckTextBox(ref ModelTextBox, ref BrandTextBox, ref StartTextBox, ref EndTextBox);
-            if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
-                if(IsCorrectStartAndEndYear(ref StartTextBox, ref EndTextBox))
-                AddNewCar();
-            
-            else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            CheckTextBox(ref BrandTextBox, ref ModelTextBox, ref StartTextBox, ref EndTextBox);
+            if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectStartYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
+                if (IsCorrectStartAndEndYear(ref StartTextBox, ref EndTextBox))
+                    AddNewCar();
+                else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         public void AddNewCar()
@@ -83,9 +78,9 @@ namespace CarDirectory
             FixEndCar(ref car);
             if (rBTreeCar.Contains(car.Brand))
             {
-                if (hashTable.Contains(car.Brand+car.Model))
+                if (hashTable.Contains(car.Brand + car.Model))
                 {
-                    if (rBTreeCar.Contains(car.Brand,car))
+                    if (rBTreeCar.Contains(car.Brand, car))
                     {
                         MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
@@ -105,7 +100,7 @@ namespace CarDirectory
                 else
                 {
                     hashTable.Add(new BrandAndModel(car.Brand, car.Model));
-                    rBTreeCar.Add(car.Brand,car);
+                    rBTreeCar.Add(car.Brand, car);
                     rBTreeYear.Add(car.Start, car);
                     RefreshDataGridView(ref rBTreeCar, ref dataGridView);
                     Visible = false;
@@ -128,7 +123,7 @@ namespace CarDirectory
         private void InfoPictureBox1_MouseEnter(object sender, EventArgs e)
         {
             toolTip1.ToolTipTitle = "Ограничение на год";
-            toolTip1.Show(">1967 и <2022",InfoPictureBox1, 5000);
+            toolTip1.Show(">1967 и <2022", InfoPictureBox1, 5000);
         }
 
         private void BrandTextBox_Click(object sender, EventArgs e)

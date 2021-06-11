@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace CarDirectory
 {
     public class BrandAndModel : IEquatable<BrandAndModel>
     {
-
-      
         public string Brand { get; set; }
         public string Model { get; set; }
         public bool Deleted { get; set; }
+
         public BrandAndModel(string brand, string model)
         {
             Brand = brand;
@@ -21,19 +17,13 @@ namespace CarDirectory
             Deleted = false;
         }
 
-        public bool Equals(BrandAndModel other)
-        {
-            return other.Brand == Brand && other.Model == Model;
-        }
+        public bool Equals(BrandAndModel other) => other.Brand == Brand && other.Model == Model;
 
-        public override string ToString() 
-        {
-            return Brand + Model;
-        }
+        public override string ToString() => Brand + Model;
     }
 
-    public class HashTable //: System.Collections.Generic.IEnumerable<BrandAndModel>
-    {        
+    public class HashTable
+    {
         private BrandAndModel[] hashtable = new BrandAndModel[DEFAULT_SIZE];
         private const double MAX_FULLNESS = 0.7;
         private const double MIN_FULLNESS = 0.2;
@@ -43,8 +33,8 @@ namespace CarDirectory
         private int Size = DEFAULT_SIZE;
         private int Count = 0;
         public double Fullness => (double)Count / Size;
-        public int Stores => Count;
         public int CurrentSize => Size;
+
         public void Clear()
         {
             Size = DEFAULT_SIZE;
@@ -64,26 +54,6 @@ namespace CarDirectory
             return hashtable[hash] != null && !hashtable[hash].Deleted ? hash : -1;
         }
 
-        //public int GetHash(string key)
-        //{
-        //    if (Fullness > MAX_FULLNESS) Expand();
-        //    int i = 0;
-        //    int hash = Hash(key, i);
-        //    while (!hashtable[hash].Equals(key))
-        //    {
-        //        i++;
-        //        hash = Hash(key, i);
-        //    }
-        //    //if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Equals(key))
-        //    //{
-        //    //    hashtable[hash] = bam;
-        //    //    Count++;
-        //    //}
-        //    //hash1 = hash;
-
-        //    return hash;
-        //}
-        //
         public int GetHash(string key)
         {
             int s = 0, hash1, hash2, hash;
@@ -107,9 +77,9 @@ namespace CarDirectory
         }
 
         public bool Contains(string key) => GetIndex(key) != -1;
+
         //public string GetValue(string key)
         //{
-
         //    int index = GetIndex(key);
         //    return index != -1 ? hashtable[index].Brand+ hashtable[index].Model : default;
         //}
@@ -128,6 +98,7 @@ namespace CarDirectory
                 if (Fullness < MIN_FULLNESS) Reduce();
             }
         }
+
         public void Delete(string key)
         {
             int index = GetIndex(key);
@@ -137,7 +108,6 @@ namespace CarDirectory
                 Count--;
                 if (Fullness < MIN_FULLNESS) Reduce();
             }
-
         }
 
         //public void Add(string key, out index)
@@ -172,6 +142,7 @@ namespace CarDirectory
                 Count++;
             }
         }
+
         //public void Add(BrandAndModel bam, out int hash1)
         //{
         //    if (Fullness > MAX_FULLNESS) Expand();
@@ -195,21 +166,24 @@ namespace CarDirectory
             foreach (var ch in key) value += ch;
             return value;
         }
+
         public int Hash(string key, int i) => (H1(key) + i * H2(key)) % Size;
+
         private int H1(string key)
         {
-            return (int)Math.Floor(Size * (KeyToInt(key) * GOLDEN_RATIO % 1)); 
+            return (int)Math.Floor(Size * (KeyToInt(key) * GOLDEN_RATIO % 1));
         }
+
         private int H2(string key)
         {
-            int prime=2;
+            int prime = 2;
             for (int i = Size - 1; i > 2; --i)
                 if (IsPrime(i))
                 {
                     prime = i;
                     break;
                 }
-           return prime;
+            return prime;
         }
 
         private bool IsPrime(int a)
@@ -230,10 +204,11 @@ namespace CarDirectory
             Count = 0;
             Size *= 2;
             hashtable = new BrandAndModel[Size];
-            foreach (var item in oldtable) 
-                if (item != null) 
+            foreach (var item in oldtable)
+                if (item != null)
                     Add(item);
         }
+
         private void Reduce()
         {
             if (Size <= DEFAULT_SIZE) return;
@@ -241,8 +216,8 @@ namespace CarDirectory
             Count = 0;
             Size /= 2;
             hashtable = new BrandAndModel[Size];
-            foreach (var item in oldtable) 
-                if (item != null && !item.Deleted) 
+            foreach (var item in oldtable)
+                if (item != null && !item.Deleted)
                     Add(item);
         }
 
@@ -251,7 +226,7 @@ namespace CarDirectory
             for (int i = 0; i < Size; ++i)
                 if (hashtable[i] != null)
                     dataGridView.Rows.Add(hashtable[i].Brand, hashtable[i].Model, Hash(hashtable[i].Brand + hashtable[i].Model, 0), GetIndex(hashtable[i].Brand + hashtable[i].Model));
-            
+            dataGridView.Sort(dataGridView.Columns[0], ListSortDirection.Ascending);
         }
 
         //System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

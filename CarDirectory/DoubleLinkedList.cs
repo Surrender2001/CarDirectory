@@ -1,33 +1,35 @@
-﻿using System;
-
-namespace CarDirectory
+﻿namespace CarDirectory
 {
     public class DoubleLinkedListNode<T>
     {
         public T Key { get; internal set; }
         public DoubleLinkedListNode<T> Next { get; internal set; }
         public DoubleLinkedListNode<T> Prev { get; internal set; }
+
         internal DoubleLinkedListNode(T key, DoubleLinkedListNode<T> next = null, DoubleLinkedListNode<T> prev = null)
         {
             Key = key;
             Next = next;
             Prev = prev;
         }
+
         public bool Equals(T other)
         {
             return true;
         }
     }
-    public class DoubleLinkedList<T> : System.Collections.Generic.IEnumerable<DoubleLinkedListNode<T>> 
+
+    public class DoubleLinkedList<T> : System.Collections.Generic.IEnumerable<DoubleLinkedListNode<T>>
     {
         public bool Equals(T other)
         {
-
             return true;
         }
+
         public DoubleLinkedListNode<T> First { get; private set; } = null;
         public DoubleLinkedListNode<T> Last { get; private set; } = null;
         public int Size { get; private set; } = 0;
+
         public void AddFirst(T key)
         {
             if (First == null)
@@ -42,6 +44,7 @@ namespace CarDirectory
             }
             Size++;
         }
+
         public void AddLast(T key)
         {
             if (First == null)
@@ -56,6 +59,7 @@ namespace CarDirectory
             }
             Size++;
         }
+
         public bool Contains(T key)
         {
             if (First == null) return false;
@@ -67,6 +71,7 @@ namespace CarDirectory
             } while (ptr != null);
             return false;
         }
+
         public void Remove(T key)
         {
             DoubleLinkedListNode<T> node = GetNode(key);
@@ -95,7 +100,9 @@ namespace CarDirectory
             }
             Size--;
         }
+
         public void Clear() => First = Last = null;
+
         public DoubleLinkedListNode<T> GetNode(T key)
         {
             if (First == null) return null;
@@ -117,6 +124,7 @@ namespace CarDirectory
                 ptr = ptr.Next;
             }
         }
+
         System.Collections.Generic.IEnumerator<DoubleLinkedListNode<T>> System.Collections.Generic.IEnumerable<DoubleLinkedListNode<T>>.GetEnumerator()
         {
             DoubleLinkedListNode<T> ptr = First;
@@ -128,4 +136,3 @@ namespace CarDirectory
         }
     }
 }
-

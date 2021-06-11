@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static CarDirectory.HelpMethod;
 
@@ -15,15 +9,18 @@ namespace CarDirectory
     {
         private HashTable hashTable;
         private DataGridView dataGridView;
+        private RBTree<string, string> rBTreeModel;
+
         public AddBrandModelForm()
         {
             InitializeComponent();
         }
 
-        public AddBrandModelForm(ref HashTable hashTable,ref DataGridView dataGridView)
+        public AddBrandModelForm(ref HashTable hashTable, ref RBTree<string, string> rBTreeModel, ref DataGridView dataGridView) : this()
         {
             this.hashTable = hashTable;
             this.dataGridView = dataGridView;
+            this.rBTreeModel = rBTreeModel;
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -31,22 +28,25 @@ namespace CarDirectory
             CheckTextBox(ref ModelTextBox, ref BrandTextBox);
             if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox))
             {
-
+                if (rBTreeModel.Contains(BrandTextBox.Text))
+                {
                     if (!hashTable.Contains(BrandTextBox.Text + ModelTextBox.Text))
                     {
-                        hashTable.Add(new BrandAndModel(BrandTextBox.Text , ModelTextBox.Text));
+                        hashTable.Add(new BrandAndModel(BrandTextBox.Text, ModelTextBox.Text));
+                        RefreshDataGridView(ref dataGridView, ref hashTable);
+                        Visible = false;
                         MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult = DialogResult.OK;
                     }
-                    else MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else MessageBox.Show("Введенный вами элемент уже содержится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else MessageBox.Show("Введенный вами марка не найдена в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
         }
-
 
         public BrandAndModel GetBrandAndModel()
         {
-
             return new BrandAndModel(BrandTextBox.Text, ModelTextBox.Text);
         }
 
@@ -64,13 +64,7 @@ namespace CarDirectory
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                CheckTextBox(ref ModelTextBox, ref BrandTextBox);
-                if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox))
-                {
-                    DialogResult = DialogResult.OK;
-                    Hide();
-                }
-                else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AddButton_Click(sender, e);
             }
         }
 
