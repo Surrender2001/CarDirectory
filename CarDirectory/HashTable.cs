@@ -31,7 +31,7 @@ namespace CarDirectory
         private const int DEFAULT_SIZE = 8;
 
         private int Size = DEFAULT_SIZE;
-        private int Count = 0;
+        public int Count { get; private set; } = 0;
         public double Fullness => (double)Count / Size;
         public int CurrentSize => Size;
 

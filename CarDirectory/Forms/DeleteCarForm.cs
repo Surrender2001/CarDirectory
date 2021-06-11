@@ -56,7 +56,6 @@ namespace CarDirectory
                     hashTable.Delete(car.Brand + car.Model);
             RefreshDataGridView(ref rBTreeCar, ref dataGridView);
             Visible = false;
-            DialogResult = DialogResult.OK;
             if (isFound)
                 MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else

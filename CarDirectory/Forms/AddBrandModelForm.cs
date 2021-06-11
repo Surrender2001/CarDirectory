@@ -36,7 +36,6 @@ namespace CarDirectory
                         RefreshDataGridView(ref dataGridView, ref hashTable);
                         Visible = false;
                         MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        DialogResult = DialogResult.OK;
                     }
                     else MessageBox.Show("Введенный вами элемент уже содержится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
