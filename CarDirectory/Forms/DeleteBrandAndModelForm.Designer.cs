@@ -33,7 +33,7 @@ namespace CarDirectory.Forms
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.AddButton = new System.Windows.Forms.Button();
+            this.DeleteButton = new System.Windows.Forms.Button();
             this.ModelTextBox = new System.Windows.Forms.MaskedTextBox();
             this.BrandTextBox = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
@@ -80,20 +80,20 @@ namespace CarDirectory.Forms
             this.label1.TabIndex = 33;
             this.label1.Text = "Марка";
             // 
-            // AddButton
+            // DeleteButton
             // 
-            this.AddButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
-            this.AddButton.FlatAppearance.BorderSize = 0;
-            this.AddButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddButton.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddButton.Location = new System.Drawing.Point(168, 172);
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(156, 44);
-            this.AddButton.TabIndex = 32;
-            this.AddButton.Text = "Удалить";
-            this.AddButton.UseVisualStyleBackColor = false;
-            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            this.DeleteButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
+            this.DeleteButton.FlatAppearance.BorderSize = 0;
+            this.DeleteButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteButton.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DeleteButton.Location = new System.Drawing.Point(168, 172);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(156, 44);
+            this.DeleteButton.TabIndex = 32;
+            this.DeleteButton.Text = "Удалить";
+            this.DeleteButton.UseVisualStyleBackColor = false;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // ModelTextBox
             // 
@@ -136,7 +136,7 @@ namespace CarDirectory.Forms
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.AddButton);
+            this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.ModelTextBox);
             this.Controls.Add(this.BrandTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -156,7 +156,7 @@ namespace CarDirectory.Forms
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button AddButton;
+        private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.MaskedTextBox ModelTextBox;
         private System.Windows.Forms.MaskedTextBox BrandTextBox;
     }

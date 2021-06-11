@@ -1,14 +1,8 @@
-﻿using CarDirectory.Forms;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static CarDirectory.HelpMethod;
 
@@ -18,11 +12,13 @@ namespace CarDirectory
     {
         public MainForm()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
-        
-        List<Car> cars = new List<Car>();
-        HashTable hashTable = new HashTable();
+
+        private HashTable hashTable = new HashTable();
+        private RBTree<int, Car> rBTreeYear = new RBTree<int, Car>();
+        private RBTree<string, Car> rBTreeCar = new RBTree<string, Car>();
+
         private void CloseLabel_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -33,7 +29,6 @@ namespace CarDirectory
             CloseLabel.ForeColor = Color.Red;
         }
 
-
         private void CloseLabel_MouseLeave(object sender, EventArgs e)
         {
             CloseLabel.ForeColor = Color.Lime;
@@ -41,98 +36,56 @@ namespace CarDirectory
 
         private void ReadDbButton_Click(object sender, EventArgs e)
         {
-            dataGridView.Rows.Clear();
-            hashTable.Clear();
-            cars.Clear();
-            var openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Справочник (*.txt)|*.txt";
-            openFileDialog1.ShowDialog();
-            if (openFileDialog1.FileName == "")
-            {
-                return;
-            }
-
-            StreamReader input = null;
             try
             {
-                int hash=0;
-                input = new StreamReader(openFileDialog1.FileName, Encoding.Default);
-                dataGridView.Rows.Clear();
-                while (!input.EndOfStream)
-                {
-                    string s = input.ReadLine();
-                    string[] subs = s.Split(new char[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                    //check correct values
-                    Car car = new Car
+                using (var ofd = new OpenFileDialog() { Filter = "txt files (*.txt)|*.txt" })
+                    if (ofd.ShowDialog() == DialogResult.OK)
                     {
-                        Brand = subs[0],
-                        Model = subs[1],
-                        Start = int.Parse(subs[2]),
-                        End = subs[3]
-                    };
-                    cars.Add(car);
-                    hashTable.Add(new BrandAndModel(car.Brand,car.Model));
-                    //dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);                        
-                }
-                RefreshDataGridView(ref cars,ref dataGridView,ref hashTable);
-                MessageBox.Show($"Файл успешно считан, кол-во записанных машин {cars.Count}\n" +
-                    $"Заполненность хеш-таблицы {Math.Round(hashTable.Fullness,2)*100}%\n" +
-                    $"Вместительность {hashTable.CurrentSize}",
-                    "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                        dataGridView.Rows.Clear();
+                        hashTable.Clear();
+                        rBTreeYear.Clear();
+                        using (var sw = new StreamReader(ofd.FileName, Encoding.Default))
+                            while (!sw.EndOfStream)
+                            {
+                                string s = sw.ReadLine();
+                                string[] subs = s.Split(new char[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                                if (!int.TryParse(subs[2], out int result) || !IsCorrectYear(result) || !IsCorrectEndYear(subs[3]) || !Regex.IsMatch(subs[0], @"^[a-zA-ZА-Яа-я- ]+$") || !Regex.IsMatch(subs[1], @"^[A-Za-zА-Яа-я0-9-&()/+ ]+$"))
+                                    throw new Exception($"Ошибка чтения файла brand: {subs[0]} model: {subs[1]}");
+                                var car = new Car
+                                {
+                                    Brand = subs[0],
+                                    Model = subs[1],
+                                    Start = int.Parse(subs[2]),
+                                    End = subs[3]
+                                };
+                                hashTable.Add(new BrandAndModel(car.Brand, car.Model));
+                                rBTreeYear.Add(car.Start, car);
+                                rBTreeCar.Add(car.Brand, car);
+                            }
+                        RefreshDataGridView(ref rBTreeCar, ref dataGridView);
+                        MessageBox.Show($"Количество записанных машин: {hashTable.Count}\nЗаполненность хеш-таблицы {Math.Round(hashTable.Fullness, 2) * 100}%\n" +
+                            $"Вместительность {hashTable.CurrentSize}",
+                            "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show($"где-то ошибка, кол-во записанных машин {cars.Count}", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                MessageBox.Show($"{ex.Message} ", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            finally
-            {
-                input.Close();
-            }
-
-
-
         }
+
         private void AddButton_Click(object sender, EventArgs e)
         {
-            var addForm = new AddForm();
-            DialogResult dialogResult = addForm.ShowDialog();
-            if(dialogResult==DialogResult.OK)
-            {
-                Car car=addForm.AddNewCar();
-                //if(car!=null)
-                //{
-                //    if(!setBrand.Contains(car.Brand))
-                //    {
-                //        MessageBox.Show("Введенная марка автомобиля не содержится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //        addForm.Dispose();
-                //        return;
-                //    }
-                //    //if (!hashTable.IsThere(car.Brand + " " + car.Model))
-                //    //{
-                //    //    if (hashTable.GetFullness() > 70)
-                //    //    {
-                //    //        hashTable.Resize();
-                //    //        RefreshDataGridView();
-                //    //    }
-                //    //    if (car.End == "") car.End = "-";
-                //    //    cars.Add(car);
-                //    //    hashTable.Add(car.Brand, car.Model, out int hash);
-                //    //    dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);
-                //    //    MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //    //}
-                //    //else MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                //}
-
-            }
+            var addForm = new AddForm(ref hashTable, ref rBTreeCar, ref rBTreeYear, ref dataGridView);
+            _ = addForm.ShowDialog();
             addForm.Dispose();
         }
 
-        Point lastPoint;
+        private Point lastPoint;
+
         private void NameOfProjectLabel_MouseMove(object sender, MouseEventArgs e)
         {
-            if(e.Button==MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 Left += e.X - lastPoint.X;
                 Top += e.Y - lastPoint.Y;
@@ -144,46 +97,34 @@ namespace CarDirectory
             lastPoint = new Point(e.X, e.Y);
         }
 
-
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            DeleteCarForm deleteForm = new DeleteCarForm();
-            DialogResult dialogResult = deleteForm.ShowDialog();
-            if (dialogResult == DialogResult.OK)
-            {
-                Car car=deleteForm.GetCar();
-                if (hashTable.Contains(car.Brand + car.Model))
-                {
-                    hashTable.Delete(car.Brand + car.Model);
-                    cars.Remove(new Car() { Brand = car.Brand, Model = car.Model });
-                    dataGridView.Rows.Clear();
-                    RefreshDataGridView(ref cars, ref dataGridView,ref hashTable);
-                    MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                    MessageBox.Show("Введенный вами элемент в справочнике не найден", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-            }
+            DeleteCarForm deleteForm = new DeleteCarForm(ref hashTable, ref rBTreeCar, ref rBTreeYear, ref dataGridView);
+            _ = deleteForm.ShowDialog();
             deleteForm.Dispose();
         }
 
-        //public void RefreshDataGridView()
-        //{
-        //    int hash = 0;
-        //    dataGridView.Rows.Clear();
-        //    foreach (var car in cars)
-        //    {
-        //        hash = hashTable.GetHash(car.Brand + car.Model);
-        //        dataGridView.Rows.Add(car.Brand, car.Model, car.Start, car.End, hash);
-        //    }
-        //}
-
         private void HashButton_Click(object sender, EventArgs e)
         {
-            var hashForm = new HashForm(ref hashTable,ref dataGridView);
-            DialogResult dialogResult = hashForm.ShowDialog();
+            var hashForm = new HashForm(ref hashTable, ref rBTreeCar, ref rBTreeYear, ref dataGridView);
+            _ = hashForm.ShowDialog();
+            hashForm.Dispose();
+        }
 
-        } 
+        private void FindButton_Click(object sender, EventArgs e)
+        {
+            var findForm = new FindForm(ref rBTreeYear, ref dataGridView);
+            _ = findForm.ShowDialog();
+            findForm.Dispose();
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            using (var sfd = new SaveFileDialog() { Filter = "txt files (*.txt)|*.txt" })
+                if (sfd.ShowDialog() == DialogResult.OK)
+                    using (var sw = new StreamWriter(sfd.FileName))
+                        for (int i = 0; i < dataGridView.Rows.Count; ++i)
+                            sw.WriteLine($"{dataGridView.Rows[i].Cells[0].Value}\t{dataGridView.Rows[i].Cells[1].Value}\t{dataGridView.Rows[i].Cells[2].Value}\t{dataGridView.Rows[i].Cells[3].Value}");
+        }
     }
 }

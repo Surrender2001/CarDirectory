@@ -407,7 +407,7 @@ Geely	Emgrand EC7
 Geely	Emgrand GS
 Geely	Emgrand X7
 Geely	GC9
-Geely	GРЎ6
+Geely	GC6
 Geely	MK
 Geely	Otaka
 Geely	Vision

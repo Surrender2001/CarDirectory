@@ -407,7 +407,7 @@ Geely;Emgrand EC7;2009;-
 Geely;Emgrand GS;2016;-		
 Geely;Emgrand X7;2011;-		
 Geely;GC9;2015;-		
-Geely;GС6;2014;-		
+Geely;GC6;2014;-		
 Geely;MK;2008;-		
 Geely;Otaka;2006;2009		
 Geely;Vision;2006;-		

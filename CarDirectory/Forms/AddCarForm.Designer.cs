@@ -62,6 +62,7 @@ namespace CarDirectory
             this.StartTextBox.Size = new System.Drawing.Size(61, 31);
             this.StartTextBox.TabIndex = 2;
             this.StartTextBox.ValidatingType = typeof(int);
+            this.StartTextBox.Click += new System.EventHandler(this.StartTextBox_Click);
             this.StartTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.StartTextBox_KeyDown);
             // 
             // EndTextBox
@@ -78,6 +79,7 @@ namespace CarDirectory
             this.EndTextBox.Size = new System.Drawing.Size(61, 31);
             this.EndTextBox.TabIndex = 3;
             this.EndTextBox.ValidatingType = typeof(int);
+            this.EndTextBox.Click += new System.EventHandler(this.EndTextBox_Click);
             this.EndTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EndTextBox_KeyDown);
             // 
             // label3
@@ -160,6 +162,7 @@ namespace CarDirectory
             this.BrandTextBox.Size = new System.Drawing.Size(228, 31);
             this.BrandTextBox.TabIndex = 0;
             this.BrandTextBox.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.BrandTextBox_MaskInputRejected);
+            this.BrandTextBox.Click += new System.EventHandler(this.BrandTextBox_Click);
             this.BrandTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BrandTextBox_KeyDown);
             // 
             // ModelTextBox
@@ -175,6 +178,7 @@ namespace CarDirectory
             this.ModelTextBox.Name = "ModelTextBox";
             this.ModelTextBox.Size = new System.Drawing.Size(228, 31);
             this.ModelTextBox.TabIndex = 1;
+            this.ModelTextBox.Click += new System.EventHandler(this.ModelTextBox_Click);
             this.ModelTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModelTextBox_KeyDown);
             // 
             // AddButton
@@ -186,7 +190,7 @@ namespace CarDirectory
             this.AddButton.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.AddButton.Location = new System.Drawing.Point(183, 271);
             this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(156, 44);
+            this.AddButton.Size = new System.Drawing.Size(162, 44);
             this.AddButton.TabIndex = 4;
             this.AddButton.Text = "Добавить";
             this.AddButton.UseVisualStyleBackColor = false;
@@ -237,6 +241,7 @@ namespace CarDirectory
             this.Name = "AddForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Добавить машину";
             ((System.ComponentModel.ISupportInitialize)(this.InfoPictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

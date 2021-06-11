@@ -1,35 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using static CarDirectory.HelpMethod;
 
 namespace CarDirectory
 {
     public partial class AddBrandModelForm : Form
     {
+        private HashTable hashTable;
+        private DataGridView dataGridView;
+        private RBTree<string, string> rBTreeModel;
+
         public AddBrandModelForm()
         {
             InitializeComponent();
         }
 
-        private void AddButton_Click(object sender, EventArgs e)
+        public AddBrandModelForm(ref HashTable hashTable, ref RBTree<string, string> rBTreeModel, ref DataGridView dataGridView) : this()
         {
-            DialogResult = DialogResult.OK;
-            Hide();
+            this.hashTable = hashTable;
+            this.dataGridView = dataGridView;
+            this.rBTreeModel = rBTreeModel;
         }
 
-        BrandAndModel br;
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            CheckTextBox(ref ModelTextBox, ref BrandTextBox);
+            if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox))
+            {
+                if (rBTreeModel.Contains(BrandTextBox.Text))
+                {
+                    if (!hashTable.Contains(BrandTextBox.Text + ModelTextBox.Text))
+                    {
+                        hashTable.Add(new BrandAndModel(BrandTextBox.Text, ModelTextBox.Text));
+                        RefreshDataGridView(ref dataGridView, ref hashTable);
+                        Visible = false;
+                        MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else MessageBox.Show("Введенный вами элемент уже содержится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else MessageBox.Show("Введенный вами марка не найдена в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
 
         public BrandAndModel GetBrandAndModel()
         {
-
             return new BrandAndModel(BrandTextBox.Text, ModelTextBox.Text);
         }
 
+        private void BrandTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                ActiveControl = ModelTextBox;
+            }
+        }
+
+        private void ModelTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                AddButton_Click(sender, e);
+            }
+        }
+
+        private void BrandTextBox_Click(object sender, EventArgs e)
+        {
+            BrandTextBox.BackColor = Color.Beige;
+        }
+
+        private void ModelTextBox_Click(object sender, EventArgs e)
+        {
+            ModelTextBox.BackColor = Color.Beige;
+        }
     }
 }

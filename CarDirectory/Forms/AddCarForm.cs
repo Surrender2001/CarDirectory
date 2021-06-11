@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using static CarDirectory.HelpMethod;
 
 namespace CarDirectory
 {
@@ -15,163 +10,138 @@ namespace CarDirectory
         public AddForm()
         {
             InitializeComponent();
-           
         }
+
+        public AddForm(ref HashTable hashTable, ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView) : this()
+        {
+            this.rBTreeYear = rBTreeYear;
+            this.rBTreeCar = rBTreeCar;
+            this.hashTable = hashTable;
+            this.dataGridView = dataGridView;
+        }
+
+        private Car car;
+        private RBTree<string, Car> rBTreeCar;
+        private HashTable hashTable;
+        private DataGridView dataGridView;
+        private RBTree<int, Car> rBTreeYear;
 
         private void BrandTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
-            
             toolTip1.ToolTipTitle = "Неверный символ";
             toolTip1.Show("Введите буквы", BrandTextBox, 1000);
         }
 
-
-
         private void BrandTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             BrandTextBox.BackColor = Color.Beige;
-            if (e.KeyCode ==Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 ActiveControl = ModelTextBox;
+                ModelTextBox.BackColor = Color.Beige;
             }
         }
 
         private void ModelTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            ModelTextBox.BackColor = Color.Beige;
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                ActiveControl =StartTextBox;
+                ActiveControl = StartTextBox;
+                StartTextBox.BackColor = Color.Beige;
             }
         }
 
         private void StartTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            StartTextBox.BackColor = Color.Beige;
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 ActiveControl = EndTextBox;
+                EndTextBox.BackColor = Color.Beige;
             }
         }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (IsCorrectCar())
+            CheckTextBox(ref BrandTextBox, ref ModelTextBox, ref StartTextBox, ref EndTextBox);
+            if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox) && IsCorrectStartYear(ref StartTextBox) && IsCorrectEndYear(ref EndTextBox))
+                if (IsCorrectStartAndEndYear(ref StartTextBox, ref EndTextBox))
+                    AddNewCar();
+                else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        public void AddNewCar()
+        {
+            car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
+            FixEndCar(ref car);
+            if (rBTreeCar.Contains(car.Brand))
             {
-                DialogResult = DialogResult.OK;
-                Hide();
-            }
-            else return;
-        }
-
-        private bool IsCorrectCar()
-        {
-            return checkIsEmpty() && checkIsCorrectYear();
-        }
-        Car car;
-        public Car AddNewCar()
-        {
-            if (IsCorrectCar())
-                car = new Car(BrandTextBox.Text, ModelTextBox.Text, int.Parse(StartTextBox.Text), EndTextBox.Text);
-            return car;
-        }
-
-        private bool checkIsCorrectYear()
-        {
-            if (EndTextBox.Text == "")
-                return true;
-            bool start=true, end=true;
-            if (!(EndTextBox.Text.Length == 0 || EndTextBox.Text.Length == 4))
-            {
-                ActiveControl = EndTextBox;
-                EndTextBox.BackColor = Color.LightCoral;
-                end = false;
-            }
-            else if (EndTextBox.Text.Length == 4)
-                end = isRealDate(int.Parse(EndTextBox.Text));
-
-            if(StartTextBox.Text.Length != 4)
-            { 
-                ActiveControl = StartTextBox;
-                StartTextBox.BackColor = Color.LightCoral;
-                start = false;
-            }
-            else if (StartTextBox.Text.Length == 4)
-                start = isRealDate(int.Parse(StartTextBox.Text));
-
-            if(start&&end)
-                if(int.Parse(StartTextBox.Text)>int.Parse(EndTextBox.Text))
+                if (hashTable.Contains(car.Brand + car.Model))
                 {
-                    MessageBox.Show("Год начала выпуска больше года конца выпуска", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    ActiveControl = EndTextBox;
-                    EndTextBox.BackColor = Color.LightCoral;
-                    return false;   
-                }    
-
-
-
-            if (!(start&&end))
-            {
-                MessageBox.Show("Некорректно введен год", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                if(!start)
-                {
-                    ActiveControl = StartTextBox;
-                    StartTextBox.BackColor = Color.LightCoral;
+                    if (rBTreeCar.Contains(car.Brand, car))
+                    {
+                        MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    if (IsCorrectDates(ref rBTreeCar, ref car))
+                    {
+                        rBTreeCar.Add(car.Brand, car);
+                        rBTreeYear.Add(car.Start, car);
+                        RefreshDataGridView(ref rBTreeCar, ref dataGridView);
+                        Visible = false;
+                        MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                        MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                if (!end)
+                else
                 {
-                    ActiveControl = EndTextBox;
-                    EndTextBox.BackColor = Color.LightCoral;
+                    hashTable.Add(new BrandAndModel(car.Brand, car.Model));
+                    rBTreeCar.Add(car.Brand, car);
+                    rBTreeYear.Add(car.Start, car);
+                    RefreshDataGridView(ref rBTreeCar, ref dataGridView);
+                    Visible = false;
+                    MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                return false;
             }
-
-
-            return start &&end;
-        }
-
-        private bool isRealDate(int v)
-        {
-            return v <= 2021 && v >= 1968;
-        }
-
-        private bool checkIsEmpty()
-        {   
-            bool check = true;
-            if (BrandTextBox.Text.Length == 0 || ModelTextBox.Text.Length == 0 || StartTextBox.Text.Length == 0)
-                check = false;
-            BrandTextBox.BackColor = BrandTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
-            ModelTextBox.BackColor = ModelTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
-            StartTextBox.BackColor = StartTextBox.Text.Length == 0 ? Color.LightCoral : Color.Beige;
-
-            if (!check) MessageBox.Show("Заполните поля, выделенные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            ActiveControl = BrandTextBox;
-            return check;
+            else MessageBox.Show("Введенный вами марка автомобиля не найдена в справочникe", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void EndTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            EndTextBox.BackColor = Color.Beige;
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
-                if (IsCorrectCar())
-                {
-                    DialogResult = DialogResult.OK;
-                    Hide();
-                }
-                else return;
+                AddButton_Click(sender, e);
             }
         }
 
         private void InfoPictureBox1_MouseEnter(object sender, EventArgs e)
         {
             toolTip1.ToolTipTitle = "Ограничение на год";
-            toolTip1.Show(">1967 и <2022",InfoPictureBox1, 5000);
+            toolTip1.Show(">1967 и <2022", InfoPictureBox1, 5000);
+        }
 
+        private void BrandTextBox_Click(object sender, EventArgs e)
+        {
+            BrandTextBox.BackColor = Color.Beige;
+        }
+
+        private void ModelTextBox_Click(object sender, EventArgs e)
+        {
+            ModelTextBox.BackColor = Color.Beige;
+        }
+
+        private void StartTextBox_Click(object sender, EventArgs e)
+        {
+            StartTextBox.BackColor = Color.Beige;
+        }
+
+        private void EndTextBox_Click(object sender, EventArgs e)
+        {
+            EndTextBox.BackColor = Color.Beige;
         }
     }
 }
