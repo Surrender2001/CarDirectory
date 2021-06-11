@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -7,9 +6,13 @@ namespace CarDirectory
 {
     public static class HelpMethod
     {
-        public static void RefreshDataGridView(ref DataGridView dataGridView, ref HashTable hashTable) => hashTable.DisplayOnDataGrisView(ref dataGridView);
+        public static void RefreshDataGridView(ref DataGridView dataGridView, ref HashTable hashTable)
+        {
+            dataGridView.Rows.Clear();
+            hashTable.DisplayOnDataGrisView(ref dataGridView);
+        }
 
-        public static void RefreshDataGridView(ref DoubleLinkedList<Car> cars, ref DataGridView dataGridView, ref HashTable hashTable)
+        public static void RefreshDataGridView(ref DoubleLinkedList<Car> cars, ref DataGridView dataGridView)
         {
             dataGridView.Rows.Clear();
             foreach (var car in cars)

@@ -241,6 +241,7 @@ namespace CarDirectory
             this.Name = "AddForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Добавить машину";
             ((System.ComponentModel.ISupportInitialize)(this.InfoPictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

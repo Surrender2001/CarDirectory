@@ -1,0 +1,5 @@
+Acura;CL;1998;2003		
+Acura;EL;1997;2005		
+Acura;ILX;2012;-		
+Acura;Integra;1998;2006		
+Acura;MDX;2001;-	

@@ -45,7 +45,10 @@ namespace CarDirectory.Forms
         {
             ModelTextBox.BackColor = Color.Beige;
             if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
                 DeleteButton_Click(sender, e);
+            }
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
@@ -91,8 +94,10 @@ namespace CarDirectory.Forms
                     {
                         hashTable.Delete(BrandTextBox.Text + ModelTextBox.Text);
                         rBTreeModel.Remove(BrandTextBox.Text, "");
+                        RefreshDataGridView(ref dataGridView, ref hashTable);
                         Visible = false;
                         DialogResult = DialogResult.OK;
+                        MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else

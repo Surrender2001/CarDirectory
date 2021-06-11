@@ -44,14 +44,11 @@ namespace CarDirectory
                         dataGridView.Rows.Clear();
                         hashTable.Clear();
                         rBTreeYear.Clear();
-                        int i = 0;
                         using (var sw = new StreamReader(ofd.FileName, Encoding.Default))
                             while (!sw.EndOfStream)
                             {
-                                i++;
                                 string s = sw.ReadLine();
                                 string[] subs = s.Split(new char[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                                //if (!int.TryParse(subs[2], out int result) || !IsCorrectYear(result)||Regex.IsMatch(subs[0], @"[A-Za-zА-Яа-я0-9]")|| Regex.IsMatch(subs[1], @"[A-Za-zА-Яа-я0-9]"))
                                 if (!int.TryParse(subs[2], out int result) || !IsCorrectYear(result) || !IsCorrectEndYear(subs[3]) || !Regex.IsMatch(subs[0], @"^[a-zA-ZА-Яа-я- ]+$") || !Regex.IsMatch(subs[1], @"^[A-Za-zА-Яа-я0-9-&()/+ ]+$"))
                                     throw new Exception($"Ошибка чтения файла brand: {subs[0]} model: {subs[1]}");
                                 var car = new Car
@@ -114,20 +111,22 @@ namespace CarDirectory
             hashForm.Dispose();
         }
 
-        private DoubleLinkedList<Car> dlListCars = new DoubleLinkedList<Car>();
-
         private void FindButton_Click(object sender, EventArgs e)
         {
-            dataGridView.Rows.Clear();
-            DoubleLinkedList<Car> dlListCarsTemp;
+            var findForm = new FindForm(ref rBTreeYear, ref dataGridView);
+            _ = findForm.ShowDialog();
+            findForm.Dispose();
 
-            for (int i = 2005; i < 2010; i++)
-            {
-                dlListCarsTemp = rBTreeYear.GetValues(i);
-                foreach (var item in dlListCarsTemp)
-                    dlListCars.AddLast(item.Key);
-            }
-            RefreshDataGridView(ref dlListCars, ref dataGridView, ref hashTable);
+            //dataGridView.Rows.Clear();
+            //DoubleLinkedList<Car> dlListCarsTemp;
+
+            //for (int i = 2005; i < 2010; i++)
+            //{
+            //    dlListCarsTemp = rBTreeYear.GetValues(i);
+            //    foreach (var item in dlListCarsTemp)
+            //        dlListCars.AddLast(item.Key);
+            //}
+            //RefreshDataGridView(ref dlListCars, ref dataGridView, ref hashTable);
         }
 
         private void SaveButton_Click(object sender, EventArgs e)

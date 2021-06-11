@@ -54,50 +54,7 @@ namespace CarDirectory
             return hashtable[hash] != null && !hashtable[hash].Deleted ? hash : -1;
         }
 
-        public int GetHash(string key)
-        {
-            int s = 0, hash1, hash2, hash;
-            for (int i = 0; i < key.Length; i++)
-                s += key[i];
-
-            hash1 = H1(key);
-            if (hashtable[hash1].ToString() == key)
-                return hash1;
-            else
-            {
-                hash2 = H2(key);
-                for (int i = 1; i < Size; ++i)
-                {
-                    hash = (hash1 + i * hash2) % Size;
-                    if (hashtable[hash].ToString() == key)
-                        return hash;
-                }
-            }
-            return -1;
-        }
-
         public bool Contains(string key) => GetIndex(key) != -1;
-
-        //public string GetValue(string key)
-        //{
-        //    int index = GetIndex(key);
-        //    return index != -1 ? hashtable[index].Brand+ hashtable[index].Model : default;
-        //}
-        //public BrandAndModel GetPair(string key)
-        //{
-        //    int index = GetIndex(key);
-        //    return index != -1 ? hashtable[index] : null;
-        //}
-        public void Delete(BrandAndModel bam)
-        {
-            int index = GetIndex(bam.ToString());
-            if (index != -1)
-            {
-                hashtable[index].Deleted = true;
-                Count--;
-                if (Fullness < MIN_FULLNESS) Reduce();
-            }
-        }
 
         public void Delete(string key)
         {
@@ -110,22 +67,6 @@ namespace CarDirectory
             }
         }
 
-        //public void Add(string key, out index)
-        //{
-        //    if (Fullness > MAX_FULLNESS) Expand();
-        //    int i = 0;
-        //    int hash = Hash(key, i);
-        //    while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Key.Equals(key))
-        //    {
-        //        i++;
-        //        hash = Hash(key, i);
-        //    }
-        //    if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Key.Equals(key))
-        //    {
-        //        hashtable[hash] = new BrandAndModel(key, value);
-        //        Count++;
-        //    }
-        //}
         public void Add(BrandAndModel bam)
         {
             if (Fullness > MAX_FULLNESS) Expand();
@@ -143,23 +84,6 @@ namespace CarDirectory
             }
         }
 
-        //public void Add(BrandAndModel bam, out int hash1)
-        //{
-        //    if (Fullness > MAX_FULLNESS) Expand();
-        //    int i = 0;
-        //    int hash = Hash(bam.ToString(), i);
-        //    while (hashtable[hash] != null && !hashtable[hash].Deleted && !hashtable[hash].Equals(bam))
-        //    {
-        //        i++;
-        //        hash = Hash(bam.ToString(), i);
-        //    }
-        //    if (hashtable[hash] == null || hashtable[hash].Deleted || !hashtable[hash].Equals(bam))
-        //    {
-        //        hashtable[hash] = bam;
-        //        Count++;
-        //    }
-        //    hash1 = hash;
-        //}
         private int KeyToInt(string key)
         {
             int value = 0;
@@ -169,10 +93,7 @@ namespace CarDirectory
 
         public int Hash(string key, int i) => (H1(key) + i * H2(key)) % Size;
 
-        private int H1(string key)
-        {
-            return (int)Math.Floor(Size * (KeyToInt(key) * GOLDEN_RATIO % 1));
-        }
+        private int H1(string key) => (int)Math.Floor(Size * (KeyToInt(key) * GOLDEN_RATIO % 1));
 
         private int H2(string key)
         {
@@ -224,26 +145,9 @@ namespace CarDirectory
         public void DisplayOnDataGrisView(ref DataGridView dataGridView)
         {
             for (int i = 0; i < Size; ++i)
-                if (hashtable[i] != null)
+                if (hashtable[i] != null && !hashtable[i].Deleted)
                     dataGridView.Rows.Add(hashtable[i].Brand, hashtable[i].Model, Hash(hashtable[i].Brand + hashtable[i].Model, 0), GetIndex(hashtable[i].Brand + hashtable[i].Model));
             dataGridView.Sort(dataGridView.Columns[0], ListSortDirection.Ascending);
         }
-
-        //System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        //{
-        //    int i = 0;
-        //    while (i < Size && hashtable[i] == null) i++;
-        //    if (hashtable[i] != null && !hashtable[i].Deleted) yield return hashtable[i];
-        //}
-        //System.Collections.Generic.IEnumerator<BrandAndModel> System.Collections.Generic.IEnumerable<BrandAndModel>.GetEnumerator()
-        //{
-        //    int i = 0;
-        //    while (i < Size)
-        //    {
-        //        while (i + 1 < Size && hashtable[i] == null) i++;
-        //        if (hashtable[i] != null && !hashtable[i].Deleted) yield return hashtable[i];
-        //        i++;
-        //    }
-        //}
     }
 }
