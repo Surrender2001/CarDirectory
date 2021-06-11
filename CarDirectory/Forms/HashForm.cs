@@ -77,5 +77,14 @@ namespace CarDirectory
             _ = deleteForm.ShowDialog();
             deleteForm.Dispose();
         }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            using (var sfd = new SaveFileDialog() { Filter = "txt files (*.txt)|*.txt" })
+                if (sfd.ShowDialog() == DialogResult.OK)
+                    using (var sw = new StreamWriter(sfd.FileName))
+                        for (int i = 0; i < dataGridView.Rows.Count; ++i)
+                            sw.WriteLine($"{dataGridView.Rows[i].Cells[0].Value}\t{dataGridView.Rows[i].Cells[1].Value}");
+        }
     }
 }

@@ -52,7 +52,8 @@ namespace CarDirectory
                     isFound = true;
                 }
             if (!RBTreeContains(ref rBTreeCar, BrandTextBox.Text, ModelTextBox.Text))
-                hashTable.Delete(car.Brand + car.Model);
+                if (car != null)
+                    hashTable.Delete(car.Brand + car.Model);
             RefreshDataGridView(ref rBTreeCar, ref dataGridView);
             Visible = false;
             DialogResult = DialogResult.OK;

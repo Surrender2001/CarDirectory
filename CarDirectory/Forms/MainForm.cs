@@ -116,17 +116,6 @@ namespace CarDirectory
             var findForm = new FindForm(ref rBTreeYear, ref dataGridView);
             _ = findForm.ShowDialog();
             findForm.Dispose();
-
-            //dataGridView.Rows.Clear();
-            //DoubleLinkedList<Car> dlListCarsTemp;
-
-            //for (int i = 2005; i < 2010; i++)
-            //{
-            //    dlListCarsTemp = rBTreeYear.GetValues(i);
-            //    foreach (var item in dlListCarsTemp)
-            //        dlListCars.AddLast(item.Key);
-            //}
-            //RefreshDataGridView(ref dlListCars, ref dataGridView, ref hashTable);
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
@@ -134,8 +123,8 @@ namespace CarDirectory
             using (var sfd = new SaveFileDialog() { Filter = "txt files (*.txt)|*.txt" })
                 if (sfd.ShowDialog() == DialogResult.OK)
                     using (var sw = new StreamWriter(sfd.FileName))
-                        foreach (var car in rBTreeCar)
-                            sw.WriteLine(car);
+                        for (int i = 0; i < dataGridView.Rows.Count; ++i)
+                            sw.WriteLine($"{dataGridView.Rows[i].Cells[0].Value}\t{dataGridView.Rows[i].Cells[1].Value}\t{dataGridView.Rows[i].Cells[2].Value}\t{dataGridView.Rows[i].Cells[3].Value}");
         }
     }
 }

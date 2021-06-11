@@ -83,7 +83,6 @@ namespace CarDirectory.Forms
                             RefreshDataGridView(ref rBTreeCar, ref dataGridViewMain);
                             RefreshDataGridView(ref dataGridView, ref hashTable);
                             Visible = false;
-                            DialogResult = DialogResult.OK;
                             if (isFound)
                                 MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             else
@@ -96,7 +95,6 @@ namespace CarDirectory.Forms
                         rBTreeModel.Remove(BrandTextBox.Text, "");
                         RefreshDataGridView(ref dataGridView, ref hashTable);
                         Visible = false;
-                        DialogResult = DialogResult.OK;
                         MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
