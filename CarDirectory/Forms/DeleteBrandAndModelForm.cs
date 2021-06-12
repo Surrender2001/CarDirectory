@@ -104,5 +104,11 @@ namespace CarDirectory.Forms
             }
             else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
+        private void BrandTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            toolTip1.ToolTipTitle = "Неверный символ";
+            toolTip1.Show("Введите буквы", BrandTextBox, 1000);
+        }
     }
 }

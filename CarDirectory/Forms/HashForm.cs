@@ -53,9 +53,9 @@ namespace CarDirectory
                                 rBTreeModel.Add(subs[0], "");
                             }
                         RefreshDataGridView(ref dataGridView, ref hashTable);
-                        MessageBox.Show($"Количество записанных машин: {hashTable.Count}\nЗаполненность хеш-таблицы {Math.Round(hashTable.Fullness, 2) * 100}%\n" +
-                            $"Вместительность {hashTable.CurrentSize}",
-                            "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show($"Количество записанных машин: {hashTable.Count}\nЗаполненность хеш-таблицы {Math.Round(hashTable.Fullness, 2) * 100}%\n" +
+                        //    $"Вместительность {hashTable.CurrentSize}",
+                        //    "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
             }
             catch (Exception ex)

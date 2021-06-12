@@ -74,5 +74,11 @@ namespace CarDirectory
         {
             ModelTextBox.BackColor = Color.Beige;
         }
+
+        private void BrandTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            toolTip1.ToolTipTitle = "Неверный символ";
+            toolTip1.Show("Введите буквы", BrandTextBox, 1000);
+        }
     }
 }

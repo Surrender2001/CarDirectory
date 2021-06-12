@@ -1,0 +1,15 @@
+Acura;CL;1998;2003		
+Acura;EL;1997;2005		
+Acura;ILX;2012;-		
+Acura;Integra;1998;2006		
+Acura;MDX;2001;-		
+Acura;NSX;2001;-		
+Acura;RDX;2006;-		
+Acura;RL;1995;2012		
+Acura;RLX;2013;-		
+Acura;RSX;2002;2006		
+Acura;TL;1999;2014		
+Acura;TLX;2014;-		
+Acura;TSX;2003;2014		
+Acura;ZDX;2010;2013		
+Alfa Romeo;146;1994;-		

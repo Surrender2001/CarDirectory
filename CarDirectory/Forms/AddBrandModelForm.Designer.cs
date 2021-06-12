@@ -29,6 +29,7 @@ namespace CarDirectory
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.AddButton = new System.Windows.Forms.Button();
@@ -36,6 +37,7 @@ namespace CarDirectory
             this.BrandTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // label2
@@ -103,6 +105,7 @@ namespace CarDirectory
             this.BrandTextBox.RejectInputOnFirstFailure = true;
             this.BrandTextBox.Size = new System.Drawing.Size(249, 31);
             this.BrandTextBox.TabIndex = 7;
+            this.BrandTextBox.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.BrandTextBox_MaskInputRejected);
             this.BrandTextBox.Click += new System.EventHandler(this.BrandTextBox_Click);
             this.BrandTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BrandTextBox_KeyDown);
             // 
@@ -159,5 +162,6 @@ namespace CarDirectory
         private System.Windows.Forms.MaskedTextBox BrandTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
