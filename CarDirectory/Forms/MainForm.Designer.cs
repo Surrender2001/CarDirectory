@@ -89,7 +89,7 @@ namespace CarDirectory
             // 
             this.NameOfProjectLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(120)))));
             this.NameOfProjectLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.NameOfProjectLabel.Font = new System.Drawing.Font("Bookman Old Style", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.NameOfProjectLabel.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.NameOfProjectLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.NameOfProjectLabel.Location = new System.Drawing.Point(0, 0);
             this.NameOfProjectLabel.Name = "NameOfProjectLabel";
