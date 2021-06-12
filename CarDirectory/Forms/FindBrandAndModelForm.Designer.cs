@@ -145,6 +145,7 @@ namespace CarDirectory
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FindBrandAndModelForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Найти";
             this.ResumeLayout(false);
             this.PerformLayout();
