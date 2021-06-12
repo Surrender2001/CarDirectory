@@ -47,6 +47,7 @@ namespace CarDirectory.Forms
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                ActiveControl = BrandTextBox;
                 DeleteButton_Click(sender, e);
             }
         }

@@ -86,5 +86,12 @@ namespace CarDirectory
                         for (int i = 0; i < dataGridView.Rows.Count; ++i)
                             sw.WriteLine($"{dataGridView.Rows[i].Cells[0].Value}\t{dataGridView.Rows[i].Cells[1].Value}");
         }
+
+        private void FindButton_Click(object sender, EventArgs e)
+        {
+            var findForm = new FindBrandAndModelForm(ref hashTable, ref dataGridView);
+            _ = findForm.ShowDialog();
+            findForm.Dispose();
+        }
     }
 }

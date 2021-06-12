@@ -39,18 +39,14 @@ namespace CarDirectory
                     }
                     else MessageBox.Show("Введенный вами элемент уже содержится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else MessageBox.Show("Введенный вами марка не найдена в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBox.Show("Введенная вами марка не найдена в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        public BrandAndModel GetBrandAndModel()
-        {
-            return new BrandAndModel(BrandTextBox.Text, ModelTextBox.Text);
-        }
-
         private void BrandTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            BrandTextBox.BackColor = Color.Beige;
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
@@ -60,9 +56,11 @@ namespace CarDirectory
 
         private void ModelTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            ModelTextBox.BackColor = Color.Beige;
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                ActiveControl = BrandTextBox;
                 AddButton_Click(sender, e);
             }
         }

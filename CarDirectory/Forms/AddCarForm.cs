@@ -70,6 +70,7 @@ namespace CarDirectory
                 if (IsCorrectStartAndEndYear(ref StartTextBox, ref EndTextBox))
                     AddNewCar();
                 else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         public void AddNewCar()
@@ -114,6 +115,7 @@ namespace CarDirectory
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                ActiveControl = BrandTextBox;
                 AddButton_Click(sender, e);
             }
         }
@@ -121,7 +123,7 @@ namespace CarDirectory
         private void InfoPictureBox1_MouseEnter(object sender, EventArgs e)
         {
             toolTip1.ToolTipTitle = "Ограничение на год";
-            toolTip1.Show(">1967 и <2022", InfoPictureBox1, 5000);
+            toolTip1.Show(">1967 и <2021", InfoPictureBox1, 5000);
         }
 
         private void BrandTextBox_Click(object sender, EventArgs e)

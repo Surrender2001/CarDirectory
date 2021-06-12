@@ -35,6 +35,7 @@ namespace CarDirectory
             this.CloseLabel = new System.Windows.Forms.Label();
             this.NameOfProjectLabel = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.SaveButton = new System.Windows.Forms.Button();
             this.HashButton = new System.Windows.Forms.Button();
             this.FindButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
@@ -45,7 +46,6 @@ namespace CarDirectory
             this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Start = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SaveButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -119,6 +119,26 @@ namespace CarDirectory
             this.splitContainer1.SplitterDistance = 227;
             this.splitContainer1.TabIndex = 1;
             // 
+            // SaveButton
+            // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
+            this.SaveButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SaveButton.FlatAppearance.BorderSize = 0;
+            this.SaveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SaveButton.Location = new System.Drawing.Point(33, 409);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(162, 44);
+            this.SaveButton.TabIndex = 5;
+            this.SaveButton.Text = "Сохранить";
+            this.SaveButton.UseVisualStyleBackColor = false;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
             // HashButton
             // 
             this.HashButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -135,7 +155,7 @@ namespace CarDirectory
             this.HashButton.Name = "HashButton";
             this.HashButton.Size = new System.Drawing.Size(162, 44);
             this.HashButton.TabIndex = 4;
-            this.HashButton.Text = "Хеш-таблица";
+            this.HashButton.Text = "Марки и модели";
             this.HashButton.UseVisualStyleBackColor = false;
             this.HashButton.Click += new System.EventHandler(this.HashButton_Click);
             // 
@@ -238,7 +258,7 @@ namespace CarDirectory
             this.Start,
             this.End});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("LG Display-Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
@@ -280,26 +300,6 @@ namespace CarDirectory
             this.End.HeaderText = "Конец";
             this.End.Name = "End";
             this.End.ReadOnly = true;
-            // 
-            // SaveButton
-            // 
-            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
-            this.SaveButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SaveButton.FlatAppearance.BorderSize = 0;
-            this.SaveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SaveButton.Location = new System.Drawing.Point(33, 409);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(162, 44);
-            this.SaveButton.TabIndex = 5;
-            this.SaveButton.Text = "Сохранить";
-            this.SaveButton.UseVisualStyleBackColor = false;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // MainForm
             // 

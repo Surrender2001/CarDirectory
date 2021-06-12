@@ -235,7 +235,7 @@ namespace CarDirectory
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "DeleteCarForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DeleteCarForm";
+            this.Text = "Удалить автомобиль";
             this.ResumeLayout(false);
             this.PerformLayout();
 

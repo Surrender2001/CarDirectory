@@ -29,6 +29,7 @@ namespace CarDirectory
                     DeleteCar();
                 else
                     MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private HashTable hashTable;
@@ -118,6 +119,7 @@ namespace CarDirectory
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                ActiveControl = BrandTextBox;
                 DeleteButton_Click(sender, e);
             }
         }
