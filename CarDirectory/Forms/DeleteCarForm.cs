@@ -65,57 +65,58 @@ namespace CarDirectory
 
         private void BrandTextBox_Click(object sender, EventArgs e)
         {
-            BrandTextBox.BackColor = Color.Beige;
+            BrandTextBox.BackColor = ColorTranslator.FromHtml("#EEEFF7");
         }
 
         private void ModelTextBox_Click(object sender, EventArgs e)
         {
-            ModelTextBox.BackColor = Color.Beige;
+            ModelTextBox.BackColor = ColorTranslator.FromHtml("#EEEFF7");
         }
 
         private void StartTextBox_Click(object sender, EventArgs e)
         {
-            StartTextBox.BackColor = Color.Beige;
+            StartTextBox.BackColor = ColorTranslator.FromHtml("#EEEFF7");
         }
 
         private void EndTextBox_Click(object sender, EventArgs e)
         {
-            EndTextBox.BackColor = Color.Beige;
+            EndTextBox.BackColor = ColorTranslator.FromHtml("#EEEFF7");
         }
 
         private void BrandTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            BrandTextBox.BackColor = Color.Beige;
+            BrandTextBox.BackColor = ColorTranslator.FromHtml("#EEEFF7");
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 ActiveControl = ModelTextBox;
-                ModelTextBox.BackColor = Color.Beige;
             }
         }
 
         private void ModelTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            ModelTextBox.BackColor = ColorTranslator.FromHtml("#EEEFF7");
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 ActiveControl = StartTextBox;
-                StartTextBox.BackColor = Color.Beige;
+                ;
             }
         }
 
         private void StartTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            StartTextBox.BackColor = ColorTranslator.FromHtml("#EEEFF7");
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 ActiveControl = EndTextBox;
-                EndTextBox.BackColor = Color.Beige;
             }
         }
 
         private void EndTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            EndTextBox.BackColor = ColorTranslator.FromHtml("#EEEFF7");
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;

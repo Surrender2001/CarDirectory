@@ -30,15 +30,11 @@ namespace CarDirectory
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddForm));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.StartTextBox = new System.Windows.Forms.MaskedTextBox();
             this.EndTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.InfoPictureBox1 = new System.Windows.Forms.PictureBox();
             this.BrandTextBox = new System.Windows.Forms.MaskedTextBox();
             this.ModelTextBox = new System.Windows.Forms.MaskedTextBox();
@@ -53,7 +49,7 @@ namespace CarDirectory
             this.StartTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.StartTextBox.BackColor = System.Drawing.Color.Beige;
+            this.StartTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.StartTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.StartTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.StartTextBox.Location = new System.Drawing.Point(278, 144);
@@ -70,7 +66,7 @@ namespace CarDirectory
             this.EndTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.EndTextBox.BackColor = System.Drawing.Color.Beige;
+            this.EndTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.EndTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.EndTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.EndTextBox.Location = new System.Drawing.Point(278, 206);
@@ -85,60 +81,29 @@ namespace CarDirectory
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Font = new System.Drawing.Font("Roboto", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.label3.Location = new System.Drawing.Point(22, 144);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(198, 31);
+            this.label3.Size = new System.Drawing.Size(226, 33);
             this.label3.TabIndex = 7;
             this.label3.Text = "Начало выпуска";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Font = new System.Drawing.Font("Roboto", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.label4.Location = new System.Drawing.Point(22, 206);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(186, 31);
+            this.label4.Size = new System.Drawing.Size(209, 33);
             this.label4.TabIndex = 8;
             this.label4.Text = "Конец выпуска";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(103, 20);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(20, 25);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "*";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(115, 82);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(20, 25);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "*";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(213, 144);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(20, 25);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "*";
             // 
             // InfoPictureBox1
             // 
             this.InfoPictureBox1.Cursor = System.Windows.Forms.Cursors.Help;
-            this.InfoPictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("InfoPictureBox1.Image")));
+            this.InfoPictureBox1.Image = global::CarDirectory.Properties.Resources.icon_Info;
             this.InfoPictureBox1.Location = new System.Drawing.Point(345, 144);
             this.InfoPictureBox1.Name = "InfoPictureBox1";
             this.InfoPictureBox1.Size = new System.Drawing.Size(31, 31);
@@ -152,7 +117,7 @@ namespace CarDirectory
             this.BrandTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.BrandTextBox.BackColor = System.Drawing.Color.Beige;
+            this.BrandTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.BrandTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.BrandTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.BrandTextBox.Location = new System.Drawing.Point(278, 20);
@@ -170,7 +135,7 @@ namespace CarDirectory
             this.ModelTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ModelTextBox.BackColor = System.Drawing.Color.Beige;
+            this.ModelTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.ModelTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ModelTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ModelTextBox.Location = new System.Drawing.Point(278, 82);
@@ -183,11 +148,12 @@ namespace CarDirectory
             // 
             // AddButton
             // 
-            this.AddButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
+            this.AddButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(120)))));
             this.AddButton.FlatAppearance.BorderSize = 0;
-            this.AddButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.AddButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(205)))), ((int)(((byte)(207)))));
             this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddButton.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.AddButton.Location = new System.Drawing.Point(183, 271);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(162, 44);
@@ -199,20 +165,22 @@ namespace CarDirectory
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Font = new System.Drawing.Font("Roboto", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.label1.Location = new System.Drawing.Point(22, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 31);
+            this.label1.Size = new System.Drawing.Size(99, 33);
             this.label1.TabIndex = 5;
             this.label1.Text = "Марка";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Font = new System.Drawing.Font("Roboto", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.label2.Location = new System.Drawing.Point(22, 82);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(101, 31);
+            this.label2.Size = new System.Drawing.Size(114, 33);
             this.label2.TabIndex = 6;
             this.label2.Text = "Модель";
             // 
@@ -220,12 +188,9 @@ namespace CarDirectory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(53)))), ((int)(((byte)(61)))));
             this.ClientSize = new System.Drawing.Size(530, 332);
             this.Controls.Add(this.InfoPictureBox1);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -255,9 +220,6 @@ namespace CarDirectory
         private System.Windows.Forms.MaskedTextBox EndTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.PictureBox InfoPictureBox1;
         private System.Windows.Forms.MaskedTextBox BrandTextBox;
         private System.Windows.Forms.MaskedTextBox ModelTextBox;
