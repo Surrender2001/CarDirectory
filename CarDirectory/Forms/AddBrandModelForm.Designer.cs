@@ -147,7 +147,7 @@ namespace CarDirectory
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "AddBrandModelForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Добавить марку и модель";
+            this.Text = "Добавить";
             this.ResumeLayout(false);
             this.PerformLayout();
 

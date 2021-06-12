@@ -60,6 +60,7 @@ namespace CarDirectory
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
+                ActiveControl = StartTextBox;
                 FindButton_Click(sender, e);
             }
         }

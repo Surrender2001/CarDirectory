@@ -32,15 +32,15 @@ namespace CarDirectory
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.Brand = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Hash2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ReadDbButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.FindButton = new System.Windows.Forms.Button();
+            this.Brand = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Hash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Hash2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +56,7 @@ namespace CarDirectory
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.ColumnHeadersHeight = 32;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Brand,
             this.Model,
@@ -70,39 +70,12 @@ namespace CarDirectory
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView.Location = new System.Drawing.Point(219, 37);
+            this.dataGridView.Location = new System.Drawing.Point(219, 0);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.Size = new System.Drawing.Size(382, 400);
+            this.dataGridView.Size = new System.Drawing.Size(528, 450);
             this.dataGridView.TabIndex = 1;
-            // 
-            // Brand
-            // 
-            this.Brand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Brand.HeaderText = "Марка";
-            this.Brand.Name = "Brand";
-            this.Brand.ReadOnly = true;
-            // 
-            // Model
-            // 
-            this.Model.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Model.HeaderText = "Модель";
-            this.Model.Name = "Model";
-            this.Model.ReadOnly = true;
-            // 
-            // Hash
-            // 
-            this.Hash.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Hash.HeaderText = "Хеш 1";
-            this.Hash.Name = "Hash";
-            this.Hash.ReadOnly = true;
-            // 
-            // Hash2
-            // 
-            this.Hash2.HeaderText = "Хеш 2";
-            this.Hash2.Name = "Hash2";
-            this.Hash2.ReadOnly = true;
             // 
             // ReadDbButton
             // 
@@ -116,7 +89,7 @@ namespace CarDirectory
             this.ReadDbButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ReadDbButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ReadDbButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ReadDbButton.Location = new System.Drawing.Point(28, 56);
+            this.ReadDbButton.Location = new System.Drawing.Point(28, 49);
             this.ReadDbButton.Name = "ReadDbButton";
             this.ReadDbButton.Size = new System.Drawing.Size(162, 44);
             this.ReadDbButton.TabIndex = 4;
@@ -136,7 +109,7 @@ namespace CarDirectory
             this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.AddButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AddButton.Location = new System.Drawing.Point(28, 134);
+            this.AddButton.Location = new System.Drawing.Point(28, 127);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(162, 44);
             this.AddButton.TabIndex = 5;
@@ -156,7 +129,7 @@ namespace CarDirectory
             this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DeleteButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DeleteButton.Location = new System.Drawing.Point(28, 212);
+            this.DeleteButton.Location = new System.Drawing.Point(28, 205);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(162, 44);
             this.DeleteButton.TabIndex = 6;
@@ -176,7 +149,7 @@ namespace CarDirectory
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.SaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SaveButton.Location = new System.Drawing.Point(28, 368);
+            this.SaveButton.Location = new System.Drawing.Point(28, 361);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(162, 44);
             this.SaveButton.TabIndex = 7;
@@ -196,7 +169,7 @@ namespace CarDirectory
             this.FindButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FindButton.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FindButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.FindButton.Location = new System.Drawing.Point(28, 290);
+            this.FindButton.Location = new System.Drawing.Point(28, 283);
             this.FindButton.Name = "FindButton";
             this.FindButton.Size = new System.Drawing.Size(162, 44);
             this.FindButton.TabIndex = 8;
@@ -204,12 +177,44 @@ namespace CarDirectory
             this.FindButton.UseVisualStyleBackColor = false;
             this.FindButton.Click += new System.EventHandler(this.FindButton_Click);
             // 
+            // Brand
+            // 
+            this.Brand.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Brand.FillWeight = 15F;
+            this.Brand.HeaderText = "Марка";
+            this.Brand.Name = "Brand";
+            this.Brand.ReadOnly = true;
+            // 
+            // Model
+            // 
+            this.Model.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Model.FillWeight = 15F;
+            this.Model.HeaderText = "Модель";
+            this.Model.Name = "Model";
+            this.Model.ReadOnly = true;
+            // 
+            // Hash
+            // 
+            this.Hash.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Hash.FillWeight = 15.5965F;
+            this.Hash.HeaderText = "Хеш 1";
+            this.Hash.Name = "Hash";
+            this.Hash.ReadOnly = true;
+            // 
+            // Hash2
+            // 
+            this.Hash2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Hash2.FillWeight = 15F;
+            this.Hash2.HeaderText = "Хеш 2";
+            this.Hash2.Name = "Hash2";
+            this.Hash2.ReadOnly = true;
+            // 
             // HashForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.ClientSize = new System.Drawing.Size(613, 449);
+            this.ClientSize = new System.Drawing.Size(746, 449);
             this.Controls.Add(this.FindButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.DeleteButton);
@@ -222,7 +227,7 @@ namespace CarDirectory
             this.Name = "HashForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Справочник моделей";
+            this.Text = "Марки и модели";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 
@@ -234,11 +239,11 @@ namespace CarDirectory
         private System.Windows.Forms.Button ReadDbButton;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button FindButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Brand;
         private System.Windows.Forms.DataGridViewTextBoxColumn Model;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hash;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hash2;
-        private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button FindButton;
     }
 }
