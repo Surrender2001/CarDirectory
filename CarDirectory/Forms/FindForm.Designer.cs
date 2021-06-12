@@ -34,20 +34,19 @@ namespace CarDirectory
             this.EndTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // FindButton
             // 
-            this.FindButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(120)))));
+            this.FindButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(120)))));
             this.FindButton.FlatAppearance.BorderSize = 0;
-            this.FindButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.FindButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(205)))), ((int)(((byte)(207)))));
             this.FindButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.FindButton.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FindButton.Font = new System.Drawing.Font("Roboto", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FindButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.FindButton.Location = new System.Drawing.Point(25, 176);
             this.FindButton.Name = "FindButton";
-            this.FindButton.Size = new System.Drawing.Size(124, 35);
+            this.FindButton.Size = new System.Drawing.Size(124, 45);
             this.FindButton.TabIndex = 38;
             this.FindButton.Text = "Поиск";
             this.FindButton.UseVisualStyleBackColor = false;
@@ -55,6 +54,7 @@ namespace CarDirectory
             // 
             // StartTextBox
             // 
+            this.StartTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.StartTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.StartTextBox.Location = new System.Drawing.Point(83, 32);
             this.StartTextBox.Mask = "0000";
@@ -66,6 +66,7 @@ namespace CarDirectory
             // 
             // EndTextBox
             // 
+            this.EndTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.EndTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.EndTextBox.Location = new System.Drawing.Point(83, 117);
             this.EndTextBox.Mask = "0000";
@@ -78,53 +79,31 @@ namespace CarDirectory
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Font = new System.Drawing.Font("Roboto", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.label3.Location = new System.Drawing.Point(19, 32);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 31);
+            this.label3.Size = new System.Drawing.Size(47, 33);
             this.label3.TabIndex = 41;
             this.label3.Text = "От";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Font = new System.Drawing.Font("Roboto", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(239)))), ((int)(((byte)(247)))));
             this.label4.Location = new System.Drawing.Point(19, 117);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 31);
+            this.label4.Size = new System.Drawing.Size(50, 33);
             this.label4.TabIndex = 42;
             this.label4.Text = "До";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(57, 32);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(20, 25);
-            this.label5.TabIndex = 43;
-            this.label5.Text = "*";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(57, 117);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 25);
-            this.label1.TabIndex = 44;
-            this.label1.Text = "*";
             // 
             // FindForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(53)))), ((int)(((byte)(61)))));
             this.ClientSize = new System.Drawing.Size(172, 233);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.EndTextBox);
@@ -148,7 +127,5 @@ namespace CarDirectory
         private System.Windows.Forms.MaskedTextBox EndTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label1;
     }
 }

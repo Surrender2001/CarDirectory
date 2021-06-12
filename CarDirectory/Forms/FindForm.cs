@@ -46,7 +46,7 @@ namespace CarDirectory
 
         private void StartTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            StartTextBox.BackColor = Color.Beige;
+            StartTextBox.BackColor = ColorTranslator.FromHtml("#EEEFF7");
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
@@ -56,7 +56,7 @@ namespace CarDirectory
 
         private void EndTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            EndTextBox.BackColor = Color.Beige;
+            EndTextBox.BackColor = ColorTranslator.FromHtml("#EEEFF7");
             if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
