@@ -26,12 +26,12 @@ namespace CarDirectory
 
         private void CloseLabel_MouseEnter(object sender, EventArgs e)
         {
-            CloseLabel.ForeColor = Color.Red;
+            CloseLabel.ForeColor = ColorTranslator.FromHtml("#92CDCF");
         }
 
         private void CloseLabel_MouseLeave(object sender, EventArgs e)
         {
-            CloseLabel.ForeColor = Color.Lime;
+            CloseLabel.ForeColor = ColorTranslator.FromHtml("#EEEFF7");
         }
 
         private void ReadDbButton_Click(object sender, EventArgs e)
@@ -63,6 +63,7 @@ namespace CarDirectory
                                 rBTreeCar.Add(car.Brand, car);
                             }
                         RefreshDataGridView(ref rBTreeCar, ref dataGridView);
+                        dataGridView.ClearSelection();
                         //MessageBox.Show($"Количество записанных машин: {hashTable.Count}\nЗаполненность хеш-таблицы {Math.Round(hashTable.Fullness, 2) * 100}%\n" +
                         //    $"Вместительность {hashTable.CurrentSize}",
                         //    "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
