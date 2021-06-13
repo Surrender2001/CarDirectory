@@ -126,7 +126,7 @@ namespace CarDirectory
                 if (sfd.ShowDialog() == DialogResult.OK)
                     using (var sw = new StreamWriter(sfd.FileName))
                         for (int i = 0; i < dataGridView.Rows.Count; ++i)
-                            sw.WriteLine($"{dataGridView.Rows[i].Cells[0].Value}\t{dataGridView.Rows[i].Cells[1].Value}\t{dataGridView.Rows[i].Cells[2].Value}\t{dataGridView.Rows[i].Cells[3].Value}");
+                            sw.WriteLine($"{dataGridView.Rows[i].Cells[0].Value};{dataGridView.Rows[i].Cells[1].Value};{dataGridView.Rows[i].Cells[2].Value};{dataGridView.Rows[i].Cells[3].Value}");
         }
     }
 }
