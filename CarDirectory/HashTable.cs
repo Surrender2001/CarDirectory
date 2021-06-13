@@ -10,14 +10,6 @@ namespace CarDirectory
         public string Model { get; set; }
         public bool Deleted { get; set; }
 
-        public HashTable HashTable
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
         public BrandAndModel(string brand, string model)
         {
             Brand = brand;
