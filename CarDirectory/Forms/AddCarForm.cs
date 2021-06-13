@@ -95,7 +95,7 @@ namespace CarDirectory
                         MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
-                        MessageBox.Show("Неккоректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Некорректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -107,7 +107,7 @@ namespace CarDirectory
                     MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            else MessageBox.Show("Введенный вами марка автомобиля не найдена в справочникe", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else MessageBox.Show("Введенная вами марка автомобиля не найдена в справочникe", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void EndTextBox_KeyDown(object sender, KeyEventArgs e)
