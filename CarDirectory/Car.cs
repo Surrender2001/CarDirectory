@@ -27,9 +27,6 @@ namespace CarDirectory
             return Brand.Equals(other.Brand) && Model.Equals(other.Model) && Start == other.Start && End == other.End;
         }
 
-        public override string ToString()
-        {
-            return Brand + "\t" + Model + "\t" + Start + "\t" + End;
-        }
+        public override string ToString() => Brand + "\t" + Model + "\t" + Start + "\t" + End;
     }
 }
