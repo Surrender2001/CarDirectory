@@ -21,6 +21,14 @@ namespace CarDirectory
         public int Start { get; set; }
         public string End { get; set; }
 
+        public DoubleLinkedListNode<object> DoubleLinkedListNode
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public bool Equals(Car other)
         {
             if (other == null) return false;

@@ -6,6 +6,14 @@
         public DoubleLinkedListNode<T> Next { get; internal set; }
         public DoubleLinkedListNode<T> Prev { get; internal set; }
 
+        public DoubleLinkedList<T> DoubleLinkedList
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         internal DoubleLinkedListNode(T key, DoubleLinkedListNode<T> next = null, DoubleLinkedListNode<T> prev = null)
         {
             Key = key;

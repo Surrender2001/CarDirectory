@@ -42,6 +42,14 @@ namespace CarDirectory
             return (left != null && left.color == Color.RED) ||
                 (right != null && right.color == Color.RED);
         }
+
+        public RBTree<TKey, TValue> RBTree
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 
     public class RBTree<TKey, TValue> : System.Collections.Generic.IEnumerable<RBTreeNode<TKey, TValue>> where TKey : IComparable where TValue : IEquatable<TValue>

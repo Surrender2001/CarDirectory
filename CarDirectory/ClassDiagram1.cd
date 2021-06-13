@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CarDirectory.RBTreeNode&lt;TKey, TValue&gt;">
+    <Position X="14.5" Y="0.5" Width="2.25" />
+    <NestedTypes>
+      <Enum Name="CarDirectory.RBTreeNode&lt;TKey, TValue&gt;.Color" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RBTree.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAARAAAQGAAAAAAAYAACAAAAgAAAAgAA=</HashCode>
+      <FileName>RBTree.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RBTree" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarDirectory.RBTree&lt;TKey, TValue&gt;">
+    <Position X="11.75" Y="0.5" Width="2" />
+    <NestedTypes>
+      <Enum Name="CarDirectory.RBTree&lt;TKey, TValue&gt;.Direction" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RBTree.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ACIAAAACIAAAAQAAAAQkBAAAEAAIAAAAAAASAAFRACA=</HashCode>
+      <FileName>RBTree.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarDirectory.Program">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarDirectory.HelpMethod">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAJAAAAEAAAAEAAAAQABAAAAAAABAgAAAAAAAAAAgAA=</HashCode>
+      <FileName>HelpMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarDirectory.BrandAndModel">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAEgAAAEAAAAAAAAAAAAAgAAAABAAA=</HashCode>
+      <FileName>HashTable.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="HashTable" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarDirectory.HashTable">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AYIIAAAhAAIAgEAQAAAAAAUAACEgggAAAAAAAIDQAAA=</HashCode>
+      <FileName>HashTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarDirectory.DoubleLinkedListNode&lt;T&gt;">
+    <Position X="9" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAQAgAAAAAAAAAAAAGAAAAAAAAAAAAA=</HashCode>
+      <FileName>DoubleLinkedList.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DoubleLinkedList" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarDirectory.DoubleLinkedList&lt;T&gt;">
+    <Position X="9" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAABAAAAAAgQAAgAAAJAAAEEAAAAAAAAACAABQAAA=</HashCode>
+      <FileName>DoubleLinkedList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarDirectory.Car">
+    <Position X="14.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACABAAAEgAAAAAAAAAAAAAAAAAgAAAABAAA=</HashCode>
+      <FileName>Car.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DoubleLinkedListNode" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
