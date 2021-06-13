@@ -12,20 +12,10 @@
             Next = next;
             Prev = prev;
         }
-
-        public bool Equals(T other)
-        {
-            return true;
-        }
     }
 
     public class DoublyLinkedList<T> : System.Collections.Generic.IEnumerable<DoublyLinkedListNode<T>>
     {
-        public bool Equals(T other)
-        {
-            return true;
-        }
-
         public DoublyLinkedListNode<T> First { get; private set; } = null;
         public DoublyLinkedListNode<T> Last { get; private set; } = null;
         public int Size { get; private set; } = 0;

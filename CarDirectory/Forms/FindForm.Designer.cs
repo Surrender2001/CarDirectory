@@ -48,7 +48,7 @@ namespace CarDirectory
             this.FindButton.Name = "FindButton";
             this.FindButton.Size = new System.Drawing.Size(124, 45);
             this.FindButton.TabIndex = 38;
-            this.FindButton.Text = "Поиск";
+            this.FindButton.Text = "Найти";
             this.FindButton.UseVisualStyleBackColor = false;
             this.FindButton.Click += new System.EventHandler(this.FindButton_Click);
             // 
