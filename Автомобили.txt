@@ -905,12 +905,7 @@ Renault;Twingo;1993;-
 Renault;Twizy;2012;-		
 Renault;Vel Satis;2002;2009		
 Renault;Wind;2010;2013		
-Renault;Zoe;2012;-		
-Rolls-Royce;Cullinan;2018;-		
-Rolls-Royce;Dawn;2015;-		
-Rolls-Royce;Ghost;2009;-		
-Rolls-Royce;Phantom;2003;-		
-Rolls-Royce;Wraith;2013;-		
+Renault;Zoe;2012;-			
 Rover;25;1999;2008		
 Rover;400;1996;2000		
 Rover;45;2000;2008		

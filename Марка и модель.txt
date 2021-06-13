@@ -906,11 +906,6 @@ Renault	Twizy
 Renault	Vel Satis
 Renault	Wind
 Renault	Zoe
-Rolls-Royce	Cullinan
-Rolls-Royce	Dawn
-Rolls-Royce	Ghost
-Rolls-Royce	Phantom
-Rolls-Royce	Wraith
 Rover	25
 Rover	400
 Rover	45

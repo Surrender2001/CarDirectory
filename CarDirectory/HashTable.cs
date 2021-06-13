@@ -28,7 +28,7 @@ namespace CarDirectory
         private const double MAX_FULLNESS = 0.7;
         private const double MIN_FULLNESS = 0.2;
         private const double GOLDEN_RATIO = 0.618033;
-        private const int DEFAULT_SIZE = 8;
+        private const int DEFAULT_SIZE = 20;
 
         private int Size = DEFAULT_SIZE;
         public int Count { get; private set; } = 0;

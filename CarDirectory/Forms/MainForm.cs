@@ -44,6 +44,7 @@ namespace CarDirectory
                         dataGridView.Rows.Clear();
                         hashTable.Clear();
                         rBTreeYear.Clear();
+                        rBTreeCar.Clear();
                         using (var sw = new StreamReader(ofd.FileName, Encoding.Default))
                             while (!sw.EndOfStream)
                             {
