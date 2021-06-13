@@ -12,7 +12,7 @@ namespace CarDirectory
             hashTable.DisplayOnDataGrisView(ref dataGridView);
         }
 
-        public static void RefreshDataGridView(ref DoubleLinkedList<Car> cars, ref DataGridView dataGridView)
+        public static void RefreshDataGridView(ref DoublyLinkedList<Car> cars, ref DataGridView dataGridView)
         {
             dataGridView.Rows.Clear();
             foreach (var car in cars)

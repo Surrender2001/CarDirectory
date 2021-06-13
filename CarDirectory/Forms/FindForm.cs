@@ -28,8 +28,8 @@ namespace CarDirectory
             CheckTextBox(ref StartTextBox, ref EndTextBox);
             if (int.TryParse(StartTextBox.Text, out int res1) && int.TryParse(EndTextBox.Text, out int res2) && IsCorrectYear(res1) && IsCorrectYear(res2) && res1 <= res2)
             {
-                DoubleLinkedList<Car> dlListCars = new DoubleLinkedList<Car>();
-                DoubleLinkedList<Car> dlListCarsTemp;
+                DoublyLinkedList<Car> dlListCars = new DoublyLinkedList<Car>();
+                DoublyLinkedList<Car> dlListCarsTemp;
                 dataGridView.Rows.Clear();
                 for (int i = res1; i <= res2; ++i)
                 {

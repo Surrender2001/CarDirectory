@@ -12,8 +12,8 @@ namespace CarDirectory
         public TKey Key => key;
         internal RBTreeNode<TKey, TValue> left, right, parent;
         internal Color color;
-        internal DoubleLinkedList<TValue> list = new DoubleLinkedList<TValue>();
-        public DoubleLinkedList<TValue> Value => list;
+        internal DoublyLinkedList<TValue> list = new DoublyLinkedList<TValue>();
+        public DoublyLinkedList<TValue> Value => list;
 
         public RBTreeNode(TKey key, TValue value)
         {
@@ -41,14 +41,6 @@ namespace CarDirectory
         {
             return (left != null && left.color == Color.RED) ||
                 (right != null && right.color == Color.RED);
-        }
-
-        public RBTree<TKey, TValue> RBTree
-        {
-            get => default;
-            set
-            {
-            }
         }
     }
 
@@ -425,13 +417,13 @@ namespace CarDirectory
 
         public void Clear() => root = null;
 
-        public DoubleLinkedList<TValue> GetValues(TKey key)
+        public DoublyLinkedList<TValue> GetValues(TKey key)
         {
             RBTreeNode<TKey, TValue> node = Find(key);
             if (node != null) return node.list;
             else
             {
-                DoubleLinkedList<TValue> list = new DoubleLinkedList<TValue>();
+                DoublyLinkedList<TValue> list = new DoublyLinkedList<TValue>();
                 return list;
             }
         }
@@ -449,8 +441,8 @@ namespace CarDirectory
         System.Collections.Generic.IEnumerator<RBTreeNode<TKey, TValue>> System.Collections.Generic.IEnumerable<RBTreeNode<TKey, TValue>>.GetEnumerator()
         {
             if (root == null) yield break;
-            DoubleLinkedList<RBTreeNode<TKey, TValue>> stack =
-                new DoubleLinkedList<RBTreeNode<TKey, TValue>>();
+            DoublyLinkedList<RBTreeNode<TKey, TValue>> stack =
+                new DoublyLinkedList<RBTreeNode<TKey, TValue>>();
             RBTreeNode<TKey, TValue> node = root;
             while (node != null || stack.Size > 0)
             {
@@ -469,8 +461,8 @@ namespace CarDirectory
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             if (root == null) yield break;
-            DoubleLinkedList<RBTreeNode<TKey, TValue>> stack =
-                new DoubleLinkedList<RBTreeNode<TKey, TValue>>();
+            DoublyLinkedList<RBTreeNode<TKey, TValue>> stack =
+                new DoublyLinkedList<RBTreeNode<TKey, TValue>>();
             RBTreeNode<TKey, TValue> node = root;
             while (node != null || stack.Size > 0)
             {

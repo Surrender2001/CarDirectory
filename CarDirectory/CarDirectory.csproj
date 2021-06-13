@@ -53,7 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DoubleLinkedList.cs" />
+    <Compile Include="DoublyLinkedList.cs" />
     <Compile Include="Forms\FindBrandAndModelForm.cs">
       <SubType>Form</SubType>
     </Compile>

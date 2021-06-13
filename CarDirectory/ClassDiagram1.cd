@@ -13,9 +13,6 @@
       <HashCode>AAAAAgAAAAAAAARAAAQGAAAAAAAYAACAAAAgAAAAgAA=</HashCode>
       <FileName>RBTree.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="RBTree" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CarDirectory.RBTree&lt;TKey, TValue&gt;">
     <Position X="11.75" Y="0.5" Width="2" />
@@ -49,12 +46,9 @@
   <Class Name="CarDirectory.BrandAndModel">
     <Position X="19.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAAAAAEgAAAEAAAAAAAAAAAAAgAAAABAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAEAAAAAAAAAAAAAgAAAABAAA=</HashCode>
       <FileName>HashTable.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="HashTable" />
-    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="CarDirectory.HashTable">
@@ -67,12 +61,9 @@
   <Class Name="CarDirectory.DoubleLinkedListNode&lt;T&gt;">
     <Position X="9" Y="4.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAAAAQAgAAAAAAAAAAAAGAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AgAAAAAAAAAAAAQAgAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>DoubleLinkedList.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="DoubleLinkedList" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="CarDirectory.DoubleLinkedList&lt;T&gt;">
     <Position X="9" Y="0.5" Width="1.75" />
@@ -85,12 +76,9 @@
   <Class Name="CarDirectory.Car">
     <Position X="14.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAACABAAAEgAAAAAAAAAAAAAAAAAgAAAABAAA=</HashCode>
+      <HashCode>AAIAAAAAACAAAAAEgAAAAAAAAAAAAAAAAAgAAAABAAA=</HashCode>
       <FileName>Car.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="DoubleLinkedListNode" />
-    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -1,20 +1,12 @@
 ﻿namespace CarDirectory
 {
-    public class DoubleLinkedListNode<T>
+    public class DoublyLinkedListNode<T>
     {
         public T Key { get; internal set; }
-        public DoubleLinkedListNode<T> Next { get; internal set; }
-        public DoubleLinkedListNode<T> Prev { get; internal set; }
+        public DoublyLinkedListNode<T> Next { get; internal set; }
+        public DoublyLinkedListNode<T> Prev { get; internal set; }
 
-        public DoubleLinkedList<T> DoubleLinkedList
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        internal DoubleLinkedListNode(T key, DoubleLinkedListNode<T> next = null, DoubleLinkedListNode<T> prev = null)
+        internal DoublyLinkedListNode(T key, DoublyLinkedListNode<T> next = null, DoublyLinkedListNode<T> prev = null)
         {
             Key = key;
             Next = next;
@@ -27,27 +19,27 @@
         }
     }
 
-    public class DoubleLinkedList<T> : System.Collections.Generic.IEnumerable<DoubleLinkedListNode<T>>
+    public class DoublyLinkedList<T> : System.Collections.Generic.IEnumerable<DoublyLinkedListNode<T>>
     {
         public bool Equals(T other)
         {
             return true;
         }
 
-        public DoubleLinkedListNode<T> First { get; private set; } = null;
-        public DoubleLinkedListNode<T> Last { get; private set; } = null;
+        public DoublyLinkedListNode<T> First { get; private set; } = null;
+        public DoublyLinkedListNode<T> Last { get; private set; } = null;
         public int Size { get; private set; } = 0;
 
         public void AddFirst(T key)
         {
             if (First == null)
             {
-                First = new DoubleLinkedListNode<T>(key);
+                First = new DoublyLinkedListNode<T>(key);
                 Last = First;
             }
             else
             {
-                First.Prev = new DoubleLinkedListNode<T>(key, First);
+                First.Prev = new DoublyLinkedListNode<T>(key, First);
                 First = First.Prev;
             }
             Size++;
@@ -57,12 +49,12 @@
         {
             if (First == null)
             {
-                First = new DoubleLinkedListNode<T>(key);
+                First = new DoublyLinkedListNode<T>(key);
                 Last = First;
             }
             else
             {
-                Last.Next = new DoubleLinkedListNode<T>(key, null, Last);
+                Last.Next = new DoublyLinkedListNode<T>(key, null, Last);
                 Last = Last.Next;
             }
             Size++;
@@ -71,7 +63,7 @@
         public bool Contains(T key)
         {
             if (First == null) return false;
-            DoubleLinkedListNode<T> ptr = First;
+            DoublyLinkedListNode<T> ptr = First;
             do
             {
                 if (ptr.Key.Equals(key)) return true;
@@ -82,7 +74,7 @@
 
         public void Remove(T key)
         {
-            DoubleLinkedListNode<T> node = GetNode(key);
+            DoublyLinkedListNode<T> node = GetNode(key);
             if (node == null) return;
             if (node.Prev == null) // первый
             {
@@ -111,10 +103,10 @@
 
         public void Clear() => First = Last = null;
 
-        public DoubleLinkedListNode<T> GetNode(T key)
+        public DoublyLinkedListNode<T> GetNode(T key)
         {
             if (First == null) return null;
-            DoubleLinkedListNode<T> ptr = First;
+            DoublyLinkedListNode<T> ptr = First;
             do
             {
                 if (ptr.Key.ToString().Equals(key.ToString())) return ptr;
@@ -125,7 +117,7 @@
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            DoubleLinkedListNode<T> ptr = First;
+            DoublyLinkedListNode<T> ptr = First;
             while (ptr != null)
             {
                 yield return ptr.Key;
@@ -133,9 +125,9 @@
             }
         }
 
-        System.Collections.Generic.IEnumerator<DoubleLinkedListNode<T>> System.Collections.Generic.IEnumerable<DoubleLinkedListNode<T>>.GetEnumerator()
+        System.Collections.Generic.IEnumerator<DoublyLinkedListNode<T>> System.Collections.Generic.IEnumerable<DoublyLinkedListNode<T>>.GetEnumerator()
         {
-            DoubleLinkedListNode<T> ptr = First;
+            DoublyLinkedListNode<T> ptr = First;
             while (ptr != null)
             {
                 yield return ptr;
