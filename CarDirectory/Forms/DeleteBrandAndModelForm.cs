@@ -11,8 +11,8 @@ namespace CarDirectory.Forms
         private RBTree<int, Car> rBTreeYear;
         private RBTree<string, string> rBTreeModel;
         private HashTable hashTable;
-        private HashTable hashTableMain;
         private DataGridView dataGridView;
+
         private DataGridView dataGridViewMain;
 
         public DeleteBrandAndModelForm()
@@ -20,13 +20,12 @@ namespace CarDirectory.Forms
             InitializeComponent();
         }
 
-        public DeleteBrandAndModelForm(ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref RBTree<string, string> rBTreeModel, ref HashTable hashTable, ref HashTable hashTableMain, ref DataGridView dataGridView, ref DataGridView dataGridViewMain) : this()
+        public DeleteBrandAndModelForm(ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref RBTree<string, string> rBTreeModel, ref HashTable hashTable, ref DataGridView dataGridView, ref DataGridView dataGridViewMain) : this()
         {
             this.rBTreeCar = rBTreeCar;
             this.rBTreeYear = rBTreeYear;
             this.rBTreeModel = rBTreeModel;
             this.hashTable = hashTable;
-            this.hashTableMain = hashTableMain;
             this.dataGridView = dataGridView;
             this.dataGridViewMain = dataGridViewMain;
         }
@@ -59,38 +58,40 @@ namespace CarDirectory.Forms
             {
                 if (hashTable.Contains(BrandTextBox.Text + ModelTextBox.Text))
                 {
-                    if (hashTableMain.Contains(BrandTextBox.Text + ModelTextBox.Text))
-                    {
-                        DialogResult = MessageBox.Show("Обнаружены связанные записи! Желаете удалить?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        if (DialogResult == DialogResult.Yes)
+                    bool foundDublicate = false;
+                    var lst = rBTreeCar.GetValues(BrandTextBox.Text);
+                    foreach (var item in lst)
+                        if (item.Key.Brand == BrandTextBox.Text && item.Key.Model == ModelTextBox.Text)
                         {
-                            bool isFound = false;
-                            Car car = null;
-                            var tmpList = rBTreeCar.GetValues(BrandTextBox.Text);
-                            foreach (var item in tmpList)
-                                if (item.Key.Model == ModelTextBox.Text)
-                                {
-                                    car = item.Key;
-                                    rBTreeCar.Remove(car.Brand, car);
-                                    rBTreeYear.Remove(car.Start, car);
-                                    rBTreeModel.Remove(car.Brand, "");
-                                    isFound = true;
-                                }
-                            if (!RBTreeContains(ref rBTreeCar, BrandTextBox.Text, ModelTextBox.Text))
+                            DialogResult = MessageBox.Show("Обнаружены связанные записи! Желаете удалить?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (DialogResult == DialogResult.Yes)
                             {
-                                hashTable.Delete(car.Brand + car.Model);
-                                hashTableMain.Delete(car.Brand + car.Model);
+                                bool isFound = false;
+                                Car car = null;
+                                var tmpList = rBTreeCar.GetValues(BrandTextBox.Text);
+                                foreach (var it in tmpList)
+                                    if (it.Key.Model == ModelTextBox.Text)
+                                    {
+                                        car = it.Key;
+                                        rBTreeCar.Remove(car.Brand, car);
+                                        rBTreeYear.Remove(car.Start, car);
+                                        rBTreeModel.Remove(car.Brand, "");
+                                        isFound = true;
+                                        foundDublicate = true;
+                                    }
+                                if (!RBTreeContains(ref rBTreeCar, BrandTextBox.Text, ModelTextBox.Text))
+                                    hashTable.Delete(car.Brand + car.Model);
+                                RefreshDataGridView(ref rBTreeCar, ref dataGridViewMain);
+                                RefreshDataGridView(ref dataGridView, ref hashTable);
+                                Visible = false;
+                                if (isFound)
+                                    MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                else
+                                    MessageBox.Show("Введенный вами элемент в справочнике не найден", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                break;
                             }
-                            RefreshDataGridView(ref rBTreeCar, ref dataGridViewMain);
-                            RefreshDataGridView(ref dataGridView, ref hashTable);
-                            Visible = false;
-                            if (isFound)
-                                MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            else
-                                MessageBox.Show("Введенный вами элемент в справочнике не найден", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                    }
-                    else
+                    if (!foundDublicate)
                     {
                         hashTable.Delete(BrandTextBox.Text + ModelTextBox.Text);
                         rBTreeModel.Remove(BrandTextBox.Text, "");

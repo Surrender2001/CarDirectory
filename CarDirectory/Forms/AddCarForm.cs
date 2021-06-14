@@ -12,17 +12,15 @@ namespace CarDirectory
             InitializeComponent();
         }
 
-        public AddForm(ref HashTable hashTable, ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView) : this()
+        public AddForm(ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView) : this()
         {
             this.rBTreeYear = rBTreeYear;
             this.rBTreeCar = rBTreeCar;
-            this.hashTable = hashTable;
             this.dataGridView = dataGridView;
         }
 
         private Car car;
         private RBTree<string, Car> rBTreeCar;
-        private HashTable hashTable;
         private DataGridView dataGridView;
         private RBTree<int, Car> rBTreeYear;
 
@@ -79,33 +77,21 @@ namespace CarDirectory
             FixEndCar(ref car);
             if (rBTreeCar.Contains(car.Brand))
             {
-                if (hashTable.Contains(car.Brand + car.Model))
+                if (rBTreeCar.Contains(car.Brand, car))
                 {
-                    if (rBTreeCar.Contains(car.Brand, car))
-                    {
-                        MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                    if (IsCorrectDates(ref rBTreeCar, ref car))
-                    {
-                        rBTreeCar.Add(car.Brand, car);
-                        rBTreeYear.Add(car.Start, car);
-                        RefreshDataGridView(ref rBTreeCar, ref dataGridView);
-                        Visible = false;
-                        MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                        MessageBox.Show("Некорректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Введенный вами элемент уже находится в справочнике", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
-                else
+                if (IsCorrectDates(ref rBTreeCar, ref car))
                 {
-                    hashTable.Add(new BrandAndModel(car.Brand, car.Model));
                     rBTreeCar.Add(car.Brand, car);
                     rBTreeYear.Add(car.Start, car);
                     RefreshDataGridView(ref rBTreeCar, ref dataGridView);
                     Visible = false;
                     MessageBox.Show("Введенный вами элемент успешно добавлен в справочник", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                else
+                    MessageBox.Show("Некорректные значения годов начала и конца производства", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else MessageBox.Show("Введенная вами марка автомобиля не найдена в справочникe", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
