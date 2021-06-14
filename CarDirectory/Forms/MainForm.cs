@@ -15,8 +15,8 @@ namespace CarDirectory
             InitializeComponent();
         }
 
-        private HashTable hashTable = new HashTable();
         private RBTree<int, Car> rBTreeYear = new RBTree<int, Car>();
+
         private RBTree<string, Car> rBTreeCar = new RBTree<string, Car>();
 
         private void CloseLabel_Click(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace CarDirectory
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
                         dataGridView.Rows.Clear();
-                        hashTable.Clear();
+                        //hashTable.Clear();
                         rBTreeYear.Clear();
                         rBTreeCar.Clear();
                         using (var sw = new StreamReader(ofd.FileName, Encoding.Default))
@@ -59,7 +59,6 @@ namespace CarDirectory
                                     Start = int.Parse(subs[2]),
                                     End = subs[3]
                                 };
-                                hashTable.Add(new BrandAndModel(car.Brand, car.Model));
                                 rBTreeYear.Add(car.Start, car);
                                 rBTreeCar.Add(car.Brand, car);
                             }
@@ -78,7 +77,7 @@ namespace CarDirectory
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            var addForm = new AddForm(ref hashTable, ref rBTreeCar, ref rBTreeYear, ref dataGridView);
+            var addForm = new AddForm(ref rBTreeCar, ref rBTreeYear, ref dataGridView);
             _ = addForm.ShowDialog();
             addForm.Dispose();
         }
@@ -101,14 +100,14 @@ namespace CarDirectory
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            DeleteCarForm deleteForm = new DeleteCarForm(ref hashTable, ref rBTreeCar, ref rBTreeYear, ref dataGridView);
+            DeleteCarForm deleteForm = new DeleteCarForm(ref rBTreeCar, ref rBTreeYear, ref dataGridView);
             _ = deleteForm.ShowDialog();
             deleteForm.Dispose();
         }
 
         private void HashButton_Click(object sender, EventArgs e)
         {
-            var hashForm = new HashForm(ref hashTable, ref rBTreeCar, ref rBTreeYear, ref dataGridView);
+            var hashForm = new HashForm(ref rBTreeCar, ref rBTreeYear, ref dataGridView);
             _ = hashForm.ShowDialog();
             hashForm.Dispose();
         }

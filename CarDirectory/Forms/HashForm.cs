@@ -15,16 +15,17 @@ namespace CarDirectory
             InitializeComponent();
         }
 
-        public HashForm(ref HashTable hashTable, ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView) : this()
+        public HashForm(ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView) : this()
         {
-            this.hashTableMain = hashTable;
+            //this.hashTableMain = hashTable;
             this.rBTreeCar = rBTreeCar;
             this.rBTreeYear = rBTreeYear;
             this.dataGridViewMain = dataGridView;
         }
 
-        private HashTable hashTableMain;
+        //private HashTable hashTableMain;
         private HashTable hashTable = new HashTable();
+
         private DataGridView dataGridViewMain = new DataGridView();
         private RBTree<string, Car> rBTreeCar;
         private RBTree<int, Car> rBTreeYear;
@@ -73,7 +74,7 @@ namespace CarDirectory
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            var deleteForm = new DeleteBrandAndModelForm(ref rBTreeCar, ref rBTreeYear, ref rBTreeModel, ref hashTable, ref hashTableMain, ref dataGridView, ref dataGridViewMain);
+            var deleteForm = new DeleteBrandAndModelForm(ref rBTreeCar, ref rBTreeYear, ref rBTreeModel, ref hashTable, ref dataGridView, ref dataGridViewMain);
             _ = deleteForm.ShowDialog();
             deleteForm.Dispose();
         }

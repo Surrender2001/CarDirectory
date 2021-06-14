@@ -13,9 +13,9 @@ namespace CarDirectory
             ActiveControl = BrandTextBox;
         }
 
-        public DeleteCarForm(ref HashTable hashTable, ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView) : this()
+        public DeleteCarForm(ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView) : this()
         {
-            this.hashTable = hashTable;
+            //this.hashTable = hashTable;
             this.rBTreeCar = rBTreeCar;
             this.rBTreeYear = rBTreeYear;
             this.dataGridView = dataGridView;
@@ -32,8 +32,9 @@ namespace CarDirectory
             else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        private HashTable hashTable;
+        //private HashTable hashTable;
         private DataGridView dataGridView;
+
         private RBTree<int, Car> rBTreeYear;
         private RBTree<string, Car> rBTreeCar;
 
@@ -42,19 +43,15 @@ namespace CarDirectory
             string text = EndTextBox.Text;
             FixEndCar(ref text, out string endYear);
             bool isFound = false;
-            Car car = null;
             var tmpList = rBTreeCar.GetValues(BrandTextBox.Text);
             foreach (var item in tmpList)
                 if (item.Key.Model == ModelTextBox.Text && item.Key.Start == int.Parse(StartTextBox.Text) && item.Key.End == endYear)
                 {
-                    car = item.Key;
+                    Car car = item.Key;
                     rBTreeCar.Remove(car.Brand, car);
                     rBTreeYear.Remove(car.Start, car);
                     isFound = true;
                 }
-            if (!RBTreeContains(ref rBTreeCar, BrandTextBox.Text, ModelTextBox.Text))
-                if (car != null)
-                    hashTable.Delete(car.Brand + car.Model);
             RefreshDataGridView(ref rBTreeCar, ref dataGridView);
             Visible = false;
             if (isFound)
