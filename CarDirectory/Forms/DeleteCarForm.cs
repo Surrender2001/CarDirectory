@@ -15,7 +15,6 @@ namespace CarDirectory
 
         public DeleteCarForm(ref RBTree<string, Car> rBTreeCar, ref RBTree<int, Car> rBTreeYear, ref DataGridView dataGridView) : this()
         {
-            //this.hashTable = hashTable;
             this.rBTreeCar = rBTreeCar;
             this.rBTreeYear = rBTreeYear;
             this.dataGridView = dataGridView;
@@ -32,9 +31,7 @@ namespace CarDirectory
             else MessageBox.Show("Исправьте поля, отмеченные красным цветом", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        //private HashTable hashTable;
         private DataGridView dataGridView;
-
         private RBTree<int, Car> rBTreeYear;
         private RBTree<string, Car> rBTreeCar;
 
@@ -97,7 +94,6 @@ namespace CarDirectory
             {
                 e.SuppressKeyPress = true;
                 ActiveControl = StartTextBox;
-                ;
             }
         }
 

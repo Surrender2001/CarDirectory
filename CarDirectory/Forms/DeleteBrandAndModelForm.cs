@@ -88,6 +88,7 @@ namespace CarDirectory.Forms
                                     MessageBox.Show("Удаление элемента из справочника успешно завершено", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 else
                                     MessageBox.Show("Введенный вами элемент в справочнике не найден", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                break;
                             }
                         }
                     if (!foundDublicate)
