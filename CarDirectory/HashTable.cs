@@ -54,7 +54,23 @@ namespace CarDirectory
             return hashtable[hash] != null && !hashtable[hash].Deleted ? hash : -1;
         }
 
+        private int GetIndex(string key, out int count)
+        {
+            count = 1;
+            int i = 0;
+            int hash = Hash(key, i);
+            while (hashtable[hash] != null && !hashtable[hash].ToString().Equals(key))
+            {
+                i++;
+                count++;
+                hash = Hash(key, i);
+            }
+            return hashtable[hash] != null && !hashtable[hash].Deleted ? hash : -1;
+        }
+
         public bool Contains(string key) => GetIndex(key) != -1;
+
+        public bool Contains(string key, out int count) => GetIndex(key, out count) != -1;
 
         public void Delete(string key)
         {

@@ -26,12 +26,13 @@ namespace CarDirectory
             CheckTextBox(ref BrandTextBox, ref ModelTextBox);
             if (!IsEmpty(ref ModelTextBox) && !IsEmpty(ref BrandTextBox))
             {
-                if (hashTable.Contains(BrandTextBox.Text + ModelTextBox.Text))
+                if (hashTable.Contains(BrandTextBox.Text + ModelTextBox.Text, out int count))
                 {
                     for (int i = 0; i < dataGridView.Rows.Count; ++i)
                         if (dataGridView.Rows[i].Cells[0].Value.ToString() == BrandTextBox.Text && dataGridView.Rows[i].Cells[1].Value.ToString() == ModelTextBox.Text)
                         {
                             dataGridView.Rows[i].Selected = true;
+                            MessageBox.Show($"количество сравнений {count}", "Информация об элементе", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             Visible = false;
                             break;
                         }
