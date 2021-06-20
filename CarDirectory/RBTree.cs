@@ -398,7 +398,7 @@ namespace CarDirectory
 
         private RBTreeNode<TKey, TValue> Find(TKey key, out int count)
         {
-            count = 1;
+            count = 0;
             if (root == null) return null;
             RBTreeNode<TKey, TValue> ptr = root;
             while (ptr != null)

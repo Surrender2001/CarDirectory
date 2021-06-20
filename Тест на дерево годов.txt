@@ -1,0 +1,12 @@
+Toyota;Land Cruiser;1990;-
+Lamborghini;Diablo;1991;2001
+BMW;M3;1992;-
+Kia;Sportage;1993;-
+Volkswagen;Pointer;1993;1997
+Audi;A8;1994;-
+Skoda;Felicia;1995;2000
+Hyundai;Porter;1996;-
+Lexus;GS;1997;-
+Alfa Romeo;147;1998;2010
+Renault;Kangoo;1998;-
+Audi;A6;1998;-
