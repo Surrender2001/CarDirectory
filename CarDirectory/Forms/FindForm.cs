@@ -31,15 +31,18 @@ namespace CarDirectory
                 DoublyLinkedList<Car> dlListCars = new DoublyLinkedList<Car>();
                 DoublyLinkedList<Car> dlListCarsTemp;
                 dataGridView.Rows.Clear();
+                int sum = 0;
                 for (int i = res1; i <= res2; ++i)
                 {
-                    dlListCarsTemp = rBTreeYear.GetValues(i);
+                    dlListCarsTemp = rBTreeYear.GetValues(i, out int count);
+                    sum += count;
                     foreach (var item in dlListCarsTemp)
                         dlListCars.AddLast(item.Key);
                 }
                 RefreshDataGridView(ref dlListCars, ref dataGridView);
                 dataGridView.Sort(dataGridView.Columns[2], ListSortDirection.Ascending);
                 Visible = false;
+                MessageBox.Show($"Количество сравнений: {sum}", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else MessageBox.Show("Некорректные данные!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }

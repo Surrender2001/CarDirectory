@@ -396,6 +396,21 @@ namespace CarDirectory
             return null;
         }
 
+        private RBTreeNode<TKey, TValue> Find(TKey key, out int count)
+        {
+            count = 1;
+            if (root == null) return null;
+            RBTreeNode<TKey, TValue> ptr = root;
+            while (ptr != null)
+            {
+                ++count;
+                if (ptr.key.Equals(key)) return ptr;
+                else if (ptr.key.CompareTo(key) == -1) ptr = ptr.right;
+                else ptr = ptr.left;
+            }
+            return null;
+        }
+
         public bool Contains(TKey key) => Find(key) != null;
 
         public void Remove(TKey key, TValue value)
@@ -420,6 +435,17 @@ namespace CarDirectory
         public DoublyLinkedList<TValue> GetValues(TKey key)
         {
             RBTreeNode<TKey, TValue> node = Find(key);
+            if (node != null) return node.list;
+            else
+            {
+                DoublyLinkedList<TValue> list = new DoublyLinkedList<TValue>();
+                return list;
+            }
+        }
+
+        public DoublyLinkedList<TValue> GetValues(TKey key, out int count)
+        {
+            RBTreeNode<TKey, TValue> node = Find(key, out count);
             if (node != null) return node.list;
             else
             {
